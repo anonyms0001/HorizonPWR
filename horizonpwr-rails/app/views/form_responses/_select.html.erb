@@ -1,0 +1,12 @@
+<div class="form-group">
+  <%= form.label field_config.title.to_sym %>
+  <%#= form.select field_config.title.to_sym,
+                  options_for_select(
+                    field_config.options
+                  ),
+                  {},
+                  { include_blank: true, class: "mt-1 block w-full border border-gray-300 rounded-lg shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" }
+  %>
+
+  <%= form.select("field_response", field_config.options, { include_blank: true }) %>
+</div>

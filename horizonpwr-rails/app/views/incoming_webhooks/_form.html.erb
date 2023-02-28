@@ -1,0 +1,26 @@
+<%= form_with(model: incoming_webhook) do |form| %>
+  <%= render "shared/error_messages", resource: form.object %>
+
+  <div class="form-group">
+    <%= form.label :has_been_run %>
+    <%= form.check_box :has_been_run, class: "form-checkbox" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :payload %>
+    <%= form.text_field :payload, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :event_type %>
+    <%= form.text_field :event_type, class: "form-control" %>
+  </div>
+
+  <div class="flex justify-between form-group">
+    <%= form.button class: "btn btn-primary" %>
+
+    <% if form.object.persisted? && allowed_to?(:destroy?, form.object)%>
+      <%= link_to t("delete"), form.object, class: "btn btn-danger outline", method: :delete, data: { confirm: t("are_you_sure") } %>
+    <% end %>
+  </div>
+<% end %>

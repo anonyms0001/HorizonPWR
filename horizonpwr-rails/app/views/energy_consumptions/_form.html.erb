@@ -1,0 +1,219 @@
+<%= form_with(model: energy_consumption, url: url) do |form| %>
+  <%= render "shared/error_messages", resource: form.object %>
+
+  <p class="mb-2 font-bold">
+    PLEASE NOTE:
+  </p>
+
+  <ul class="mb-8 italic">
+    <li>
+      Only enter data into one of these tables, <span class="font-bold">not both</span>. The numbers are automatically calculated for the other table.
+    </li>
+    <li>
+      Daily averages are provided here for your convenience only. They are not stored in Aurora.
+    </li>
+  </ul>
+
+  <h5 class="mb-4">
+    Enter Monthly Total:
+  </h5>
+  <div class="form-group flex flex-col lg:flex-row space-x-0">
+
+    <div class="lg:w-1/12 m-0 flex flex-row lg:flex-col">
+      <div class="bg-gray-100 text-gray-800 p-2 border-gray-200 w-1/2 lg:w-full text-center">
+        Jan
+      </div>
+      <%= form.number_field :monthly_usage, multiple: true, class: "w-1/2 lg:w-full border-gray-200", placeholder: (energy_consumption.monthly_usage[0].present? ? energy_consumption.monthly_usage[0].round.to_i : "Enter Number Here"), min: 0 %>
+    </div>
+
+
+    <div class="lg:w-1/12 m-0 flex flex-row lg:flex-col">
+      <div class="bg-gray-100 text-gray-800 p-2 border-gray-200 w-1/2 lg:w-full text-center">
+        Feb
+      </div>
+      <%= form.number_field :monthly_usage, multiple: true, class: "w-1/2 lg:w-full border-gray-200", placeholder: (energy_consumption.monthly_usage[1].present? ? energy_consumption.monthly_usage[1].round.to_i : "Enter Number Here"), min: 0 %>
+    </div>
+
+
+    <div class="lg:w-1/12 m-0 flex flex-row lg:flex-col">
+      <div class="bg-gray-100 text-gray-800 p-2 border-gray-200 w-1/2 lg:w-full text-center">
+        Mar
+      </div>
+      <%= form.number_field :monthly_usage, multiple: true, class: "w-1/2 lg:w-full border-gray-200", placeholder: (energy_consumption.monthly_usage[2].present? ? energy_consumption.monthly_usage[2].round.to_i : "Enter Number Here"), min: 0 %>
+    </div>
+
+
+    <div class="lg:w-1/12 m-0 flex flex-row lg:flex-col">
+      <div class="bg-gray-100 text-gray-800 p-2 border-gray-200 w-1/2 lg:w-full text-center">
+        Apr
+      </div>
+      <%= form.number_field :monthly_usage, multiple: true, class: "w-1/2 lg:w-full border-gray-200", placeholder: (energy_consumption.monthly_usage[3].present? ? energy_consumption.monthly_usage[3].round.to_i : "Enter Number Here"), min: 0 %>
+    </div>
+
+
+    <div class="lg:w-1/12 m-0 flex flex-row lg:flex-col">
+      <div class="bg-gray-100 text-gray-800 p-2 border-gray-200 w-1/2 lg:w-full text-center">
+        May
+      </div>
+      <%= form.number_field :monthly_usage, multiple: true, class: "w-1/2 lg:w-full border-gray-200", placeholder: (energy_consumption.monthly_usage[4].present? ? energy_consumption.monthly_usage[4].round.to_i : "Enter Number Here"), min: 0 %>
+    </div>
+
+
+    <div class="lg:w-1/12 m-0 flex flex-row lg:flex-col">
+      <div class="bg-gray-100 text-gray-800 p-2 border-gray-200 w-1/2 lg:w-full text-center">
+        Jun
+      </div>
+      <%= form.number_field :monthly_usage, multiple: true, class: "w-1/2 lg:w-full border-gray-200", placeholder: (energy_consumption.monthly_usage[5].present? ? energy_consumption.monthly_usage[5].round.to_i : "Enter Number Here"), min: 0 %>
+    </div>
+
+
+    <div class="lg:w-1/12 m-0 flex flex-row lg:flex-col">
+      <div class="bg-gray-100 text-gray-800 p-2 border-gray-200 w-1/2 lg:w-full text-center">
+        Jul
+      </div>
+      <%= form.number_field :monthly_usage, multiple: true, class: "w-1/2 lg:w-full border-gray-200", placeholder: (energy_consumption.monthly_usage[6].present? ? energy_consumption.monthly_usage[6].round.to_i : "Enter Number Here"), min: 0 %>
+    </div>
+
+
+    <div class="lg:w-1/12 m-0 flex flex-row lg:flex-col">
+      <div class="bg-gray-100 text-gray-800 p-2 border-gray-200 w-1/2 lg:w-full text-center">
+        Aug
+      </div>
+      <%= form.number_field :monthly_usage, multiple: true, class: "w-1/2 lg:w-full border-gray-200", placeholder: (energy_consumption.monthly_usage[7].present? ? energy_consumption.monthly_usage[7].round.to_i : "Enter Number Here"), min: 0 %>
+    </div>
+
+
+    <div class="lg:w-1/12 m-0 flex flex-row lg:flex-col">
+      <div class="bg-gray-100 text-gray-800 p-2 border-gray-200 w-1/2 lg:w-full text-center">
+        Sep
+      </div>
+      <%= form.number_field :monthly_usage, multiple: true, class: "w-1/2 lg:w-full border-gray-200", placeholder: (energy_consumption.monthly_usage[8].present? ? energy_consumption.monthly_usage[8].round.to_i : "Enter Number Here"), min: 0 %>
+    </div>
+
+
+    <div class="lg:w-1/12 m-0 flex flex-row lg:flex-col">
+      <div class="bg-gray-100 text-gray-800 p-2 border-gray-200 w-1/2 lg:w-full text-center">
+        Oct
+      </div>
+      <%= form.number_field :monthly_usage, multiple: true, class: "w-1/2 lg:w-full border-gray-200", placeholder: (energy_consumption.monthly_usage[9].present? ? energy_consumption.monthly_usage[9].round.to_i : "Enter Number Here"), min: 0 %>
+    </div>
+
+
+    <div class="lg:w-1/12 m-0 flex flex-row lg:flex-col">
+      <div class="bg-gray-100 text-gray-800 p-2 border-gray-200 w-1/2 lg:w-full text-center">
+        Nov
+      </div>
+      <%= form.number_field :monthly_usage, multiple: true, class: "w-1/2 lg:w-full border-gray-200", placeholder: (energy_consumption.monthly_usage[10].present? ? energy_consumption.monthly_usage[10].round.to_i : "Enter Number Here"), min: 0 %>
+    </div>
+
+
+    <div class="lg:w-1/12 m-0 flex flex-row lg:flex-col">
+      <div class="bg-gray-100 text-gray-800 p-2 border-gray-200 w-1/2 lg:w-full text-center">
+        Dec
+      </div>
+      <%= form.number_field :monthly_usage, multiple: true, class: "w-1/2 lg:w-full border-gray-200", placeholder: (energy_consumption.monthly_usage[11].present? ? energy_consumption.monthly_usage[11].round.to_i : "Enter Number Here"), min: 0 %>
+    </div>
+
+  </div>
+
+  <p class="text-lg text-center">
+    OR
+  </p>
+
+  <h5 class="mb-4">
+    Enter Daily Average:
+  </h5>
+  <div class="form-group flex flex-col lg:flex-row space-
+  x-0">
+    <div class="lg:w-1/12 m-0 flex flex-row lg:flex-col">
+      <div class="bg-gray-100 text-gray-800 p-2 border-gray-200 w-1/2 lg:w-full text-center">
+        Jan
+      </div>
+      <%= form.number_field :daily_usage, multiple: true, step: 0.1, class: "w-1/2 lg:w-full border-gray-200", placeholder: (energy_consumption.daily_usage[0].present? ? energy_consumption.daily_usage[0].round.to_i : "Enter Number Here"), min: 0 %>
+    </div>
+
+    <div class="lg:w-1/12 m-0 flex flex-row lg:flex-col">
+      <div class="bg-gray-100 text-gray-800 p-2 border-gray-200 w-1/2 lg:w-full text-center">
+        Feb
+      </div>
+      <%= form.number_field :daily_usage, multiple: true, step: 0.1, class: "w-1/2 lg:w-full border-gray-200", placeholder: (energy_consumption.daily_usage[1].present? ? energy_consumption.daily_usage[1].round.to_i : "Enter Number Here"), min: 0 %>
+    </div>
+
+    <div class="lg:w-1/12 m-0 flex flex-row lg:flex-col">
+      <div class="bg-gray-100 text-gray-800 p-2 border-gray-200 w-1/2 lg:w-full text-center">
+        Mar
+      </div>
+      <%= form.number_field :daily_usage, multiple: true, step: 0.1, class: "w-1/2 lg:w-full border-gray-200", placeholder: (energy_consumption.daily_usage[2].present? ? energy_consumption.daily_usage[2].round.to_i : "Enter Number Here"), min: 0 %>
+    </div>
+
+    <div class="lg:w-1/12 m-0 flex flex-row lg:flex-col">
+      <div class="bg-gray-100 text-gray-800 p-2 border-gray-200 w-1/2 lg:w-full text-center">
+        Apr
+      </div>
+      <%= form.number_field :daily_usage, multiple: true, step: 0.1, class: "w-1/2 lg:w-full border-gray-200", placeholder: (energy_consumption.daily_usage[3].present? ? energy_consumption.daily_usage[3].round.to_i : "Enter Number Here"), min: 0 %>
+    </div>
+
+    <div class="lg:w-1/12 m-0 flex flex-row lg:flex-col">
+      <div class="bg-gray-100 text-gray-800 p-2 border-gray-200 w-1/2 lg:w-full text-center">
+        May
+      </div>
+      <%= form.number_field :daily_usage, multiple: true, step: 0.1, class: "w-1/2 lg:w-full border-gray-200", placeholder: (energy_consumption.daily_usage[4].present? ? energy_consumption.daily_usage[4].round.to_i : "Enter Number Here"), min: 0 %>
+    </div>
+
+    <div class="lg:w-1/12 m-0 flex flex-row lg:flex-col">
+      <div class="bg-gray-100 text-gray-800 p-2 border-gray-200 w-1/2 lg:w-full text-center">
+        Jun
+      </div>
+      <%= form.number_field :daily_usage, multiple: true, step: 0.1, class: "w-1/2 lg:w-full border-gray-200", placeholder: (energy_consumption.daily_usage[5].present? ? energy_consumption.daily_usage[5].round.to_i : "Enter Number Here"), min: 0 %>
+    </div>
+
+    <div class="lg:w-1/12 m-0 flex flex-row lg:flex-col">
+      <div class="bg-gray-100 text-gray-800 p-2 border-gray-200 w-1/2 lg:w-full text-center">
+        Jul
+      </div>
+      <%= form.number_field :daily_usage, multiple: true, step: 0.1, class: "w-1/2 lg:w-full border-gray-200", placeholder: (energy_consumption.daily_usage[6].present? ? energy_consumption.daily_usage[6].round.to_i : "Enter Number Here"), min: 0 %>
+    </div>
+
+    <div class="lg:w-1/12 m-0 flex flex-row lg:flex-col">
+      <div class="bg-gray-100 text-gray-800 p-2 border-gray-200 w-1/2 lg:w-full text-center">
+        Aug
+      </div>
+      <%= form.number_field :daily_usage, multiple: true, step: 0.1, class: "w-1/2 lg:w-full border-gray-200", placeholder: (energy_consumption.daily_usage[7].present? ? energy_consumption.daily_usage[7].round.to_i : "Enter Number Here"), min: 0 %>
+    </div>
+
+    <div class="lg:w-1/12 m-0 flex flex-row lg:flex-col">
+      <div class="bg-gray-100 text-gray-800 p-2 border-gray-200 w-1/2 lg:w-full text-center">
+        Sep
+      </div>
+      <%= form.number_field :daily_usage, multiple: true, step: 0.1, class: "w-1/2 lg:w-full border-gray-200", placeholder: (energy_consumption.daily_usage[8].present? ? energy_consumption.daily_usage[8].round.to_i : "Enter Number Here"), min: 0 %>
+    </div>
+
+    <div class="lg:w-1/12 m-0 flex flex-row lg:flex-col">
+      <div class="bg-gray-100 text-gray-800 p-2 border-gray-200 w-1/2 lg:w-full text-center">
+        Oct
+      </div>
+      <%= form.number_field :daily_usage, multiple: true, step: 0.1, class: "w-1/2 lg:w-full border-gray-200", placeholder: (energy_consumption.daily_usage[9].present? ? energy_consumption.daily_usage[9].round.to_i : "Enter Number Here"), min: 0 %>
+    </div>
+
+    <div class="lg:w-1/12 m-0 flex flex-row lg:flex-col">
+      <div class="bg-gray-100 text-gray-800 p-2 border-gray-200 w-1/2 lg:w-full text-center">
+        Nov
+      </div>
+      <%= form.number_field :daily_usage, multiple: true, step: 0.1, class: "w-1/2 lg:w-full border-gray-200", placeholder: (energy_consumption.daily_usage[10].present? ? energy_consumption.daily_usage[10].round.to_i : "Enter Number Here"), min: 0 %>
+    </div>
+
+    <div class="lg:w-1/12 m-0 flex flex-row lg:flex-col">
+      <div class="bg-gray-100 text-gray-800 p-2 border-gray-200 w-1/2 lg:w-full text-center">
+        Dec
+      </div>
+      <%= form.number_field :daily_usage, multiple: true, step: 0.1, class: "w-1/2 lg:w-full border-gray-200", placeholder: (energy_consumption.daily_usage[11].present? ? energy_consumption.daily_usage[11].round.to_i : "Enter Number Here"), min: 0 %>
+    </div>
+  </div>
+  <div class="flex justify-between form-group">
+    <%= form.button "Update Energy Consumption", class: "btn btn-primary", data: { disable_with: "Submitting…" } %>
+
+    <%# if form.object.persisted? && allowed_to?(:destroy?, form.object)%>
+      <%#= link_to t("delete"), form.object, class: "btn btn-danger outline", method: :delete, data: { confirm: t("are_you_sure") } %>
+    <%# end %>
+  </div>
+<% end %>

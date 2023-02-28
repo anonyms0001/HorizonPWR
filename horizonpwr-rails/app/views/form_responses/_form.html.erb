@@ -1,0 +1,35 @@
+<%= form_with(model: form_response) do |form| %>
+  <%= render "shared/error_messages", resource: form.object %>
+  <%= form.hidden_field :respondable_type, value: form_response.respondable_type %>
+  <%= form.hidden_field :respondable_id, value: form_response.respondable_id %>
+  <%= form.hidden_field :dynamic_form_id %>
+  <%= form.hidden_field :form_config_id, value: form_response.form_config.id %>
+  <% form_response.sorted_active_field_configs.each_with_index do |field_config, index| %>
+    <%= form.fields_for :field_responses, FieldResponse.find_or_initialize_by(field_config: field_config, form_response: form_response) do |response_field_form| %>
+      <%#= response_field_form.label field_config.title.to_sym, class: "flex items-center space-x-3 text-gray-900 font-medium" %>
+
+      <% if lookup_context.template_exists?(field_config.field_type, "field_responses/fields", true) %>
+        <div class="<%= 'bg-gray-50' if index % 2 != 0 %>">
+          <div class="py-4 px-4 mb-2">
+            <% if field_config.required? %>
+              <p class="text-red-500 italic text-xs">
+                Required
+              </p>
+            <% end %>
+            <%= field_config.eventable_action if field_config.eventable_action.present? %>
+            <%= render partial: "field_responses/fields/#{field_config.field_type}", locals: {field_config: field_config, form_response: form_response, response_field_form: response_field_form} %>
+            <%= render partial: "field_responses/fields/last_updated", locals: { field_response: response_field_form.object } %>
+          </div>
+        </div>
+      <% end %>
+      <%= response_field_form.hidden_field :last_updated_by_id %>
+      <%= response_field_form.hidden_field :field_config_id %>
+    <% end %>
+  <% end %>
+  <div class="p-4 flex justify-between">
+    <%= form.button "Save", class: "btn btn-primary", data: { disable_with: 'Processing' } %>
+    <% if form.object.persisted? %>
+      <%#= link_to t("delete"), form.object, class: "btn btn-danger outline", method: :delete, data: { confirm: t("are_you_sure") } %>
+    <% end %>
+  </div>
+<% end %>

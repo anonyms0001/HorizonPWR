@@ -1,0 +1,4 @@
+<h3 ><%= "Hey #{@appointment.scheduled_with.name}," %></h3>
+<p>
+  <%= "You have an appointment for #{@appointment.date.strftime("%b %e, %Y, %l:%M %P")} with #{@customer}" %>
+</p>

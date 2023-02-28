@@ -1,0 +1,20 @@
+<div class="m-4">
+  <%#= line_chart @proposals %>
+  <%#= line_chart @proposals.map { |proposal|
+    {name: proposal.completion_state, data: proposal.group_by_day(:created_at).count}
+  } %>
+  <%= line_chart @proposals.group(:completion_state).group_by_day(:created_at, format: "%a_%m/%d").count, download: {file_name: "#Proposals#{DateTime.now}"} %>
+  <%= line_chart @proposals.group_by_week(:created_at, format: "%a_%m/%d").count, download: {file_name: "#Proposals#{DateTime.now}"} %>
+  <%= line_chart @users %>
+
+  <%= "Reps not properly linked to canvass" if @sales_reps_with_issues.any? %>
+
+  <% @sales_reps_with_issues.each do |rep| %>
+  <%= render partial: 'shared/user_profile', locals: {user: rep}  %>
+  <% end %>
+  <%#= link_to "Refresh SF Projects csv", refresh_project_csv_path, data: {disable_with: "Making Magical csv..."} %>
+  <% @backups.each do |file| %>
+    <%= link_to file.blob.filename, rails_blob_path(file, disposition: "attachment"), target: :blank %>
+    <br/>
+  <% end %>
+</div>

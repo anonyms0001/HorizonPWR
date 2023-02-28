@@ -1,0 +1,35 @@
+<div class="container mx-auto my-8 px-4">
+  <div class="max-w-3xl mx-auto">
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="h3"><%= link_to "Earning Rates", earning_rates_path %> > Earning Rate #<%= @earning_rate.id %></h1>
+      <%= link_to t("edit"), edit_earning_rate_path(@earning_rate), class: "btn btn-link" %>
+    </div>
+
+    <div class="bg-white rounded shadow p-8">
+            <div class="mb-4">
+        <h5>Amount</h5>
+        <%= @earning_rate.amount %>
+      </div>
+            <div class="mb-4">
+        <h5>Range top</h5>
+        <%= @earning_rate.range_top %>
+      </div>
+            <div class="mb-4">
+        <h5>Range bottom</h5>
+        <%= @earning_rate.range_bottom %>
+      </div>
+            <div class="mb-4">
+        <h5>Earning type</h5>
+        <%= @earning_rate.earning_type %>
+      </div>
+            <div class="mb-4">
+        <h5>Active</h5>
+        <%= @earning_rate.active %>
+      </div>
+            <div class="mb-4">
+        <h5>Job position</h5>
+        <%= @earning_rate.job_position %>
+      </div>
+          </div>
+  </div>
+</div>

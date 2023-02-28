@@ -1,0 +1,51 @@
+<div class="my-8 px-4">
+  <div class="flex justify-end mb-6">
+    <% if @installers.any? %>
+      <%= link_to 'New Installer', new_installer_path, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+  <div class="flex flex-col items-start justify-between sm:flex-row-reverse flex-wrap">
+    <%= render partial: "installers/search" %>
+    <div class="lg:w-3/4 w-full lg:pr-8 lg:mb-0 mb-6 overflow-hidden overflow-x-auto">
+      <div class="align-middle inline-block min-w-full overflow-hidden overflow-x-auto">
+        <div class="shadow-lg overflow-hidden overflow-x-auto rounded-lg">
+          <div class="bg-white rounded shadow table-responsive">
+            <div class="p-6">
+              <table class="table">
+                <thead>
+                <tr>
+                  <th class="p-3 uppercase text-left text-xs"><%= sortable @installers, :name, 'Installer', class: 'text-gray-700' %></th>
+                  <th class="p-3 uppercase text-left text-xs"><%= sortable @installers, :active, 'Status', class: 'text-gray-700' %></th>
+                </tr>
+                </thead>
+                <tbody>
+                <% @installers.each do |installer| %>
+                  <tr class="group border-t border-gray-400 hover:bg-gray-100">
+                    <td class="p-3">
+                      <%= link_to installer do %>
+                        <div class="text-m text-gray-900">
+                          <%= installer.name %>
+                        </div>
+                        </td>
+                        <td class="p-3">
+                          <div class="flex flex-row items-center space-x-1">
+                            <div class="h-2 w-2 bg-<%= installer.active_status_color %>-400 rounded-full">
+                            </div>
+                            <div class="text-sm capitalize font-bold leading-normal text-<%= installer.active_status_color %>-500">
+                              <%= installer.active ? 'Active' : 'Inactive' %>
+                            </div>
+                          </div>
+                      <% end %>
+                      </td>
+                      </tr>
+                <% end %>
+                </tbody>
+              </table>
+            </div>
+            <%= render "shared/custom_pagy" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

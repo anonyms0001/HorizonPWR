@@ -1,0 +1,12 @@
+<% if form.object.present? && form.object.persisted? %>
+  <div class="flex items-center space-x-3 pb-3">
+    <%= form.check_box field_config.title.to_sym, class: "form-tick appearance-none h-6 w-6 border border-gray-300 rounded-lg checked:bg-blue-600 checked:border-transparent focus:outline-none" %>
+    <%= form.label field_config.title.to_sym, class: "flex items-center space-x-3 text-gray-900 font-medium" %>
+  </div>
+<% else %>
+  <div class="flex items-center space-x-3 pb-3">
+    <%#= form.check_box "#{field_config.title}".to_sym %>
+    <%#= form.label "#{field_config.title}".to_sym %>
+    <%#= form.object.field_config.label field_config.title.to_sym, class: "flex items-center space-x-3 text-gray-900 font-medium" %>
+  </div>
+<% end %>

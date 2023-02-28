@@ -1,0 +1,5 @@
+web: bundle exec rails s
+webpack: bin/webpack-dev-server
+# docker: docker-compose up
+worker: bundle exec sidekiq
+guard: bundle exec guard

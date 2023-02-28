@@ -1,0 +1,84 @@
+<div class="mx-auto my-4 px-1 md:px-2 lg:px-4">
+  <div class="flow-root lg:mb-4 <%= 'hidden' if !@referrals.any? && allowed_to?(:create?, Referral, with: ReferralPolicy ) %>">
+    <%= link_to t("shared.scaffold.new.title", model: "Referral"), new_referral_path, class: "btn btn-primary float-right hidden lg:inline-block" %>
+  </div>
+  <div class="flex-none flex-wrap-reverse lg:flex-wrap lg:flex items-center mb-4">
+    <div class="w-full lg:w-1/4">
+      <div class="flex justify-between">
+        <h1 class="h3 mr-2">
+          <%= link_to 'Referrals', referrals_path, class:"text-gray-900" %>
+        </h1>
+        <%= link_to t("shared.scaffold.new.title", model: "Referral"), new_referral_path, class: "btn btn-primary lg:hidden" %>
+      </div>
+    </div>
+
+    <% if @referrals.any? && allowed_to?(:create?, Referral, with: ReferralPolicy ) %>
+      <div class="w-full lg:w-1/2">
+        <%= render partial: "referrals/filter" %>
+      </div>
+      <div class="w-full lg:w-1/4">
+        <%= render partial: "referrals/search" %>
+      </div>
+    <div class="w-full mt-2 text-center text-sm <%= 'hidden' if !params[:filter].present? %>">
+      Filtered by: <%= "'#{params[:filter]}'" %>
+    </div>
+    <% end %>
+  </div>
+  <div class="bg-white rounded-lg">
+    <% if @referrals.any? %>
+      <div class="table-responsive">
+        <div class="p-6">
+        <table class="table">
+          <thead>
+            <tr>
+                <th class="p-3 uppercase text-left text-xs"><%= sortable @referrals, :referrer_contact_id, "Referrer contact", class: "text-gray-700" %></th>
+                <th class="p-3 uppercase text-left text-xs"><%= sortable @referrals, :referral_contact_id, "Referral contact", class: "text-gray-700" %></th>
+                <th class="p-3 uppercase text-left text-xs"><%= sortable @referrals, :email, "Email", class: "text-gray-700" %></th>
+                <th class="p-3 uppercase text-left text-xs"><%= sortable @referrals, :phone, "Phone", class: "text-gray-700" %></th>
+                <th class="p-3 uppercase text-left text-xs"><%= sortable @referrals, :first_name, "First name", class: "text-gray-700" %></th>
+                <th class="p-3 uppercase text-left text-xs"><%= sortable @referrals, :last_name, "Last name", class: "text-gray-700" %></th>
+                <th class="p-3 uppercase text-left text-xs"><%= sortable @referrals, :contest_id, "Contest", class: "text-gray-700" %></th>
+                <th class="p-3 uppercase text-left text-xs"><%= sortable @referrals, :status, "Status", class: "text-gray-700" %></th>
+                <th class="p-3 uppercase text-left text-xs"><%= sortable @referrals, :eligible, "Eligible", class: "text-gray-700" %></th>
+                <th class="p-3 uppercase text-left text-xs text-gray-700 w-20"><%= t("shared.scaffold.actions") %></th>
+            </tr>
+          </thead>
+
+          <tbody>
+          <% @referrals.each do |referral| %>
+            <tr class="group border-t border-gray-400 hover:bg-gray-100">
+                          <td class="p-3"><%= referral.referrer_contact_id %></td>
+                          <td class="p-3"><%= referral.referral_contact_id %></td>
+                          <td class="p-3"><%= referral.email %></td>
+                          <td class="p-3"><%= referral.phone %></td>
+                          <td class="p-3"><%= referral.first_name %></td>
+                          <td class="p-3"><%= referral.last_name %></td>
+                          <td class="p-3"><%= referral.contest_id %></td>
+                          <td class="p-3"><%= referral.status %></td>
+                          <td class="p-3"><%= referral.eligible %></td>
+            
+              <td>
+                <%= link_to t("shared.scaffold.view"), referral, class: "btn btn-link no-underline" %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+        </div>
+        <%= render "shared/custom_pagy" %>
+      </div>
+    <% else %>
+      <div class="bg-white rounded shadow flex flex-col items-center justify-between p-8 lg:flex-row">
+        <%= image_tag "empty.svg", class: "mb-4 lg:w-1/2" %>
+        <div class="flex-1 text-center">
+          <% if allowed_to?(:create?, Referral, with: ReferralPolicy ) %>
+          <p class="h3 mb-4">Create your first Referral</p>
+          <%= link_to t("shared.scaffold.new.title", model: "Referral"), new_referral_path, class: "btn btn-primary" %>
+          <% else %>
+            <p class="h3 mb-4">You do not have permission to create Referral</p>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

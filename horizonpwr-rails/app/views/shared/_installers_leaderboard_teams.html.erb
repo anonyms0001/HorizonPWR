@@ -1,0 +1,76 @@
+<!-- This example requires Tailwind CSS v2.0+ -->
+<div id="teams-card" class="flex flex-col">
+  <div class="my-2 overflow-x-auto">
+    <div class=" rounded-lg overflow-hidden shadow-lg bg-white">
+      <div class="rounded-tl-lg rounded-tr-lg sm:rounded-tr-none relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500 overflow-x-auto">
+        <p class="w-full text-center">
+          Week of April 1, 2022
+        </p>
+        <%= form_tag(installers_leaderboard_path(time_period: params[:time_period], end_at: params[:end_at]), method: :get, class: 'flex items-center mb-6') do %>
+          <div class="w-full">
+            <%= select_tag :time_period,
+                           options_for_select(PerformanceStat.time_period_options, params[:time_period]),
+                           { allow_blank: false, class: "mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" }
+            %>
+          </div>
+          <%= submit_tag 'apply', class: "btn btn-primary inline-flex mx-4" %>
+          <%= render partial: 'shared/arrows', locals: {
+            link_previous: installers_leaderboard_path(PerformanceStat.link_previous_params(params[:end_at], params[:time_period])),
+            link_next: installers_leaderboard_path(PerformanceStat.link_next_params(params[:end_at], params[:time_period]))
+          } %>
+        <% end %>
+        <table class="w-full">
+          <span class="text-gray-900 font-bold text-lg">Installers</span>
+
+          <thead>
+          <tr class="text-left">
+            <th class="p-3 text-xs text-left text-gray-600 uppercase">
+
+            </th>
+            <th class="p-3 text-xs text-left text-gray-600 uppercase">
+
+            </th>
+            <th class="p-3 text-xs text-left text-gray-600 uppercase text-center">
+              KW
+            </th>
+            <th class="p-3 text-xs text-left text-gray-600 uppercase text-center">
+              Pass Rate
+            </th>
+            <th class="p-3 text-xs text-left text-gray-600 uppercase text-center">
+              PWR Ranking
+            </th>
+          </tr>
+          </thead>
+          <tbody class="bg-white">
+          <% @teams.each_with_index do |team, index| %>
+            <tr class="border-b border-gray-400 group bg-white hover:bg-gray-200 text-center">
+              <td class="py-4 whitespace-nowrap">
+                <!--             Leaderboard Position Number-->
+                <p class="text-lg text-blue-500 font-bold"><%= (index + 1).ordinalize %></p>
+              </td>
+              <td class="py-4 whitespace-nowrap">
+                <div class="text-sm font-medium text-gray-900">
+                  <%= link_to team.name, leaderboard_path(:team => team.name), class: 'text-gray-900' %>
+                  <br/>
+                  <%= link_to 'manage', team_path(team), class: 'text-gray-500 text-sm' if allowed_to?(:manage?, team) %>
+                </div>
+              </td>
+              <td class="px-3 py-4 whitespace-nowrap">
+                15
+              </td>
+              <td class="px-3 py-4 whitespace-nowrap">
+                20%
+              </td>
+              <td class="px-3 py-4 whitespace-nowrap">
+                <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                 50pts
+              </span>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

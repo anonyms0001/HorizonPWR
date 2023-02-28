@@ -1,0 +1,44 @@
+<div class="container mx-auto mt-8 p-4">
+  <h1 class="mb-4">Training</h1>
+  <!--Toggle-->
+  <!--  only see toggle if you are not in sales-->
+  <!--  only see sales(no toggle) if you are in sales-->
+  <!--  height should be full screen-->
+  <% if current_user.job_position.department&.name == "Sales" %>
+    <div class="pb-8">
+      <div class="flex mb-4">
+        <%= link_to 'Sales Training Videos', 'https://www.youtube.com/playlist?list=PLAdQWJvYe_-bWQxiYhPHdu6zP7SpQov0K', class:"px-4", target: :blank %>
+      </div>
+      <iframe src="https://collin-swainston.gitbook.io/horizon-sales/" name="iFrame horizon-sales" scrolling="No" height="100%" width="100%" class="border-0 h-screen" data-hj-allow-iframe=""></iframe>
+    </div>
+  <% else %>
+    <div data-controller="pricing" class="flex flex-wrap items-center justify-center pb-10">
+      <div data-pricing-target="toggle" class="inline-block rounded-full bg-tertiary-500 py-2 px-1 text-white my-4">
+        <a data-action="click->pricing#switch" data-pricing-target="frequency" data-frequency="monthly" class="cursor-pointer py-2 px-4 rounded-full">
+          Horizon OPS
+        </a>
+        <a data-action="click->pricing#switch" data-pricing-target="frequency" data-frequency="yearly" class="cursor-pointer py-2 px-4 rounded-full">
+          Horizon Sales
+        </a>
+      </div>
+      <div class="w-full lg:px-0 px-2">
+        <div data-pricing-target="plans" data-frequency="monthly" class="flex flex-wrap items-center justify-center -mx-4">
+          <div class="flex mb-4">
+            <%= link_to 'Support Training', 'https://www.youtube.com/playlist?list=PLAdQWJvYe_-aFl3SMcKDFX9yb5HudhI55', class:"px-4", target: :blank %>
+            <%= link_to 'Project Manager Training', 'https://www.youtube.com/playlist?list=PLAdQWJvYe_-ac-Kyt53Wvxp9xyPGN5L0M', class:"px-4", target: :blank %>
+            <%= link_to 'HR Training', 'https://www.youtube.com/playlist?list=PLAdQWJvYe_-YL06AvSzlHRpESqwOE0jSD', class:"px-4", target: :blank %>
+          </div>
+          <!--        <h1>Horizon OPS</h1>-->
+          <iframe src="https://collin-swainston.gitbook.io/horizon-ops/" name="iFrame horizon-ops" scrolling="No" width="100%" class="border-0 h-screen" data-hj-allow-iframe=""></iframe>
+        </div>
+        <div data-pricing-target="plans" data-frequency="yearly" class="hidden flex-wrap items-center justify-center -mx-4">
+          <div class="flex mb-4">
+            <%= link_to 'Sales Training Videos', 'https://www.youtube.com/playlist?list=PLAdQWJvYe_-bWQxiYhPHdu6zP7SpQov0K', class:"px-4", target: :blank %>
+          </div>
+          <!--        <h1>Horizon Sales</h1>-->
+          <iframe src="https://collin-swainston.gitbook.io/horizon-sales/" name="iFrame horizon-sales" scrolling="No" height="100%" width="100%" class="border-0 h-screen" data-hj-allow-iframe=""></iframe>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

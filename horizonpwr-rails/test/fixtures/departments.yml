@@ -1,0 +1,43 @@
+# == Schema Information
+#
+# Table name: departments
+#
+#  id         :bigint           not null, primary key
+#  active     :boolean          default(TRUE)
+#  name       :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+one:
+  name: MyString1
+
+two:
+  name: MyString2
+
+# All Departments, alphabetically:
+# Last Updated: 2022-01-27
+
+funding:
+  name: Funding
+
+hr:
+  name: Human Resources
+
+install_crew:
+  name: Install Crew
+
+it:
+  name: IT
+
+marketing:
+  name: Marketing
+
+project_managers:
+  name: Project Managers
+
+sales:
+  name: Sales
+
+support:
+  name: Sales Support

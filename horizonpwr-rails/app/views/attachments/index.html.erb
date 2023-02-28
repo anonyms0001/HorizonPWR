@@ -1,0 +1,41 @@
+<div class="mx-auto my-8 px-2">
+  <div class="mx-auto mb-5">
+    <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl pb-2">Edit Attachments</h2>
+    <h4 class="mb-4">
+      <%= fa_icon "long-arrow-alt-left", class: "fas mr-1" %>
+      Return to <%= link_to "#{@object.class.to_s.capitalize} #{@object.id}", @object %>
+    </h4>
+    <p class="text-xl text-gray-500 py-2">
+      Click the X in the red box on an attachment to remove it.
+    </p>
+  </div>
+  <% if @attachments.any? %>
+    <ul class="space-y-5 sm:grid sm:grid-cols-2 sm:gap-x-5 sm:gap-y-5 sm:space-y-0 lg:grid-cols-3 lg:gap-x-5 list-none">
+      <% @attachments.each do |attachment| %>
+        <li>
+          <div class="bg-white rounded-lg shadow-lg relative">
+            <%#= link_to (image_tag attachment, class: 'object-cover rounded-t-lg w-1/2 h-1/2'), attachment, target: '_blank' %>
+            <div class="">
+              <%= image_tag attachment, class: 'border rounded-t-lg w-full max-h-full' %>
+              <%= attachment.blob.filename %>
+              <br/>
+              <%= attachment.created_at.strftime("%m-%d-%Y %H:%M:%S %Z") %>
+            </div>
+
+            <% if current_user.owns_attachment?(attachment) %>
+              <div class="absolute top-0 right-0 mt-2 mr-2">
+                <%= link_to remove_attachment_path(attachment_id: attachment.id), class: "btn btn-danger", method: :delete, data: { confirm: "Remove this attachment?" } do %>
+                  <%= fa_icon 'times', class: "fas" %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>
+      This <%= @object.class.to_s.capitalize %> has no attachments.
+    </p>
+  <% end %>
+</div>

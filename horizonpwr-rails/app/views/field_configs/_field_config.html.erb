@@ -1,0 +1,13 @@
+<%= form_with(model: field_config) do |form| %>
+
+  <div class="py-4 px-4 mb-2" id="preview">
+    <% if field_config.required? %>
+      <p class="text-red-500 italic text-xs">
+        Required
+      </p>
+    <% end %>
+    <%= field_config.eventable_action if field_config.eventable_action.present? %>
+    <%= render partial: "field_responses/fields/#{field_config.field_type}", locals: { field_config: field_config, form_response: nil, response_field_form: form } %>
+  </div>
+
+<% end %>

@@ -1,0 +1,27 @@
+<div class="container mx-auto my-8 px-4">
+  <div class="max-w-3xl mx-auto">
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="h3"><%= link_to 'Project Contact Addresses', contactAddresses_path %> > Project Contact Address #<%= @contact_address.id %></h1>
+      <%= link_to 'Edit', edit_contactAddress_path(@contact_address), class: "btn btn-link" %>
+    </div>
+
+    <div class="bg-white rounded shadow p-8">
+            <div class="mb-4">
+        <h5>Primary contact</h5>
+        <%= @contact_address.primary_contact %>
+      </div>
+            <div class="mb-4">
+        <h5>Appointment</h5>
+        <%= @contact_address.appointment %>
+      </div>
+            <div class="mb-4">
+        <h5>Contact</h5>
+        <%= @contact_address.contact %>
+      </div>
+            <div class="mb-4">
+        <h5>Project</h5>
+        <%= @contact_address.project %>
+      </div>
+          </div>
+  </div>
+</div>

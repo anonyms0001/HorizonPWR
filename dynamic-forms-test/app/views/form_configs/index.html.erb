@@ -1,0 +1,60 @@
+<div class="container mx-auto my-8 px-4">
+  <div class="flex justify-between items-center mb-4">
+    <h1 class="h3">Form Configs</h1>
+
+    <% if @form_configs.any? %>
+      <%= link_to t("shared.scaffold.new.title", model: "Form Config"), new_form_config_path, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+
+  <%# TODO: It might be good to display these in groups according to the Model/Use Case, and have them sorted by Position.
+            Then, we could make them sortable via drag-and-drop. %>
+
+  <% if @form_configs.any? %>
+    <div class="bg-white rounded shadow table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @form_configs, :title, "Title", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @form_configs, :active, "Active", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @form_configs, :position, "Position", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @form_configs, :model, "Model", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @form_configs, :use_case, "Use case", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs text-gray-700 w-20"><%= t("shared.scaffold.actions") %></th>
+          </tr>
+        </thead>
+
+        <tbody>
+        <% @form_configs.each do |form_config| %>
+          <tr class="group border-t border-gray-400 hover:bg-gray-100">
+                      <td class="p-3"><%= form_config.title %></td>
+                      <td class="p-3"><%= form_config.active %></td>
+                      <td class="p-3"><%= form_config.position %></td>
+                      <td class="p-3"><%= form_config.model %></td>
+                      <td class="p-3"><%= form_config.use_case %></td>
+          
+            <td>
+              <%= link_to t("shared.scaffold.view"), form_config, class: "btn btn-link no-underline" %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <% if @pagy.pages > 1 %>
+      <div class="text-center my-6">
+        <%== pagy_nav(@pagy) %>
+      </div>
+    <% end %>
+
+  <% else %>
+    <div class="bg-white rounded shadow flex flex-col items-center justify-between p-8 lg:flex-row">
+      <%= image_tag "empty.svg", class: "mb-4 lg:w-1/2" %>
+      <div class="flex-1 text-center">
+        <p class="h3 mb-4">Create your first Form Config</p>
+        <%= link_to t("shared.scaffold.new.title", model: "Form Config"), new_form_config_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+</div>

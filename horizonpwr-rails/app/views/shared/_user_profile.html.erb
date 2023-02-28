@@ -1,0 +1,11 @@
+<%= image_tag avatar_url_for(user, size: 150), class: "mx-auto h-24 w-24 rounded-full" %>
+<div class="space-y-2">
+  <div class="text-xs font-medium lg:text-sm">
+    <p>
+      <%= user.name %>
+    </p>
+    <p class="text-yellow-600 font-medium">
+      <%= user.job_position_name %>
+    </p>
+  </div>
+</div>

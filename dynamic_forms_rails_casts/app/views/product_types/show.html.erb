@@ -1,0 +1,15 @@
+<div class="page-header">
+  <%= link_to product_types_path, class: 'btn btn-default' do %>
+    All Product_types
+  <% end %>
+  <%= link_to edit_product_type_path(@product_type), class: 'btn btn-primary' do %>
+    Edit
+  <% end %>
+  <h1>Show product_type</h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>Name:</dt>
+  <dd><%= @product_type.name %></dd>
+
+</dl>

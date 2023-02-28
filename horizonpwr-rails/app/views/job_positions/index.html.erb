@@ -1,0 +1,49 @@
+<div class="my-8 px-4">
+  <div class="flex justify-end mb-6">
+    <% if @job_positions.any? %>
+      <%= link_to 'New Job Position', new_job_position_path, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+  <div class="flex flex-col items-start justify-between sm:flex-row-reverse flex-wrap">
+    <%= render partial: "job_positions/search" %>
+    <div class="lg:w-3/4 w-full lg:pr-8 lg:mb-0 mb-6 overflow-hidden overflow-x-auto">
+      <div class="align-middle inline-block min-w-full overflow-hidden overflow-x-auto">
+        <div class="shadow-lg overflow-hidden overflow-x-auto rounded-lg">
+          <div class="bg-white rounded shadow table-responsive p-6">
+            <table class="table">
+              <thead>
+              <tr>
+                <th class="p-3 uppercase text-left text-xs"><%= sortable @job_positions, :name, 'Name', class: 'text-gray-700' %></th>
+                <th class="p-3 uppercase text-left text-xs"><%= sortable @job_positions, :active, 'Status', class: 'text-gray-700' %></th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @job_positions.each do |job| %>
+                <tr class="group border-t border-gray-400 hover:bg-gray-100">
+                  <td class="p-3">
+                    <%= link_to job do %>
+                      <div class="text-m text-gray-900">
+                        <%= job.name %>
+                      </div>
+                      </td>
+                      <td class="p-3">
+                        <div class="flex flex-row items-center space-x-1">
+                          <div class="h-2 w-2 bg-<%= job.active_status_color %>-400 rounded-full">
+                          </div>
+                          <div class="text-sm capitalize font-bold leading-normal text-<%= job.active_status_color %>-500">
+                            <%= job.active ? 'Active' : 'Inactive' %>
+                          </div>
+                        </div>
+                    <% end %>
+                    </td>
+                    </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+          <%= render "shared/custom_pagy" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

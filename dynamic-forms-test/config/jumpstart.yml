@@ -1,0 +1,13 @@
+--- !ruby/object:Jumpstart::Configuration
+application_name: Dynamic Forms
+business_name: Dynamic Forms, LLC
+domain: example.com
+support_email: support@example.com
+default_from_email: Jumpstart <support@example.com>
+business_address: 555 S 600 E, SLC, UT, 84101
+background_job_processor: sidekiq
+email_provider: ''
+personal_accounts: true
+livereload: true
+solargraph: false
+register_with_account: true

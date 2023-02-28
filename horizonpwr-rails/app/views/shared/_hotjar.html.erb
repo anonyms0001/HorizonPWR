@@ -1,0 +1,39 @@
+<% if ['production', 'staging'].include?(Rails.env) %>
+<!-- Hotjar Tracking Code for My site -->
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:2729578,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+
+  <% if user_signed_in? %>
+  <!-- Install this snippet AFTER the Hotjar tracking code. -->
+    <script>
+        var userId = <%= current_user.id %> || null; // Replace your_user_id with your own if available.
+        window.hj('identify', userId, {
+            'Start Date': '<%= current_user.start_date %>',
+            'Name': '<%= current_user.name %>',
+            'Job Position': '<%= current_user.job_position&.name %>',
+            'Leadership': '<%= current_user.job_position&.leadership %>',
+            'Email': '<%= current_user.email %>',
+            'Canvass': '<%= current_user.canvass_user_id %>',
+            'Accounts': '<%= current_user.accounts.impersonal.map(&:name).uniq %>',
+            'Phone': '<%= current_user.phone %>',
+            'Active': '<%= current_user.active %>',
+            'Admin': '<%= current_user.admin %>',
+            'UserLink': '<%= user_url(current_user) %>',
+            // Add your own custom attributes here. Some EXAMPLES:
+            // 'Signed up': '2019—06-20Z', // Signup date in ISO-8601 format.
+            // 'Last purchase category': 'Electronics', // Send strings with quotes around them.
+            // 'Total purchases': 15, // Send numbers without quotes.
+            // 'Last purchase date': '2019-06-20Z', // Send dates in ISO-8601 format.
+            // 'Last refund date': null, // Send null when no value exists for a user.
+        });
+    </script>
+  <% end %>
+<% end %>

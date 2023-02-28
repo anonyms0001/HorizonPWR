@@ -1,0 +1,112 @@
+<div class="">
+  <% if payout.present? %>
+    <div class="bg-white rounded shadow table-responsive sm:rounded-lg">
+      <table class="table">
+        <thead>
+        <tr>
+          <th class="p-3 uppercase text-left text-xs"><%= "Date" %></th>
+          <th class="p-3 uppercase text-left text-xs"><%= "cx" %></th>
+          <th class="p-3 uppercase text-left text-xs"><%= "type" %></th>
+          <th class="p-3 uppercase text-left text-xs"><%= "unit" %></th>
+          <th class="p-3 uppercase text-left text-xs"><%= "rate" %></th>
+          <th class="p-3 uppercase text-left text-xs"><%= "earnings" %></th>
+          <th class="p-3 uppercase text-left text-xs text-gray-700 w-20"></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <% @payout_line_items.each do |payout_line_item| %>
+          <tr class="group border-t border-b border-gray-400 hover:bg-gray-100">
+            <td class="p-3">
+              <div class="inline-flex items-center">
+                <% if @payout.status != "approved" && allowed_to?(:manage?, @payout) || current_user.admin? %>
+                  <%= form.fields_for :payout_line_items, payout_line_item do |line_item_form| %>
+                    <%# NOTE: An ID already gets sent for each PLI. What this select submits is the date for the Payout they need to belong to, which allows us to identify the Payout. %>
+                    <%= line_item_form.select :payout_id, options_for_select(@payout_date_select_options, selected: line_item_form.object.payout.pay_date), {}, class: "form-control w-36" %>
+                  <% end %>
+                <% else %>
+                  <%= date_mdy(payout.pay_date) %>
+                <% end %>
+              </div>
+            </td>
+
+            <td class="p-3">
+              <div class="inline-flex items-center">
+                <div class="inline-flex flex-col justify-center">
+                  <p class="text-sm font-semibold leading-none">
+                    <%= link_to payout_line_item.itemable.address.contacts.first&.name, (payout_line_item.itemable.project || payout_line_item.itemable.appointment), class: 'text-gray-900' if payout_line_item.itemable_type == 'Earning' %>
+                    <%= '-' if payout_line_item.itemable_type == 'Adjustment' %>
+                  </p>
+                  <p class="text-xs leading-3 text-gray-400 mt-1">
+                    <%= link_to payout_line_item.itemable.address.address, (payout_line_item.itemable.project || payout_line_item.itemable.appointment), class: 'text-gray-400' if payout_line_item.itemable_type == 'Earning' %>
+                    <%= payout_line_item.itemable.description if payout_line_item.itemable_type == 'Adjustment' %>
+                  </p>
+                </div>
+              </div>
+            </td>
+            <td class="">
+              <div class="inline-flex items-center">
+                <div class="inline-flex flex-col justify-center">
+                  <%= link_to payout_line_item.itemable, class: "block p-3 text-gray-700" do %>
+                    <p class="text-sm font-semibold leading-none" id="<%= payout_line_item.line_item_type.downcase %>_<%= payout_line_item.itemable.id %>">
+                      <%= payout_line_item.line_item_type %>
+                    </p>
+                    <p class="text-xs leading-3 text-gray-400 mt-1">
+                      <%= payout_line_item.line_item_type_detail %>
+                    </p>
+                    <p class="text-xs leading-3 text-<%= payout_line_item&.itemable&.status_color %>-400 mt-1">
+                      <%= payout_line_item&.itemable&.status %>
+                    </p>
+                  <% end %>
+                </div>
+              </div>
+            </td>
+            <td class="">
+              <%= link_to payout_line_item.itemable, class: "block p-3 text-gray-700" do %>
+                <%= payout_line_item.unit %>
+              <% end %>
+            </td>
+            <td class="">
+              <%= link_to payout_line_item.itemable, class: "block p-3 text-gray-700" do %>
+                <%= number_to_currency(payout_line_item.rate) %>
+              <% end %>
+            </td>
+            <td class="">
+              <%= link_to payout_line_item.itemable, class: "block p-3 text-gray-700" do %>
+                <%= number_to_currency(payout_line_item.itemable.total) %>
+              <% end %>
+            </td>
+            <td class="text-center p-3">
+              <%= link_to '+/-', new_earning_adjustment_path(payout_line_item.itemable), class: "font-bold text-sm pl-2" if current_user.admin? && payout_line_item.itemable_type == 'Earning' %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+      <% if @payout.status != "approved" && allowed_to?(:manage?, @payout) || current_user.admin? %>
+        <div class="form-group flex items-center float-right m-6">
+          <%= form.select :status, options_for_select(Payout.statuses, selected: @payout.status, disabled: "paid"), {}, class: "form-control w-36 mt-0" %>
+          <%= form.submit "Save", class: "ml-2 px-4 py-2 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+        </div>
+      <% end %>
+    </div>
+
+    <% if @pagy.pages > 1 %>
+      <div class="text-center my-6">
+        <%== pagy_nav(@pagy) %>
+      </div>
+    <% end %>
+
+  <% else %>
+    <div class="bg-white rounded shadow flex flex-col items-center justify-between p-8 lg:flex-row">
+      <%= image_tag "empty.svg", class: "mb-4 lg:w-1/2" %>
+      <div class="flex-1 text-center">
+        <% if allowed_to?(:create?, Payout, with: PayoutPolicy) %>
+          <p class="h3 mb-4">Create your first Payout</p>
+        <% else %>
+          <p class="h3 mb-4">You do not have permission to create Payout</p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

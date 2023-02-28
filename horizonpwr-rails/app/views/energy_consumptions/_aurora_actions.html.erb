@@ -1,0 +1,40 @@
+<div class="grid grid-cols-1 gap-8 lg:col-span-2">
+  <% if allowed_to?(:manage?, @energy_consumption) %>
+    <!-- QC Card -->
+    <section id='proposal-actions'>
+      <div class="rounded-lg overflow-hidden shadow-lg bg-white">
+        <div class="rounded-tl-lg rounded-tr-lg sm:rounded-tr-none relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
+          <div class="mb-4">
+            <p class="text-xl font-bold text-gray-900 sm:text-2xl">
+              Aurora Actions
+            </p>
+            <ol class="text-sm my-4">
+              <li>
+                Click on the "Find Aurora ID" button to get the ID from the URL.
+              </li>
+              <li>
+                Copy and paste the ID and put it in the validate field.
+              </li>
+            </ol>
+            <%= link_to "Find Aurora ID", AuroraClient.new.project_find_or_search(@proposal), target: '_blank', class: "btn btn-primary" %>
+          </div>
+          <div class="rounded-lg flex flex-col w-full">
+            <%# TODO: This form needs to submit an aurora_id to a controller method that can validate it, and save it if it validates. %>
+            <%= form_with( model: @proposal, url: proposal_validate_project_path(@proposal), local: true, html: { method: :get } ) do |form| %>
+                <div class="flex justify-between items-center form-group">
+                  <%= form.text_field :aurora_project_id, placeholder: "Enter Aurora ID", class: "form-control", required: true %>
+                  <%= form.button "Validate", class: "btn bg-green-500 text-white ml-4" %>
+                </div>
+            <% end %>
+          </div>
+          <p class="text-center mb-6">
+            OR
+          </p>
+          <div class="flex items-center">
+            <%= link_to "Create Aurora Project", proposal_create_aurora_project_path(@proposal), class: "flex-grow text-center text-base font-medium leading-normal text-white btn-primary px-6 py-3 shadow rounded-md hover:text-white" %>
+          </div>
+        </div>
+      </div>
+    </section>
+  <% end %>
+</div>

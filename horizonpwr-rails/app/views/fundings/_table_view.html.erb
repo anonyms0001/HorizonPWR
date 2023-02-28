@@ -1,0 +1,70 @@
+<% if fundings.any? %>
+  <div class="bg-white rounded mt-4">
+    <%# Header Row %>
+    <div class="hidden lg:flex lg:flex-row w-full mb-2 lg:space-x-2 border-b-2 pb-4">
+      <h5 class="lg:w-1/4 font-bold">
+        Project
+      </h5>
+      <h5 class="lg:w-1/4 font-bold">
+        Address
+      </h5>
+      <h5 class="lg:w-1/4 font-bold">
+        Install
+      </h5>
+      <h5 class="lg:w-1/4 font-bold">
+        Funding
+      </h5>
+    </div>
+
+    <% fundings.each do |funding| %>
+      <div class="flex flex-col w-full mb-4 border-b-2 pb-4">
+        <%# Top Row %>
+        <div class="flex flex-col lg:flex-row w-full mb-2 lg:space-x-2">
+          <div class="lg:w-1/4">
+            <%= link_to "Project #{funding.project.id}", funding.project %> (<%= funding.project.status.humanize %>)
+          </div>
+          <div class="lg:w-1/4">
+            <%= link_to funding.project.address.address, funding.project.address %>
+          </div>
+          <div class="lg:w-1/4">
+            <% install_appt = funding.project.appointments.where(appointment_type: 'install').last %>
+            <% install_date = install_appt&.start_at %>
+            <span class="font-bold lg:hidden">
+                Install:
+              </span>
+            <% if install_date.present? %>
+              <%= link_to install_appt ||= root_path do %>
+                <%= local_time(install_date, format: '%m/%d %I:%M%p') %>
+              <% end %>
+            <% else %>
+              Not Scheduled
+            <% end %>
+          </div>
+          <div class="lg:w-1/4">
+            <%= link_to "View", project_funding_path(funding.project, funding) %>
+          </div>
+        </div>
+
+        <%# Bottom Row %>
+        <div class="flex lg:flex-row w-full lg:space-x-2">
+          <div class="rounded-full py-1 px-2 mr-4 text-xs <%= funding.funding_payments.find_by(payment_type: 'good_faith') ? "bg-green-600 text-white" : "text-gray-500 bg-gray-100" %>">
+            Good Faith
+          </div>
+          <div class="rounded-full py-1 px-2 mr-4 text-xs <%= funding.funding_payments.find_by(payment_type: 'first_payment') ? "bg-green-600 text-white" : "text-gray-500 bg-gray-100" %>">
+            First Payment
+          </div>
+          <div class="rounded-full py-1 px-2 mr-4 text-xs <%= funding.funding_payments.find_by(payment_type: 'second_payment') ? "bg-green-600 text-white" : "text-gray-500 bg-gray-100" %>">
+            Second Payment
+          </div>
+          <div class="rounded-full py-1 px-2 mr-4 text-xs <%= funding.funding_payments.find_by(payment_type: 'cancellation_fee') ? "bg-green-600 text-white" : "text-gray-500 bg-gray-100" %>">
+            Cancellation Fee
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <span class="italic">
+    None at this time.
+  </span>
+<% end %>

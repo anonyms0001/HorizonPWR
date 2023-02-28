@@ -1,0 +1,12 @@
+<div class="pb-3 text-center flex flex-wrap items-center space-x-3">
+  <% unless proposal.completion_state == 'complete' || proposal.completion_state == 'closed' || proposal.completion_state == 'ready for close' %>
+    <%=  ProposalDecorator.new(proposal).incomplete_state_block %>
+  <% end %>
+  <%=  ProposalDecorator.new(proposal).completion_state_link_block %>
+
+  <%# if proposal.completion_state != 'complete' %>
+<!--    <div class="px-6 py-3 inline-flex border rounded-lg bg-gray-50 border-gray-300 shadow-md hover:border-gray-700 hover:shadow-xl">-->
+      <%#= link_to (image_tag "auroraLogo.png", class: 'w-16 '), proposal.appointment.address&.aurora_searchable, target: '_blank' %>
+<!--    </div>-->
+  <%# end %>
+</div>

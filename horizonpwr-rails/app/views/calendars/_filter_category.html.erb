@@ -1,0 +1,34 @@
+<div class="w-full mt-1 leading-none">
+  <div class="flex justify-between items-center">
+    <div class="text-gray-900 text-md font-semibold my-3">
+      <%= category %>
+    </div>
+    <%= link_to "clear", request.params.except(param.to_sym), class: "" %>
+  </div>
+  <% entries.each do |entry| %>
+    <div class="mb-2" data-controller="params">
+      <%# TODO: Refactor? %>
+      <% type_color = Appointment.appointment_type_text_colors[entry[1].to_sym] if category == "Appointment Type" %>
+      <% type_color = Appointment.appointment_subtype_text_colors[entry[1].to_sym] if category == "Appointment Subtype" %>
+      <%#= form.check_box param.to_s.to_sym, checked: (request.url.include?("#{param}=#{entry[1].to_s.gsub(/\s/, '+')}")), data: { action: "click->params#toggleFilter" }, id: entry[1], class: "installer-checkboxes form-tick appearance-none h-6 w-6 border border-gray-300 rounded-lg checked:bg-blue-600 checked:border-transparent focus:outline-none" %>
+      <%= form.check_box param.to_s.to_sym, checked: params_in_url?(request.original_url, param, entry[1].to_s), data: { action: "click->params#toggleFilter" }, id: entry[1], class: "installer-checkboxes form-tick appearance-none h-6 w-6 border border-gray-300 rounded-lg checked:bg-blue-600 checked:border-transparent focus:outline-none" %>
+      <%= form.label param.to_s.to_sym, entry[0], class: "#{type_color} inline-block" %>
+
+      <%# TODO: Refactor! %>
+      <% if category == "Appointment Type" %>
+        <% if params[:start_date] %>
+          <span class="text-sm">(<%= @appts.where(:start_at => params[:start_date].to_date.beginning_of_month..params[:start_date].to_date.end_of_month).where(appointment_type: entry[1]).size %>)</span>
+        <% else %>
+          <span class="text-sm">(<%= @appts.where(:start_at => Date.today.beginning_of_month..Date.today.end_of_month).where(:appointment_type => entry[1]).size %>)</span>
+        <% end %>
+      <% end %>
+      <% if category == "Appointment Subtype" %>
+        <% if params[:start_date] %>
+          <span class="text-sm">(<%= @appts.where(:start_at => params[:start_date].to_date.beginning_of_month..params[:start_date].to_date.end_of_month).where(appointment_subtype: entry[1]).size %>)</span>
+        <% else %>
+          <span class="text-sm">(<%= @appts.where(:start_at => Date.today.beginning_of_month..Date.today.end_of_month).where(appointment_subtype: entry[1]).size %>)</span>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

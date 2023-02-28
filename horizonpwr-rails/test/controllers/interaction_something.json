@@ -1,0 +1,113 @@
+{
+  "action" => "interaction",
+  "type" => "interaction",
+  "data" => {
+  "interaction" => {
+  "id" => 628709,
+  "address_id" => 152893645,
+  "customer_id" => 37437,
+  "employee_id" => 286,
+  "type_id" => 4,
+  "sub_type_id" => 4,
+  "offline_uuid" => nil,
+  "created" => "2021-06-18T02:57:11.000Z",
+  "modified" => "2021-06-18T02:57:11.000Z",
+  "type_name" => "[FILTERED]",
+  "sub_type_name" => "[FILTERED]"
+},
+"address" => {
+"id" => 152893645,
+"lat" => "44.02913345",
+"lng" => "-116.92691490",
+"number" => "2063",
+"street" => "Timber Creek Drive",
+"unit" => nil,
+"city" => "Fruitland",
+"district" => nil,
+"region" => "Idah",
+"postal" => "83619",
+"country" => "US"
+},
+"address_fields" => {},
+"customer" => {
+"id" => 37437,
+"first_name" => "[FILTERED]",
+"last_name" => "[FILTERED]",
+"gender" => nil,
+"birthdate" => nil,
+"email_personal" => "[FILTERED]",
+"phone_mobile" => "2087397953",
+"created" => "2021-06-18T02:56:41.000Z",
+"modified" => "2021-06-18T02:56:41.000Z"
+},
+"custom_fields" => {},
+"employee" => {
+"id" => 286,
+"first_name" => "[FILTERED]",
+"alias" => "",
+"last_name" => "[FILTERED]",
+"email" => "[FILTERED]",
+"group_id" => 3,
+"created" => "2021-06-14T20:30:03.000Z",
+"modified" => "2021-06-14T20:32:42.000Z",
+"group_name" => "[FILTERED]"
+}
+},
+"controller" => "canvass",
+"canvass" => {
+"action" => "create",
+"type" => "interaction",
+"data" => {
+"interaction" => {
+"id" => 628709,
+"address_id" => 152893645,
+"customer_id" => 37437,
+"employee_id" => 286,
+"type_id" => 4,
+"sub_type_id" => 4,
+"offline_uuid" => nil,
+"created" => "2021-06-18T02:57:11.000Z",
+"modified" => "2021-06-18T02:57:11.000Z",
+"type_name" => "[FILTERED]",
+"sub_type_name" => "[FILTERED]"
+},
+"address" => {
+"id" => 152893645,
+"lat" => "44.02913345",
+"lng" => "-116.92691490",
+"number" => "2063",
+"street" => "Timber Creek Drive",
+"unit" => nil,
+"city" => "Fruitland",
+"district" => nil,
+"region" => "Idah",
+"postal" => "83619",
+"country" => "US"
+},
+"address_fields" => {},
+"customer" => {
+"id" => 37437,
+"first_name" => "[FILTERED]",
+"last_name" => "[FILTERED]",
+"gender" => nil,
+"birthdate" => nil,
+"email_personal" => "[FILTERED]",
+"phone_mobile" => "2087397953",
+"created" => "2021-06-18T02:56:41.000Z",
+"modified" => "2021-06-18T02:56:41.000Z"
+},
+"custom_fields" => {},
+"employee" => {
+"id" => 286,
+"first_name" => "[FILTERED]",
+"alias" => "",
+"last_name" => "[FILTERED]",
+"email" => "[FILTERED]",
+"group_id" => 3,
+"created" => "2021-06-14T20:30:03.000Z",
+"modified" => "2021-06-14T20:32:42.000Z",
+"group_name" => "[FILTERED]"
+}
+}
+}
+}

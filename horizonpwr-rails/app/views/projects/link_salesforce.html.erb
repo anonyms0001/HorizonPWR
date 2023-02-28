@@ -1,0 +1,22 @@
+<div class="container px-4 mx-auto my-8">
+  <div class="max-w-3xl mx-auto">
+    <div class="flex items-center justify-between mb-4">
+      <h1 class="h3"><%= t("shared.scaffold.edit.title", model: "Project") %></h1>
+      <%= link_to t("cancel"), @project, class: "btn btn-link" %>
+    </div>
+    <div class="p-8 bg-white rounded shadow">
+      <div class="flow-root mt-6">
+        <%= form_with(model: @project) do |form| %>
+          <%= render "shared/error_messages", resource: form.object %>
+          <div class="form-group">
+            <%= form.label :salesforce_residential_project_id %>
+            <%= form.text_field :salesforce_residential_project_id, class: "form-control", required: true %>
+          </div>
+          <div class="flex justify-between form-group">
+            <%= form.button "Link Salesforce Project", class: "btn btn-primary", data: { disable_with: 'validating' } %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

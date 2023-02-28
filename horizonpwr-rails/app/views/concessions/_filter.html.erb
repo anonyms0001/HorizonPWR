@@ -1,0 +1,20 @@
+<!-- filters -->
+<div class="flex justify-center pt-3 pb-3" data-controller="onClick">
+  <div data-onClick-target="leftButton" class="hidden" data-action="click->onClick#scrollLeft">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+    </svg>
+  </div>
+  <div data-controller="onScroll" data-onClick-target="filtersContainer" data-action="scroll->onScroll#scrollMove" class="whitespace-nowrap overflow-x-auto scrollbar-hide px-2 text-center">
+    <%= link_to "All", concessions_path(filter: 'all'), class:'mr-2 text-gray-700' %>
+    <% Concession.statuses.each do |status| -%>
+    <%= link_to "#{status.humanize}", concessions_path(filter: status), class:'mr-2 text-gray-700 hover:text-indigo-700 active:text-indigo-700' %>
+    <% end %>
+  </div>
+  <div data-onClick-target="rightButton" class="" data-action="click->onClick#scrollRight">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+    </svg>
+  </div>
+</div>
+<!-- end of filters -->

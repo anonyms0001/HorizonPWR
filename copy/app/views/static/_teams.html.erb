@@ -1,0 +1,63 @@
+<!-- This example requires Tailwind CSS v2.0+ -->
+<div class="flex flex-col">
+  <div class="my-2 overflow-x-auto">
+    <div class=" rounded-lg overflow-hidden shadow-lg bg-white">
+      <div class="rounded-tl-lg rounded-tr-lg sm:rounded-tr-none relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
+        <table class="w-full">
+          <thead>
+          <tr>
+            <th class="p-3 text-xs text-left text-gray-600 uppercase">
+              Team
+            </th>
+            <th class="p-3 text-xs text-left text-gray-600 uppercase">
+              Score
+            </th>
+            <th class="p-3 text-xs text-left text-gray-600 uppercase">
+              Leads
+            </th>
+            <th class="p-3 text-xs text-left text-gray-600 uppercase">
+              QS
+            </th>
+            <th class="p-3 text-xs text-left text-gray-600 uppercase">
+              Close
+            </th>
+            <th class="p-3 text-xs text-left text-gray-600 uppercase">
+              Scheduled Installs
+            </th>
+          </tr>
+          </thead>
+          <tbody class="bg-white">
+          <% @teams.each do |team| %>
+              <tr  class="border-t border-gray-400 group bg-white hover:bg-gray-200">
+                <td class="py-4 whitespace-nowrap">
+                  <div class="text-sm font-medium text-gray-900">
+                    <%= link_to team.name, team_path(team), class: 'text-gray-900' %>
+                  </div>
+                </td>
+                <td class="px-3 py-4 whitespace-nowrap">
+                  <div class="text-sm text-gray-900">
+                    Score 0
+                  </div>
+                </td>
+                <td class="px-3 py-4 whitespace-nowrap">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                      Leads 0
+                    </span>
+                </td>
+                <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-500">
+                  QS 0
+                </td>
+                <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-500">
+                  Close 0
+                </td>
+                <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-500">
+                  Scheduled Install 0
+                </td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

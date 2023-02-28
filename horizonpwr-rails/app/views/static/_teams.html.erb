@@ -1,0 +1,67 @@
+<!-- This example requires Tailwind CSS v2.0+ -->
+<div id="teams-card" class="flex flex-col">
+  <div class="my-2 overflow-x-auto">
+    <div class="rounded-lg overflow-hidden shadow-lg bg-white">
+      <div class="rounded-tl-lg rounded-tr-lg sm:rounded-tr-none relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500 overflow-x-auto">
+        <%= render partial: "static/leaderboards/time_period_selection" %>
+        <table class="w-full">
+          <span class="text-gray-900 font-bold text-lg"><%= link_to "Teams", leaderboard_path(:anchor => "teams-card",), class: "text-gray-900 font-medium" %> /  <%= link_to "Representatives",  leaderboard_path(:anchor => "reps-card", :view => "reps"), class: "text-gray-900 font-medium" %></span>
+          <!--        Top Tabs-->
+            <thead>
+            <tr class="text-left">
+              <th class="p-3 text-xs text-left text-gray-600 uppercase">
+              </th>
+              <th class="p-3 text-xs text-left text-gray-600 uppercase">
+              </th>
+              <th class="p-3 text-xs text-left text-gray-600 uppercase text-center">
+                Leads
+              </th>
+              <th class="p-3 text-xs text-left text-gray-600 uppercase text-center">
+                Quality Sits
+              </th>
+              <th class="p-3 text-xs text-left text-gray-600 uppercase text-center">
+                Scheduled Installs
+              </th>
+            </tr>
+            </thead>
+          <tbody class="bg-white">
+          <%# @teams.each_with_index do |team, index| %>
+            <%# stat = @performance_stats.find_all { |stat| stat.accountable == team }.first %>
+          <% @performance_stats.each_with_index do |performance_stat, index| %>
+              <tr  class="border-b border-gray-400 group bg-white hover:bg-gray-200 text-center">
+                <td class="py-4 whitespace-nowrap">
+                  <p class="text-lg text-blue-500 font-bold">
+                    <%= (index + 1).ordinalize %>
+                    <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                      <%= performance_stat.score %> pts
+                    </span>
+                  </p>
+                </td>
+                <td class="py-4 whitespace-nowrap">
+                  <div class="text-sm font-medium text-gray-900">
+                    <%= link_to performance_stat.accountable.name, leaderboard_path(:team => performance_stat.accountable.name), class: 'text-gray-900' %>
+                    <br/>
+                    <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-gray-100 text-gray-800 m-2">
+                      <%#= team.leaderboard_win_loss %>
+                      <%= performance_stat.accountable.leaderboard_win_loss(params[:end_at]) %>
+                    </span>&nbsp;
+                    <%= link_to 'manage', team_path(performance_stat.accountable), class: 'text-gray-500 text-sm' if allowed_to?(:manage?, performance_stat.accountable) %>
+                  </div>
+                </td>
+                <td class="px-3 py-4 whitespace-nowrap">
+                  <%= performance_stat.lead_count %>
+                </td>
+                <td class="px-3 py-4 whitespace-nowrap">
+                  <%= performance_stat.quality_sit_count %>
+                </td>
+                <td class="px-3 py-4 whitespace-nowrap">
+                  <%= performance_stat.scheduled_install_count %>
+                </td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

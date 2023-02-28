@@ -1,0 +1,45 @@
+<div class="mx-auto my-8 px-4">
+  <div class="mx-auto">
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="h3"><%= link_to "Feedbacks", feedbacks_path %> > <%= @feedback.title %></h1>
+      <%= link_to t("edit"), edit_feedback_path(@feedback), class: "btn btn-link" if allowed_to?(:edit?, @feedback)%>
+    </div>
+    <%= render partial: 'feedbacks/feedback', locals: { feedback: @feedback } %>
+    <div class="my-4 bg-white rounded shadow p-4">
+      <div class="mb-4 h5">
+        Feedback:
+      </div>
+      <%= render partial: 'feedbacks/note', locals: { note: @feedback.note } %>
+      <div class="mb-4 h5">
+        Conversation:
+      </div>
+      <%#= render partial: 'notes/note', locals: {note: @feedback.note, last: false}  %>
+      <% if @feedback.note.notes.any? %>
+        <% @feedback.note.notes.each do |note| %>
+          <%= render partial: 'notes/note', locals: { note: note, last: false } %>
+        <% end %>
+      <% else %>
+        <div class="bg-gray-200 rounded p-2 mb-4">
+          No comments on this post yet.
+        </div>
+      <% end %>
+
+      <div class="flex">
+        <div class="mr-2">
+          <div class="relative">
+            <%= image_tag avatar_url_for(current_user), height: 20, width: 20, class: "h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center inline-block rounded-full" %>
+            <span class="absolute -bottom-3 -right-1 bg-white rounded-tl px-0.5 py-px">
+              <!-- Heroicon name: solid/chat-alt -->
+              <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd"/>
+              </svg>
+            </span>
+          </div>
+        </div>
+        <div class="w-full ml-1">
+          <%= render partial: 'notes/form', locals: { note: @feedback.note.notes.new } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

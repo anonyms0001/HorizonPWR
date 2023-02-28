@@ -1,0 +1,56 @@
+<div class="container mx-auto my-8 px-4">
+  <div class="flex justify-between items-center mb-4">
+    <h1 class="h3">Dynamic Forms</h1>
+
+    <% if @dynamic_forms.any? && allowed_to?(:manage, @dynamic_forms)%>
+      <%= link_to t("shared.scaffold.new.title", model: "Dynamic Form"), new_dynamic_form_path, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+
+  <% if @dynamic_forms.any? %>
+    <div class="bg-white rounded shadow table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @dynamic_forms, :model, "Model", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @dynamic_forms, :use_case, "Use case", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs text-gray-700 w-20"><%= t("shared.scaffold.actions") %></th>
+          </tr>
+        </thead>
+
+        <tbody>
+        <% @dynamic_forms.each do |dynamic_form| %>
+          <tr class="group border-t border-gray-400 hover:bg-gray-100">
+                      <td class="p-3"><%= dynamic_form.model %></td>
+                      <td class="p-3"><%= dynamic_form.use_case %></td>
+          
+            <td>
+              <%= link_to t("shared.scaffold.view"), dynamic_form, class: "btn btn-link no-underline" %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <% if @pagy.pages > 1 %>
+      <div class="text-center my-6">
+        <%== pagy_nav(@pagy) %>
+      </div>
+    <% end %>
+
+  <% else %>
+    <div class="bg-white rounded shadow flex flex-col items-center justify-between p-8 lg:flex-row">
+      <%= image_tag "empty.svg", class: "mb-4 lg:w-1/2" %>
+      <div class="flex-1 text-center">
+        <% if allowed_to?(:manage?, @dynamic_forms) %>
+          <p class="h3 mb-4">Create your first Dynamic Form</p>
+          <%= link_to t("shared.scaffold.new.title", model: "Dynamic Form"), new_dynamic_form_path, class: "btn btn-primary" %>
+        <% else %>
+          <p class="h3 mb-4">You have to wait for a Dynamic Form to be created for you first.</p>
+          <p class="mb-4">(you do not have permissions to create them yourself.)</p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

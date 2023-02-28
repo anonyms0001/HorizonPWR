@@ -1,0 +1,5 @@
+"NetworkFailureError" = "We can't reach the server. Are you connected to the internet?";
+"TimeoutFailureError" = "The content took too long to load.";
+"ContentTypeMismatch" = "Something internal went wrong.";
+"PageLoadFailureError" = "Something went wrong loading the page.";
+"HTTPError" = "We ran into a problem on the server (%d).";

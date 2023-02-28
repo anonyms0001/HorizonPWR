@@ -1,0 +1,80 @@
+<%= form_with(model: field_config) do |form| %>
+  <%= render "shared/error_messages", resource: form.object %>
+
+  <%= form.hidden_field :form_config_id, value: @form_config.id %>
+
+  <div class="form-group">
+    <%= form.label :title, "Title/Question/description/header thing" %>
+    <%= form.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="form-group" data-controller="onInput">
+    <%= form.label :field_type %>
+    <%= form.select :field_type, options_for_select(FieldConfig.field_types.sort, form.object.field_type), {}, id: "field_type", data: { action: "onInput#checkValue" }, class: 'form-control' %>
+  </div>
+  <div id='options-input-wrapper' class="form-group ml-4  <% if controller.action_name != "edit" %>hidden <% end %>" data-controller="elementCloner">
+    <div data-controller="removeNode" data-elementCloner-target="originalNode" class="mb-2 hidden">
+      <%= form.label :options %>
+      <div class="flex">
+        <%= form.text_field "options", value: "", class: "form-control ", multiple: true %>
+        &nbsp;
+        <button data-action="click->removeNode#removeOption" title="Remove Option" type="button" class="inline-flex m-2 align-middle items-center px-2.5 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 pointer-events-none opacity-20 ">
+          <%= render_svg "icons/close", styles: "fill-current icon-sm ", title: "Remove Option" %>
+        </button>
+      </div>
+    </div>
+    <% if controller.action_name == "edit" %>
+      <% form.object.options.each_with_index  do |option, index| %>
+        <div data-controller="removeNode" class="mb-2 ">
+          <%= form.label :options %>
+          <div class="flex">
+            <%= form.text_field "options", value: option, class: "form-control ", multiple: true %>
+            &nbsp;
+            <button data-action="click->removeNode#removeOption" title="Remove Option" type="button" class="<% if index == 0 %> pointer-events-none opacity-20  <% end %> inline-flex m-2 align-middle items-center px-2.5  shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              <%= render_svg "icons/close", styles: "fill-current icon-sm ", title: "Remove Option" %>
+            </button>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+    <a id="add-option-link" data-action="elementCloner#cloneTargetedElement" class="mt-2 text-sm cursor-pointer <% if controller.action_name == "show" || form.object.field_type != 'select' %> hidden <% end %>">
+      Add Another Option
+    </a>
+  </div>
+  <div class="form-group">
+    <%= form.label :eventable_action %>
+    <%= form.text_field :eventable_action, class: "form-control" %>
+  </div>
+  <% if controller.action_name == "show" %>
+    <%= form.hidden_field :position, value: (@form_config.field_configs.count + 1) %>
+  <% end %>
+  <div class="form-group">
+    <%= form.label :description %>
+    <%= form.rich_text_area :description, class: "form-control", data: { controller: "mentions", mentions_target: "field" } %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :required %>
+    <%= form.check_box :required, class: "form-checkbox" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :active %>
+    <%= form.check_box :active, class: "form-checkbox" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :repeatable %>
+    <%= form.check_box :repeatable, class: "form-checkbox" %>
+  </div>
+
+  <div class="form-group flex justify-between">
+    <%= form.button class: "btn btn-primary" %>
+
+    <% if allowed_to?(:manage?, with: DynamicFormPolicy) %>
+      <% if form.object.persisted? %>
+        <%= link_to t("delete"), form.object, class: "btn btn-danger outline", method: :delete, data: { confirm: t("are_you_sure") } %>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

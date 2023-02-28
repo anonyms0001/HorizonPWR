@@ -1,0 +1,46 @@
+{
+  "action": "create",
+  "type": "interaction",
+  "data": {
+    "interaction": {
+      "id": 477809,
+      "address_id": 127929865,
+      "customer_id": null,
+      "employee_id": 209,
+      "type_id": 17,
+      "sub_type_id": 17,
+      "offline_uuid": null,
+      "created": "2021-02-17T03:08:44.000Z",
+      "modified": "2021-02-17T03:08:44.000Z",
+      "type_name": "Not Ready Yet (Keep Knocking)",
+      "sub_type_name": "Not Ready Yet (Keep Knocking)"
+    },
+    "address": {
+      "id": 127929865,
+      "lat": "43.57867500",
+      "lng": "-116.40435900",
+      "number": "2875",
+      "street": "S Stoddard Rd",
+      "unit": "",
+      "city": "Meridian",
+      "district": "Ada",
+      "region": "ID",
+      "postal": "83642",
+      "country": "US"
+    },
+    "address_fields": {},
+    "customer": null,
+    "custom_fields": {},
+    "employee": {
+      "id": 209,
+      "first_name": "Bryce",
+      "alias": "",
+      "last_name": "Gardin",
+      "email": "bryce.gardin@horizonpwr.com",
+      "group_id": 3,
+      "created": "2021-01-25T18:25:19.000Z",
+      "modified": "2021-01-27T16:21:33.000Z",
+      "group_name": "Boise"
+    }
+  }
+}

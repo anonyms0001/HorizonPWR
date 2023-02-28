@@ -1,0 +1,298 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://collector.newrelic.com/agent_listener/invoke_raw_method?license_key=&marshal_format=json&method=preconnect&protocol_version=17
+    body:
+      encoding: UTF-8
+      string: '[{"high_security":false}]'
+    headers:
+      Content-Encoding:
+      - identity
+      Host:
+      - collector.newrelic.com
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - NewRelic-RubyAgent/7.0.0 (ruby 3.0.1 x86_64-darwin19) zlib/1.2.11
+      Content-Type:
+      - application/octet-stream
+  response:
+    status:
+      code: 410
+      message: Gone
+    headers:
+      Date:
+      - Fri, 13 Aug 2021 17:03:59 GMT
+      Content-Type:
+      - text/plain
+      Content-Length:
+      - '96'
+      Connection:
+      - keep-alive
+      Cf-Ray:
+      - 67e3851a3959e462-SEA
+      Cf-Cache-Status:
+      - DYNAMIC
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Vary:
+      - Accept-Encoding
+      Server:
+      - cloudflare
+    body:
+      encoding: UTF-8
+      string: '{"exception":{"message":"Invalid license key","error_type":"NewRelic::Agent::LicenseException"}}'
+  recorded_at: Fri, 13 Aug 2021 17:03:59 GMT
+- request:
+    method: get
+    uri: https://api-sandbox.aurorasolar.com/v2/tenants/2869d947-2140-4f4d-817d-da6440c74c31/users
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - application/json
+      User-Agent:
+      - Ruby
+      Host:
+      - api-sandbox.aurorasolar.com
+      Authorization:
+      - Bearer sk_sand_98ad2063af91192e432878aa
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Cowboy
+      Date:
+      - Fri, 13 Aug 2021 17:04:07 GMT
+      Connection:
+      - keep-alive
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - frame-ancestors 'self' https://*.auslr.io https://*.aurorasolar.com
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"e93423ce3a2acab275fe51b5a8f9366b"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Set-Cookie:
+      - _aurorasolar_session=dGw1YXJJb2RwNE8vQ0FBc1hHdVdQWFZuTk1XMkU5L1dIVjNYOHlmcEVCTWZlQXpteHVNdHNHcnZzditSaUp4SEZxbkdDYzNYTTlYV3VoUDJUWTJSVkJneWthUGloSEhNYlpUV3BFYWtEcmtYaHVqYiszcDd3MkMyeHJXVy9nQTgtLXUxUEhGcWFzc01jYjNuSHJVamhoeHc9PQ%3D%3D--5e01ef20d77c37b29ef729dbeb9b4f0b6cde2675;
+        path=/; secure; HttpOnly
+      X-Request-Id:
+      - c99b6a6d-d8a6-4c2d-95e4-aaf70c92aa7f
+      X-Runtime:
+      - '0.044233'
+      Vary:
+      - Accept-Encoding, Origin
+      Strict-Transport-Security:
+      - max-age=31536000
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: ASCII-8BIT
+      string: '{"users":[{"id":"fdbcac2a-976e-4a37-acc4-0c27b7193b2b","email":"somedude@test.com","account_status":"pending","first_name":"Some","last_name":"Dude"},{"id":"e0b0b21e-6503-44d6-b65d-801d5eae7ea0","email":"one@horizonpwr.com","account_status":"pending","first_name":"UserOne","last_name":"LastOne"},{"id":"9ea9f3a0-60cd-4bd3-b487-cd0f87d31b73","email":"no_email_6@horizonpwr.com","account_status":"pending","first_name":"Riley","last_name":"Wright"},{"id":"434d445c-d95d-44c9-a81a-29f26dafae9b","email":"jaredpine@hotmail.com","account_status":"pending","first_name":"Jared","last_name":"Pine"},{"id":"0b8a542c-e49d-4955-a475-a983ecaf8d33","email":"two@horizonpwr.com","account_status":"pending","first_name":"UserTwo","last_name":"LastTwo"},{"id":"9837376a-9f4d-4431-96e1-7f6da022cf4e","email":"george@test.com","account_status":"pending","first_name":"george","last_name":"jungle"},{"id":"ff0ffd11-7b1a-4c94-8847-52bd6e958260","email":"tanner.shotwell@horizonpwr.com","account_status":"deactivated","first_name":"Tanner","last_name":"Shotwell"},{"id":"d2dea18f-0d9f-49fb-9915-7947cf581b69","email":"cameron.muncy@horizonpwr.com","account_status":"active","first_name":"Cameron","last_name":"Muncy"},{"id":"8bff4395-3a11-4ce3-b4f3-c15a6d0c5e0f","email":"rod.klingler@horizonpwr.com","account_status":"active","first_name":"Rod","last_name":"Klingler"},{"id":"3cb90de6-6e6b-4df2-8481-ea5264435c3a","email":"collin.swainston@horizonpwr.com","account_status":"deactivated","first_name":"Collin","last_name":"Swainston"},{"id":"18fa0cb2-763d-49b7-a443-c5ab66eb35e2","email":"kendrikc.rambal@horizonpwr.com","account_status":"deactivated","first_name":"Kendrikc","last_name":"Rambal"},{"id":"30b27083-1f39-419b-84ca-b5c922bfc466","email":"ben.sanchez@horizonpwr.com","account_status":"active","first_name":"Ben","last_name":"Sanchez"},{"id":"5cbf1961-613d-4abe-80c3-178b37ce558e","email":"willard.moore@horizonpwr.com","account_status":"active","first_name":"Willard","last_name":"Moore"},{"id":"0de97737-ea45-4ac5-b3fc-21701472eee6","email":"nathan.johnson@horizonpwr.com","account_status":"active","first_name":"Nathan","last_name":"Johnson"},{"id":"b629897f-5952-42f3-9706-c53c96d3f1e4","email":"mpangarita@aurorasolar.com","account_status":"active","first_name":"Maria
+        Paula","last_name":"Angarita"}]}'
+  recorded_at: Fri, 13 Aug 2021 17:04:07 GMT
+- request:
+    method: post
+    uri: https://api-sandbox.aurorasolar.com/v2/tenants/2869d947-2140-4f4d-817d-da6440c74c31/users/invite
+    body:
+      encoding: UTF-8
+      string: '{"user":{"first_name":"UserThree","last_name":"LastThree","email":"three@horizonpwr.com","phone":"MyStringPhoneThree","title":null}}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - application/json
+      User-Agent:
+      - Ruby
+      Host:
+      - api-sandbox.aurorasolar.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer sk_sand_98ad2063af91192e432878aa
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Cowboy
+      Date:
+      - Fri, 13 Aug 2021 17:04:14 GMT
+      Connection:
+      - keep-alive
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - frame-ancestors 'self' https://*.auslr.io https://*.aurorasolar.com
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"aab2f7dadd66230958a2e39dd0a346e3"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Set-Cookie:
+      - _aurorasolar_session=N1JNMjhrZjJuVlJCYVBuUExYelczUFRmRHBiWk13OEJ3WlN4Ry92d3lEMnYxM0htR2gzaXhCMGxNcEErb0l1eTl2ZzJJTDNQQWhwd2lSQ2g2R1QrL0JaSzVLVERQL0hHMHBUNjYvM25HR01UQzFqeVEyOEtBRXhoeFdHVStmb04tLTNHR1FQYTY4R1BVczlXVkYveWNPdkE9PQ%3D%3D--e9765c1339aad3a3573565426f747471fbf52fda;
+        path=/; secure; HttpOnly
+      X-Request-Id:
+      - 5adf826f-9a95-47d4-a1d9-d0094a5d6321
+      X-Runtime:
+      - '1.952534'
+      Vary:
+      - Accept-Encoding, Origin
+      Strict-Transport-Security:
+      - max-age=31536000
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: ASCII-8BIT
+      string: '{"user":{"id":"3aff5dda-4cb2-447b-a2dc-e531a295ed29","email":"three@horizonpwr.com","account_status":"pending","phone":"MyStringPhoneThree","first_name":"UserThree","last_name":"LastThree","title":null,"tenant_id":"2869d947-2140-4f4d-817d-da6440c74c31","external_provider_id":null,"user_level":"Team
+        Member"}}'
+  recorded_at: Fri, 13 Aug 2021 17:04:15 GMT
+- request:
+    method: post
+    uri: https://api-sandbox.aurorasolar.com/v2/tenants/2869d947-2140-4f4d-817d-da6440c74c31/users/invite
+    body:
+      encoding: UTF-8
+      string: '{"user":{"first_name":"UserThree","last_name":"LastThree","email":"three@horizonpwr.com","phone":"MyStringPhoneThree","title":null}}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - application/json
+      User-Agent:
+      - Ruby
+      Host:
+      - api-sandbox.aurorasolar.com
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer sk_sand_98ad2063af91192e432878aa
+  response:
+    status:
+      code: 422
+      message: Unprocessable Entity
+    headers:
+      Server:
+      - Cowboy
+      Date:
+      - Fri, 13 Aug 2021 17:04:35 GMT
+      Connection:
+      - keep-alive
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - frame-ancestors 'self' https://*.auslr.io https://*.aurorasolar.com
+      Content-Type:
+      - application/json; charset=utf-8
+      Cache-Control:
+      - no-cache
+      Set-Cookie:
+      - _aurorasolar_session=bnJiNlpxdmU5bWV6QWhPaStEMGc0blo2bnZyaGtjYWl0SklJQ05KUnlpUlpHdHN0QkJQNklxOGhqZk03YllxK2IyYWRPZWw0MVNFWkpoOEZwNGE5Mi9EUnVOR09hYWlQeENzcUQ1bnAwdWxXVXNkRWROTHJjRkZsK0VxK3lEbk0tLVg0M3dQYjVVOGNoRmFNVzdpTjQ2NlE9PQ%3D%3D--57c3579721101d053b1c6a8dac593ea4c79c6a07;
+        path=/; secure; HttpOnly
+      X-Request-Id:
+      - aa216e18-a9fa-45c3-98a7-47937dba34b6
+      X-Runtime:
+      - '0.493189'
+      Vary:
+      - Accept-Encoding, Origin
+      Strict-Transport-Security:
+      - max-age=31536000
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: ASCII-8BIT
+      string: '{"error":{"username":["has already been taken"]}}'
+  recorded_at: Fri, 13 Aug 2021 17:04:36 GMT
+- request:
+    method: get
+    uri: https://api-sandbox.aurorasolar.com/v2/tenants/2869d947-2140-4f4d-817d-da6440c74c31/users
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - application/json
+      User-Agent:
+      - Ruby
+      Host:
+      - api-sandbox.aurorasolar.com
+      Authorization:
+      - Bearer sk_sand_98ad2063af91192e432878aa
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Cowboy
+      Date:
+      - Fri, 13 Aug 2021 17:05:01 GMT
+      Connection:
+      - keep-alive
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - frame-ancestors 'self' https://*.auslr.io https://*.aurorasolar.com
+      Content-Type:
+      - application/json; charset=utf-8
+      Etag:
+      - W/"ca6c8f52a26d64c53cdb760c81157645"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Set-Cookie:
+      - _aurorasolar_session=QVFvazZZNmE2bTFiYVJSdDYzclF6cjRRMXBTNmxsdTlHTmVpK3Nmczk3RVpCTi93NDV3YUkyNWIrSlNkV0pBdHdHanBnQjhVSDUySmNIR1RLbWh6UkNWZEF0VVkrSStRd0xmSWlFKzFUb3FWdnVZM2lOcFdhbGlTRkswQ2xvamctLTF3Uit3b05JVnJKeHFMTzZDVC9PQ2c9PQ%3D%3D--212070df15421d9e0bcec55f779fe1943a5e58f1;
+        path=/; secure; HttpOnly
+      X-Request-Id:
+      - 5f3ce26b-3724-4d84-bf41-6c50920be7ee
+      X-Runtime:
+      - '0.072452'
+      Vary:
+      - Accept-Encoding, Origin
+      Strict-Transport-Security:
+      - max-age=31536000
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: ASCII-8BIT
+      string: '{"users":[{"id":"fdbcac2a-976e-4a37-acc4-0c27b7193b2b","email":"somedude@test.com","account_status":"pending","first_name":"Some","last_name":"Dude"},{"id":"e0b0b21e-6503-44d6-b65d-801d5eae7ea0","email":"one@horizonpwr.com","account_status":"pending","first_name":"UserOne","last_name":"LastOne"},{"id":"9ea9f3a0-60cd-4bd3-b487-cd0f87d31b73","email":"no_email_6@horizonpwr.com","account_status":"pending","first_name":"Riley","last_name":"Wright"},{"id":"434d445c-d95d-44c9-a81a-29f26dafae9b","email":"jaredpine@hotmail.com","account_status":"pending","first_name":"Jared","last_name":"Pine"},{"id":"0b8a542c-e49d-4955-a475-a983ecaf8d33","email":"two@horizonpwr.com","account_status":"pending","first_name":"UserTwo","last_name":"LastTwo"},{"id":"9837376a-9f4d-4431-96e1-7f6da022cf4e","email":"george@test.com","account_status":"pending","first_name":"george","last_name":"jungle"},{"id":"3aff5dda-4cb2-447b-a2dc-e531a295ed29","email":"three@horizonpwr.com","account_status":"pending","first_name":"UserThree","last_name":"LastThree"},{"id":"ff0ffd11-7b1a-4c94-8847-52bd6e958260","email":"tanner.shotwell@horizonpwr.com","account_status":"deactivated","first_name":"Tanner","last_name":"Shotwell"},{"id":"d2dea18f-0d9f-49fb-9915-7947cf581b69","email":"cameron.muncy@horizonpwr.com","account_status":"active","first_name":"Cameron","last_name":"Muncy"},{"id":"8bff4395-3a11-4ce3-b4f3-c15a6d0c5e0f","email":"rod.klingler@horizonpwr.com","account_status":"active","first_name":"Rod","last_name":"Klingler"},{"id":"3cb90de6-6e6b-4df2-8481-ea5264435c3a","email":"collin.swainston@horizonpwr.com","account_status":"deactivated","first_name":"Collin","last_name":"Swainston"},{"id":"18fa0cb2-763d-49b7-a443-c5ab66eb35e2","email":"kendrikc.rambal@horizonpwr.com","account_status":"deactivated","first_name":"Kendrikc","last_name":"Rambal"},{"id":"5cbf1961-613d-4abe-80c3-178b37ce558e","email":"willard.moore@horizonpwr.com","account_status":"active","first_name":"Willard","last_name":"Moore"},{"id":"30b27083-1f39-419b-84ca-b5c922bfc466","email":"ben.sanchez@horizonpwr.com","account_status":"active","first_name":"Ben","last_name":"Sanchez"},{"id":"0de97737-ea45-4ac5-b3fc-21701472eee6","email":"nathan.johnson@horizonpwr.com","account_status":"active","first_name":"Nathan","last_name":"Johnson"},{"id":"b629897f-5952-42f3-9706-c53c96d3f1e4","email":"mpangarita@aurorasolar.com","account_status":"active","first_name":"Maria
+        Paula","last_name":"Angarita"}]}'
+  recorded_at: Fri, 13 Aug 2021 17:05:01 GMT
+recorded_with: VCR 6.0.0

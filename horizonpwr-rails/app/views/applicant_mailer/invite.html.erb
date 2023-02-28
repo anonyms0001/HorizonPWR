@@ -1,0 +1,8 @@
+<h3>Hey <%= @applicant.first_name %>,</h3>
+<p>
+  <%= "Your application was accepted, please follow the link to sign up to our system and then complete the onboarding steps." %>
+  <br>
+  <br>
+  <%= link_to 'View Application', new_user_registration_url(:applicant => @applicant.secure_public_id), class: 'nav-link ml-2 hidden xl:block' %>
+</p>
+

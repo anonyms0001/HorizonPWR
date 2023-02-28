@@ -1,0 +1,43 @@
+{
+  "action": "create",
+  "type": "note",
+  "data": {
+    "note": {
+      "id": 20273,
+      "address_id": 134305119,
+      "customer_id": null,
+      "employee_id": 108,
+      "content": "interested in solar, waiting for the snow to be off the ground.",
+      "offline_uuid": null,
+      "created": "2021-02-17T02:16:49.000Z",
+      "modified": "2021-02-17T02:16:49.000Z"
+    },
+    "address": {
+      "id": 134305119,
+      "lat": "43.47787690",
+      "lng": "-111.97773500",
+      "number": "2160",
+      "street": "Curlew Dr",
+      "unit": "",
+      "city": "Idaho Falls",
+      "district": "Bonneville",
+      "region": "ID",
+      "postal": "83406",
+      "country": null
+    },
+    "address_fields": {},
+    "customer": null,
+    "custom_fields": {},
+    "employee": {
+      "id": 108,
+      "first_name": "Harrison",
+      "alias": "",
+      "last_name": "Price",
+      "email": "harrison.price@horizonpwr.com",
+      "group_id": 1,
+      "created": "2020-07-07T17:50:38.000Z",
+      "modified": "2020-09-11T20:43:45.000Z",
+      "group_name": "Rexburg"
+    }
+  }
+}

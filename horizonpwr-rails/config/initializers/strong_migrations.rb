@@ -1,0 +1,1 @@
+StrongMigrations.disable_check(:add_foreign_key)

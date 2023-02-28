@@ -1,0 +1,10 @@
+<h3>Hey <%= @user.first_name %>,</h3>
+<p>
+  <%= "The proposal for your #{@proposal.appointment.date.strftime("%b %e, %Y, %l:%M %P")} appointment with #{@contact.name} has been completed." %>
+  <br>
+  <br>
+  <%= link_to 'View Proposal', proposal_url(@proposal) %>
+</p>
+<p>
+  Reach out the support team if you have questions.
+</p>

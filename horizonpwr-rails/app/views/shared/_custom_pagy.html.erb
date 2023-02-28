@@ -1,0 +1,5 @@
+<% if @pagy.pages > 1 %>
+    <div class="text-center w-full pb-6 rounded-md px-6 bg-white">
+      <%== render partial: 'pagy/custom_nav', locals: {pagy: @pagy}  %>
+    </div>
+<% end %>

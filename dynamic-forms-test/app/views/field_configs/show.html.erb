@@ -1,0 +1,43 @@
+<div class="container mx-auto my-8 px-4">
+  <div class="max-w-3xl mx-auto">
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="h3"><%= link_to "Field Configs", field_configs_path %> > Field Config #<%= @field_config.id %></h1>
+      <%= link_to t("edit"), edit_field_config_path(@field_config), class: "btn btn-link" %>
+    </div>
+
+    <div class="bg-white rounded shadow p-8">
+            <div class="mb-4">
+        <h5>Form config</h5>
+        <%= @field_config.form_config.title.humanize %>
+      </div>
+            <div class="mb-4">
+        <h5>Name</h5>
+        <%= @field_config.name %>
+      </div>
+            <div class="mb-4">
+        <h5>Label</h5>
+        <%= @field_config.label %>
+      </div>
+            <div class="mb-4">
+        <h5>Field type</h5>
+        <%= @field_config.field_type %>
+      </div>
+            <div class="mb-4">
+        <h5>Options</h5>
+        <%= @field_config.options %>
+      </div>
+            <div class="mb-4">
+        <h5>Position</h5>
+        <%= @field_config.position %>
+      </div>
+            <div class="mb-4">
+        <h5>Required</h5>
+        <%= @field_config.required %>
+      </div>
+            <div class="mb-4">
+        <h5>Repeatable</h5>
+        <%= @field_config.repeatable %>
+      </div>
+          </div>
+  </div>
+</div>

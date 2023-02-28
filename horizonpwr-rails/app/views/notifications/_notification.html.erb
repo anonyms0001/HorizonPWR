@@ -1,0 +1,34 @@
+<% instance = notification.to_notification %>
+<%= link_to notification, data: {
+    notifications_target: "notification",
+    id: notification&.id,
+    read_at: notification&.read_at,
+    interacted_at: notification&.interacted_at,
+  },
+  class: "flex items-center px-4 py-3 hover:bg-gray-100 border-b last: border-b-0" do %>
+  <div class="flex-1">
+
+    <div class="flex items-start">
+      <div class="flex-shrink-0">
+        <!-- Heroicon name: outline/inbox -->
+        <svg class="h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+        </svg>
+      </div>
+      <div class="ml-3 w-0 flex-1 pt-0.5">
+        <p class="text-sm font-medium text-gray-900">
+          <%= instance.subject %>
+        </p>
+        <p class="mt-1 text-sm text-gray-500">
+          <%= instance.message %>
+        </p>
+      </div>
+    </div>
+    <p class="text-sm text-gray-700"><%= local_time_ago notification&.created_at %></p>
+  </div>
+
+  <%# blue dot is toggled by CSS from the parent's data-interacted-at attribute presence %>
+  <div uninteracted class="hidden flex-shrink-0">
+    <span class="inline-block w-2 h-2 ml-4 bg-blue-500 rounded-full"></span>
+  </div>
+<% end %>

@@ -1,0 +1,103 @@
+// Light Jumpstart theme for Pagy's default renderer
+
+.pagination {
+  @apply inline-flex flex-wrap items-center justify-start;
+
+  .page {
+    &:first-child a, &:first-child {
+      @apply rounded-tl rounded-bl;
+    }
+
+    &:last-child a, &:last-child {
+      @apply rounded-tr rounded-br;
+    }
+  }
+
+  .disabled, .gap {
+    @apply border relative block leading-tight bg-white text-gray-500 no-underline py-2 px-3;
+    margin-left: -1px;
+  }
+
+  .page {
+    &.active {
+      @apply border border-primary-500 bg-primary-500 text-white relative block leading-tight no-underline py-2 px-3;
+      margin-left: -1px;
+    }
+
+    a {
+      @apply border relative block leading-tight bg-white text-gray-500 no-underline py-2 px-3;
+      margin-left: -1px;
+
+      &:hover {
+        @apply bg-gray-200;
+      }
+    }
+  }
+}
+
+
+.custom-pagination {
+  @apply flex justify-center w-full border-t border-gray-200;
+
+  .custom-page {
+    &:first-child a, &:first-child {
+      @apply rounded-tl rounded-bl;
+    }
+
+    &:last-child a, &:last-child {
+      @apply rounded-tr rounded-br;
+    }
+  }
+
+  .custom-disabled{
+    @apply cursor-not-allowed flex w-full pt-4 text-gray-500;
+    &:hover {
+      @apply text-gray-500;
+    }
+  }
+
+  .custom-gap {
+    @apply pt-4 px-4 hidden sm:flex text-gray-500;
+  }
+
+  .custom-page {
+    @apply hidden sm:contents px-4 ;
+    &.custom-active {
+
+    }
+
+    a {
+      @apply pt-4 text-gray-500 no-underline py-2 px-3;
+
+
+      &:hover {
+        @apply text-gray-200;
+      }
+    }
+  }
+  .custom-next {
+    @apply w-full flex justify-end pt-4;
+    a {
+      @apply text-gray-500;
+    }
+
+    &:hover {
+      @apply text-gray-200;
+    }
+  }
+  .custom-prev {
+    @apply flex w-full justify-start pt-4;
+    a {
+      @apply text-gray-500;
+    }
+    &:hover {
+      @apply text-gray-200;
+    }
+  }
+  .current {
+   @apply border-indigo-500 text-indigo-600 border-t-2 pt-3 sm:pt-1.5 px-4 inline-flex items-center;
+    &:hover {
+     @apply border-indigo-500 text-indigo-400 pt-3 sm:pt-1.5;
+    }
+  }
+}

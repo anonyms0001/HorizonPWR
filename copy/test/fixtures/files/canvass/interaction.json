@@ -1,0 +1,46 @@
+{
+  "action": "create",
+  "type": "interaction",
+  "data": {
+    "interaction": {
+      "id": 477802,
+      "address_id": 69738015,
+      "customer_id": null,
+      "employee_id": 195,
+      "type_id": 23,
+      "sub_type_id": 23,
+      "offline_uuid": "0EC03C68-E852-45A8-B3D9-5C7E47BEC349",
+      "created": "2021-02-17T03:03:33.000Z",
+      "modified": "2021-02-17T03:03:33.000Z",
+      "type_name": "Install",
+      "sub_type_name": "Install"
+    },
+    "address": {
+      "id": 69738015,
+      "lat": "44.01984510",
+      "lng": "-121.28200010",
+      "number": "61139",
+      "street": "AMBASSADOR DR",
+      "unit": "",
+      "city": "BEND",
+      "district": "",
+      "region": "OR",
+      "postal": "97702",
+      "country": "US"
+    },
+    "address_fields": {},
+    "customer": null,
+    "custom_fields": {},
+    "employee": {
+      "id": 195,
+      "first_name": "James",
+      "alias": "",
+      "last_name": "Woods",
+      "email": "james.woods@horizonpwr.com",
+      "group_id": 7,
+      "created": "2021-01-06T16:40:53.000Z",
+      "modified": "2021-01-06T19:07:36.000Z",
+      "group_name": "Bend"
+    }
+  }
+}

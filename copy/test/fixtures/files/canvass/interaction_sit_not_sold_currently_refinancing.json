@@ -1,0 +1,56 @@
+{
+  "action": "create",
+  "type": "interaction",
+  "data": {
+    "interaction": {
+      "id": 477814,
+      "address_id": 69932313,
+      "customer_id": 33470,
+      "employee_id": 168,
+      "type_id": 9,
+      "sub_type_id": 37,
+      "offline_uuid": "769BB4C2-A503-4897-BEEF-E9FC61C87437",
+      "created": "2021-02-17T03:22:40.000Z",
+      "modified": "2021-02-17T03:22:40.000Z",
+      "type_name": "Sit Not Sold",
+      "sub_type_name": "Currently Refinancing"
+    },
+    "address": {
+      "id": 69932313,
+      "lat": "42.18431700",
+      "lng": "-121.70305280",
+      "number": "7107",
+      "street": "TURNER CT",
+      "unit": "",
+      "city": "",
+      "district": "",
+      "region": "OR",
+      "postal": "97603",
+      "country": "US"
+    },
+    "address_fields": {},
+    "customer": {
+      "id": 33470,
+      "first_name": "Roger",
+      "last_name": "Bailey",
+      "gender": "M",
+      "birthdate": "1954-04-12",
+      "email_personal": null,
+      "phone_mobile": "",
+      "created": "2021-02-12T21:22:44.000Z",
+      "modified": "2021-02-12T21:22:44.000Z"
+    },
+    "custom_fields": {},
+    "employee": {
+      "id": 168,
+      "first_name": "Colby",
+      "alias": "",
+      "last_name": "Reed",
+      "email": "colby.reed@horizonpwr.com",
+      "group_id": 2,
+      "created": "2020-10-29T19:17:25.000Z",
+      "modified": "2021-01-15T23:16:22.000Z",
+      "group_name": "Klamath Falls"
+    }
+  }
+}

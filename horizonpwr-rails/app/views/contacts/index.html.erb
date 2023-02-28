@@ -1,0 +1,52 @@
+<div class="my-8 px-4">
+  <div class="flex flex-col items-start justify-between sm:flex-row-reverse flex-wrap">
+    <%= render partial: "contacts/search" %>
+    <div class="lg:w-3/4 w-full lg:pr-8 lg:mb-0 mb-6 overflow-hidden overflow-x-auto">
+      <div class="rounded-lg overflow-hidden shadow-lg bg-white">
+        <div class="rounded-tl-lg rounded-tr-lg sm:rounded-tr-none relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
+          <p class="text-xl font-bold text-gray-900 sm:text-2xl">Contacts</p>
+          <br/>
+            <table class="w-full">
+              <thead>
+              <tr>
+                <th class="p-3 text-xs text-left text-gray-600 uppercase"><%= sortable @contacts, :first_name, 'First Name', class: 'text-gray-700 hover:text-indigo-400' %></th>
+                <th class="p-3 text-xs text-left text-gray-600 uppercase"><%= sortable @contacts, :last_name, 'Last Name', class: 'text-gray-700 hover:text-indigo-400' %></th>
+                <th class="p-3 text-xs text-left text-gray-600 uppercase"><%= sortable @contacts, :email, 'Email', class: 'text-gray-700 hover:text-indigo-400' %></th>
+                <th class="p-3 text-xs text-left text-gray-600 uppercase"><%= sortable @contacts, :phone, 'Phone', class: 'text-gray-700 hover:text-indigo-400' %></th>
+              </tr>
+              </thead>
+              <tbody class="bg-white">
+              <% @contacts.each do |contact| %>
+                <tr class="border-t border-gray-400 group bg-white hover:bg-gray-200">
+                  <td class="py-4 whitespace-nowrap">
+                    <%= link_to contact do %>
+                      <div class="text-m text-gray-900">
+                        <%= contact.first_name %>
+                      </div>
+                      <td class="p-3">
+                        <div class="text-m text-gray-900">
+                          <%= contact.last_name %>
+                        </div>
+                      </td>
+                      <td class="p-3">
+                        <div class="text-m text-gray-900">
+                          <%= contact.email %>
+                        </div>
+                      </td>
+                      <td class="p-3">
+                        <div class="text-m text-gray-900">
+                          <%= contact.phone %>
+                        </div>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+        <%= render "shared/custom_pagy" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

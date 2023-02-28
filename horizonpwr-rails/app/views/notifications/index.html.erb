@@ -1,0 +1,23 @@
+<%= title "Notifications" %>
+<div class="container mx-auto">
+  <h1 class="h2 my-6 text-center"><%= t(".title") %></h1>
+  <%= link_to 'Mark non-feedback notifications as read', mark_non_feedback_notifications_as_read_path if current_user.admin? %>
+</div>
+
+<%= render partial: "notifications/filter" %>
+
+<div class="bg-white sm:rounded-md mx-2 mb-4">
+  <ul>
+    <%= render partial: "notifications/notification", collection: @notifications, cached: true %>
+  </ul>
+
+  <% if @notifications.empty? %>
+    <div class="px-4 py-3"><%= t(".empty_placeholder") %></div>
+  <% end %>
+
+  <% if @pagy.pages > 1 %>
+    <div class="text-center mt-8">
+      <%== pagy_nav(@pagy) %>
+    </div>
+  <% end %>
+</div>

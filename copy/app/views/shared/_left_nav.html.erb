@@ -1,0 +1,15 @@
+<% if user_signed_in? && active_user_signed_in? %>
+  <%= link_to t(".leaderboard"), leaderboard_path, class: 'nav-link no-underline text-gray-800 bg-white hover:bg-primary-100 transition ease-in-out duration-200 whitespace-nowrap rounded' %>
+  <%= link_to t(".members"), users_path, class: 'nav-link no-underline text-gray-800 bg-white hover:bg-primary-100 transition ease-in-out duration-200 whitespace-nowrap rounded' %>
+  <%= nav_link_to "Appointments", appointments_path, class: 'nav-link' if allowed_to?(:index?, Appointment, with: AppointmentPolicy) %>
+  <%= nav_link_to "Contacts", contacts_path, class: 'nav-link' %>
+  <%= nav_link_to "Addresses", addresses_path, class: 'nav-link'  if allowed_to?(:index?, Address, with: AddressPolicy) %>
+  <%= nav_link_to "Proposals", proposals_path, class: 'nav-link' if allowed_to?(:index?, Proposal, with: ProposalPolicy) %>
+  <%= nav_link_to "Projects", projects_path, class: 'nav-link' if allowed_to?(:index?, Project, with: ProjectPolicy) %>
+  <%= nav_link_to "Form Builder", dynamic_forms_path, class: 'nav-link' if allowed_to?(:index?, DynamicForm, with: DynamicFormPolicy ) %>
+  <%= nav_link_to "Earning Types", earning_types_path, class: 'nav-link' if allowed_to?(:index?, EarningType, with: EarningTypePolicy ) %>
+  <%= nav_link_to "Payouts", payouts_path, class: 'nav-link' if allowed_to?(:index?, Payout, with: PayoutPolicy ) %>
+<% elsif user_signed_in? && !current_user.active %>
+  <%= link_to t(".onboarding"), onboarding_path, class: 'nav-link no-underline text-gray-800 bg-white hover:bg-primary-100 transition ease-in-out duration-200 whitespace-nowrap rounded' %>
+<% end %>
+<%# Place any links for the LEFT side of the nav bar here. Be sure to add class: "nav-link" to each item for proper spacing. %>

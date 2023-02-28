@@ -1,0 +1,74 @@
+<div class="container mx-auto my-8 px-4" data-controller="reveal" data-reveal-hidden-class="hidden" >
+  <div class="max-w-3xl mx-auto">
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="h3"><%= link_to "Form Configs", form_configs_path %> > Form Config #<%= @form_config.id %></h1>
+      <%= link_to t("edit"), edit_form_config_path(@form_config), class: "btn btn-link" %>
+    </div>
+    <div class="bg-white rounded shadow p-8">
+      <h3 class="">This Form</h3>
+      <hr class="mb-4" />
+      <div class="mb-4">
+        <h5 class="inline-block">Title:</h5>
+        <%= @form_config.title.humanize %>
+      </div>
+      <div class="mb-4">
+        <h5 class="inline-block">Will Display For: </h5>
+        <%= @form_config.model %>
+        <%= @form_config.use_case.titleize %>
+        at position <%= @form_config.position %>.
+      </div>
+      <div class="mb-4">
+        <h5 class="inline-block">Status: </h5>
+        <%= "IN" if @form_config.active == false %>ACTIVE
+      </div>
+    </div>
+
+    <div class="bg-white rounded shadow p-8 my-4">
+      <h3 class="">Preview</h3>
+      <hr/>
+      <h5 class="font-bold py-4"><%= @form_config.title.titleize %></h5>
+      <%= form_with model: @form_config, url: root_path do |f| %>
+        <% @form_config.field_configs.each do |field_config| %>
+          <div class="field">
+            <%= f.label field_config.name, class: "flex items-center space-x-3 pb-3" do %>
+              <% if field_config.repeatable? %>
+                <%= render "dynamic_forms/repeatable_fields", f: f, field_config: field_config, values: @form_config.public_send(field_config.name) %>
+              <% else %>
+                <%# TODO: Do we want to add handling for editing/deleting these fields? If so, how?
+                          Linking directly to edit_field_config_path(field_config) breaks because we altered the form to work
+                          here on the FormConfig#Show page.
+                          We might also want to make these sortable via drag-and-drop. %>
+                <%# TODO: `*[field_config.options].compact` is necessary for fields with options (ie, select), but it breaks. %>
+                <%#= f.public_send field_config.field_type, field_config.name, *[field_config.options].compact, class: "form-tick
+                     appearance-none h-6 w-6 border border-gray-300 rounded-md checked:bg-blue-600 checked:border-transparent focus:outline-none mr-2" %>
+                <%# TODO: The method below only really works well for checkboxes. Perhaps we should use a service object
+                          to return different content based on the field_type, instead. See scratch file. %>
+                <%= f.public_send field_config.field_type, field_config.name, class: "form-tick appearance-none h-6 w-6 border
+                    border-gray-300 rounded-md checked:bg-blue-600 checked:border-transparent focus:outline-none mr-2" %>
+                <span class="text-gray-900 font-medium">
+                  <%= field_config.label %>
+                </span>
+              <% end %>
+            <% end %>
+            <%#= render "shared/errors", errors: @form_config.errors[field_config.name] %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+    <button data-action="click->reveal#toggle" type="button" class="btn btn-primary">
+      Add New Field
+      &nbsp;
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+    </button>
+
+    <div class="bg-white rounded shadow p-8 my-4 hidden" data-reveal-target="item">
+      <h3 class="">Add A Field To This Form</h3>
+      <p class="text-sm mb-2">
+        Fields will appear in the Preview, above, once submitted.
+      </p>
+      <hr class="mb-4" />
+      <%= render "field_configs/form", field_config: @form_config.field_configs.new(field_type: 3) %>
+    </div>
+  </div>
+</div>

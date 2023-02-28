@@ -1,0 +1,35 @@
+{
+  "settings": {
+      "tabs": [
+          {
+              "title": "Posts",
+              "path": "/posts",
+              "system_image_name": "note.text"
+          },
+          {
+              "title": "What's New",
+              "path": "/announcements",
+              "system_image_name": "megaphone"
+          }
+      ]
+  },
+  "rules": [
+      {
+          "patterns": [
+              "/new$",
+              "/edit$"
+          ],
+          "properties": {
+              "presentation": "modal"
+          }
+      },
+      {
+          "patterns": [
+              "/users/sign_in"
+          ],
+          "properties": {
+              "flow": "authentication"
+          }
+      }
+  ]
+}

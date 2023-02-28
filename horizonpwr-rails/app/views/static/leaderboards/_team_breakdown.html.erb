@@ -1,0 +1,30 @@
+<table class="w-full">
+  <span class="text-gray-900 font-bold text-lg">
+    <%#= link_to "Teams", leaderboard_path(:anchor => "teams-card",), class: "text-gray-900 font-medium" %>
+<!--    /-->
+    <%#= link_to "Representatives",  leaderboard_path(:anchor => "reps-card", :view => "reps"), class: "text-gray-900 font-medium" %>
+  </span>
+  <!-- Top Tabs-->
+  <thead>
+  <tr class="text-left">
+    <th class="p-3 text-xs text-left text-gray-600 uppercase">
+    </th>
+    <th class="p-3 text-xs text-left text-gray-600 uppercase">
+    </th>
+    <th class="p-3 text-xs text-left text-gray-600 uppercase text-center">
+      kWh
+    </th>
+    <th class="p-3 text-xs text-left text-gray-600 uppercase text-center">
+      Pass Rate
+    </th>
+    <th class="p-3 text-xs text-left text-gray-600 uppercase text-center">
+      Overall
+    </th>
+  </tr>
+  </thead>
+  <tbody class="bg-white">
+  <% @performance_stats.each_with_index do |performance_stat, index| %>
+    <%= render partial: 'static/leaderboards/team_row', locals: {index: index, performance_stat: performance_stat} %>
+  <% end %>
+  </tbody>
+</table>

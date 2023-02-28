@@ -1,0 +1,36 @@
+# == Schema Information
+#
+# Table name: dynamic_forms
+#
+#  id         :bigint           not null, primary key
+#  model      :string           not null
+#  sequential :boolean          default(FALSE)
+#  use_case   :string           not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+one:
+  model: MyString
+  use_case: MyString
+  sequential: false
+
+two:
+  model: MyString
+  use_case: MyString
+  sequential: false
+
+onboarding:
+  model: User
+  use_case: onboarding
+  sequential: false
+
+residential:
+  model: Project
+  use_case: residential-project
+  sequential: false
+
+sequential:
+  model: Proposal
+  use_case: residential-proposal
+  sequential: true

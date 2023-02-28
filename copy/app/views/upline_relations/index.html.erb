@@ -1,0 +1,80 @@
+<div class="mx-auto my-4 px-1 md:px-2 lg:px-4">
+  <div class="flow-root lg:mb-4 <%= 'hidden' if !@upline_relations.any? && allowed_to?(:create?, UplineRelation, with: UplineRelationPolicy ) %>">
+    <%= link_to t("shared.scaffold.new.title", model: "Upline Relation"), new_upline_relation_path, class: "btn btn-primary float-right hidden lg:inline-block" %>
+  </div>
+  <div class="flex-none flex-wrap-reverse lg:flex-wrap lg:flex items-center mb-4">
+    <div class="w-full lg:w-1/4">
+      <div class="flex justify-between">
+        <h1 class="h3 mr-2">
+          <%= link_to 'Upline Relations', upline_relations_path, class:"text-gray-900" %>
+        </h1>
+        <%= link_to t("shared.scaffold.new.title", model: "Upline Relation"), new_upline_relation_path, class: "btn btn-primary lg:hidden" %>
+      </div>
+    </div>
+
+    <% if @upline_relations.any? && allowed_to?(:create?, UplineRelation, with: UplineRelationPolicy ) %>
+      <div class="w-full lg:w-1/2">
+        <%= render partial: "upline_relations/filter" %>
+      </div>
+      <div class="w-full lg:w-1/4">
+        <%= render partial: "upline_relations/search" %>
+      </div>
+    <div class="w-full mt-2 text-center text-sm <%= 'hidden' if !params[:filter].present? %>">
+      Filtered by: <%= "'#{params[:filter]}'" %>
+    </div>
+    <% end %>
+  </div>
+  <div class="">
+    <% if @upline_relations.any? %>
+      <div class="bg-white rounded shadow table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+                <th class="p-3 uppercase text-left text-xs"><%= sortable @upline_relations, :upline_id, "Upline", class: "text-gray-700" %></th>
+                <th class="p-3 uppercase text-left text-xs"><%= sortable @upline_relations, :downline_id, "Downline", class: "text-gray-700" %></th>
+                <th class="p-3 uppercase text-left text-xs"><%= sortable @upline_relations, :created_by_id, "Created by", class: "text-gray-700" %></th>
+                <th class="p-3 uppercase text-left text-xs"><%= sortable @upline_relations, :active, "Active", class: "text-gray-700" %></th>
+                <th class="p-3 uppercase text-left text-xs text-gray-700 w-20"><%= t("shared.scaffold.actions") %></th>
+            </tr>
+          </thead>
+
+          <tbody>
+          <% @upline_relations.each do |upline_relation| %>
+            <tr class="group border-t border-gray-400 hover:bg-gray-100">
+                          <td class="p-3"><%= upline_relation.upline.name %></td>
+                          <td class="p-3"><%= upline_relation.downline.name %></td>
+                          <td class="p-3"><%= upline_relation.created_by.name %></td>
+                          <td class="p-3">
+                            <%= render 'shared/active_status_color', object: upline_relation %>
+                          </td>
+            
+              <td>
+                <%= link_to t("shared.scaffold.view"), upline_relation, class: "btn btn-link no-underline" %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+
+      <% if @pagy.pages > 1 %>
+        <div class="text-center my-6">
+          <%== pagy_nav(@pagy) %>
+        </div>
+      <% end %>
+
+    <% else %>
+      <div class="bg-white rounded shadow flex flex-col items-center justify-between p-8 lg:flex-row">
+        <%= image_tag "empty.svg", class: "mb-4 lg:w-1/2" %>
+        <div class="flex-1 text-center">
+          <% if allowed_to?(:create?, UplineRelation, with: UplineRelationPolicy ) %>
+          <p class="h3 mb-4">Create your first Upline Relation</p>
+          <%= link_to t("shared.scaffold.new.title", model: "Upline Relation"), new_upline_relation_path, class: "btn btn-primary" %>
+          <% else %>
+            <p class="h3 mb-4">You do not have permission to create Upline Relation</p>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

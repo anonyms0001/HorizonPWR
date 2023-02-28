@@ -1,0 +1,78 @@
+# == Schema Information
+#
+# Table name: appointments
+#
+#  id                                :bigint           not null, primary key
+#  appointment_status                :string           default("scheduled"), not null
+#  appointment_status_reason         :string
+#  appointment_type                  :string           not null
+#  date                              :datetime
+#  source                            :string           default("pwrstation")
+#  created_at                        :datetime         not null
+#  updated_at                        :datetime         not null
+#  account_id                        :bigint
+#  address_id                        :bigint
+#  canvass_appointment_id            :string
+#  created_by_id                     :bigint
+#  created_by_position_id            :bigint
+#  project_id                        :bigint
+#  salesforce_opportunity_id         :string
+#  salesforce_residential_project_id :string
+#  scheduled_with_id                 :bigint
+#
+# Indexes
+#
+#  index_appointments_on_account_id              (account_id)
+#  index_appointments_on_address_id              (address_id)
+#  index_appointments_on_created_by_id           (created_by_id)
+#  index_appointments_on_created_by_position_id  (created_by_position_id)
+#  index_appointments_on_project_id              (project_id)
+#  index_appointments_on_scheduled_with_id       (scheduled_with_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (account_id => accounts.id)
+#  fk_rails_...  (address_id => addresses.id)
+#  fk_rails_...  (created_by_id => users.id)
+#  fk_rails_...  (created_by_position_id => job_positions.id)
+#  fk_rails_...  (project_id => projects.id)
+#  fk_rails_...  (scheduled_with_id => users.id)
+#
+
+one:
+  date: 2020-12-16 11:57:39
+  appointment_type: 'consult'
+  appointment_status: 'new'
+  created_by: one
+  account: one
+  address: one
+  scheduled_with: two
+  source: MyString
+
+
+two:
+  date: 2020-12-16 11:57:39
+  appointment_type: 'site_audit'
+  appointment_status: 'new'
+  created_by: one
+  account: one
+  address: one
+  scheduled_with: two
+  source: MyString
+
+
+three:
+  date: 2020-12-16 11:57:39
+  appointment_type: 'site_audit'
+  appointment_status: 'new'
+  created_by: three
+  account: two
+  address: three
+  scheduled_with: two
+  source: MyStringThree
+  project: one
+
+
+
+
+

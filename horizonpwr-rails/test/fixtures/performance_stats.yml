@@ -1,0 +1,43 @@
+# == Schema Information
+#
+# Table name: performance_stats
+#
+#  id               :bigint           not null, primary key
+#  accountable_type :string           not null
+#  end_at           :datetime         not null
+#  kpi              :jsonb            not null
+#  kpi_type         :string
+#  position         :integer
+#  start_at         :datetime         not null
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  accountable_id   :bigint           not null
+#
+# Indexes
+#
+#  index_performance_stats_on_accountable  (accountable_type,accountable_id)
+#
+
+one:
+  start_at: 2022-02-20 07:00:00
+  end_at:  2022-02-27 06:59:59.999999
+  position: 1
+  kpi:
+    score: 45
+    lead_count: 16
+    quality_sit_count: 2
+    scheduled_install_count: 1
+  accountable: one
+  accountable_type: Account
+
+two:
+  start_at: 2022-02-20 07:00:00
+  end_at: 2022-02-27 06:59:59.999999
+  position: 2
+  kpi:
+    score: 20
+    lead_count: 16
+    quality_sit_count: 2
+    scheduled_install_count: 1
+  accountable: two
+  accountable_type: Account

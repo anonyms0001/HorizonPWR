@@ -1,0 +1,32 @@
+<li class="small-card mb-4 md:last:mb-0 cursor-pointer bg-white list-none hover:bg-gray-50 hover:shadow-lg border-gray-200 border p-4 rounded-lg" style="word-break: break-word;">
+  <div class="text-base font-semibold truncate-1-row flex justify-between">
+    <div class="flex items-center">
+      <div class="flex-shrink-0 h-10 w-10">
+        <%= image_tag avatar_url_for(feedback.user), class: "h-10 inline-block rounded-full mr-2" %>
+      </div>
+      <div class="ml-4">
+        <div class="flex w-full justify-evenly space-x-3 items-center">
+          <div class="text-m w-full">
+            <%= link_to feedback.title, feedback_path(feedback), class:"text-gray-900" %>
+          </div>
+        </div>
+        <div class="text-sm text-<%= feedback.purpose_color %>-600">
+          <%= feedback.purpose.humanize %>
+        </div>
+      </div>
+    </div>
+      <%= link_to (image_tag "pivotal_tracker.png", class: "w-8 h-8"), feedback.tracker_id, target: :_blank if feedback.tracker_id.present?%>
+  </div>
+  <div class="text-xs font-semibold uppercase text-indigo-500 py-2">
+    <div class="flex">
+      <% feedback.tags.each do |tag| %>
+        <div class="bg-blue-100 border border-blue-500 rounded-full py-1 px-2 text-xs font-bold mr-1 hover:shadow-lg">
+          <%= link_to tag.name, feedbacks_path(tag: tag.name), class: "text-blue-600" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="text-xs truncate-2-rows text-gray-600">
+    <%= link_to feedback.note.body, feedback_path(feedback), class:"text-xs text-gray-600 hover:text-gray-700" %>
+  </div>
+</li>

@@ -1,0 +1,51 @@
+<div class="my-8">
+  <!-- Main 3 column grid -->
+  <main class="mx-auto sm:px-6 lg:px-8">
+    <!-- Main 3 column grid -->
+    <div class="grid grid-cols-1 gap-4 lg:col-span-3">
+      <!-- Header Card -->
+      <section aria-labelledby="profile-overview-title">
+        <%= render partial: "adjustments/header", locals: { adjustment: @adjustment, show_cards: true } %>
+      </section>
+    </div>
+
+    <div class="grid grid-cols-1 gap-4 items-start lg:grid-cols-3 lg:gap-4 mt-4">
+      <div class="grid grid-cols-1 gap-4 lg:col-span-2 order-2 lg:order-1">
+        <!-- Card 1 -->
+        <section>
+          <div class="sm:rounded-md shadow-lg bg-white p-6">
+            <p class="text-lg font-semibold leading-none text-gray-900">
+              Description
+            </p>
+            <p>
+              <%= @adjustment.description %>
+            </p>
+          </div>
+        </section>
+        <!-- Card 2-->
+        <section>
+          <div class="sm:rounded-md shadow-lg bg-white p-6">
+            <p class="text-lg font-semibold leading-none text-gray-900">
+              Title
+            </p>
+            <p class="text-sm font-medium text-gray-600">
+              A subtitle here
+            </p>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right column -->
+      <!-- Card 3 -->
+      <div class="grid grid-span-3 gap-4 order-1 lg:order-2">
+        <section>
+          <div class="sm:rounded-md bg-white shadow-lg p-6">
+            <p class="text-lg font-semibold leading-none text-gray-900">
+              Title
+            </p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>

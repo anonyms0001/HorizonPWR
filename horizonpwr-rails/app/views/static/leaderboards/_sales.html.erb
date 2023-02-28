@@ -1,0 +1,199 @@
+<main>
+  <!-- Main 3 column grid -->
+  <div class="grid grid-cols-1 gap-4 items-start lg:grid-cols-3 lg:gap-8">
+    <!-- Left column -->
+    <div class="grid grid-cols-1 gap-4 lg:col-span-3">
+      <!-- Summary panel -->
+    </div>
+    <div class="grid grid-cols-1 gap-8 lg:col-span-2">
+      <!--    Header Panel-->
+      <div class="rounded-lg overflow-hidden shadow-lg bg-white">
+        <div class="rounded-tl-lg justify-between rounded-tr-lg sm:rounded-tr-none relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
+          <!--        Top Tabs-->
+          <div data-controller="tabs" class="text-center font-extrabold text-lg" data-tabs-active-tab="text-blue-500 border-b-2 border-blue-400" data-tabs-inactive-tab="text-gray-600">
+            <ul class="list-reset flex flex-wrap-reverse justify-between list-none">
+              <li class="flex-grow justify-center" data-tabs-target="tab" data-title="energy_consultants" data-action="click->tabs#change">
+                <div class="inline-block py-2 px-4 cursor-pointer text-gray-600">
+                  <p class="font-semibold">
+                    <span class="hidden sm:flex"> Top Energy Consultants</span><span class="sm:hidden">Top ECs</span>
+                  </p>
+                </div>
+              </li>
+              <li class="flex-grow justify-center" data-tabs-target="tab" data-title="field_marketers" data-action="click->tabs#change">
+                <div class="inline-block py-2 px-4 font-semibold no-underline cursor-pointer text-gray-600">
+                  <p class="font-semibold">
+                    <span class="hidden sm:flex">Top Field Marketer</span><span class="sm:hidden">Top FMs</span>
+                  </p>
+                </div>
+              </li>
+            </ul>
+            <div class="hidden py-4 px-4" data-tabs-target="panel">
+              <!-- Leaderboard Avatars -->
+              <div class="bg-white">
+                <div class="max-w-7xl mx-auto sm:py-8 px-4 text-center sm:px-6 lg:px-8 lg:py-10">
+                  <div class="space-y-12">
+                    <ul role="list" class="mx-auto space-y-0 items-end grid sm:grid-cols-3 sm:gap-4 sm:space-y-0 lg:grid-cols-3 lg:max-w-5xl">
+                      <% if @closers.second.present? %>
+                        <li class="list-none order-2 sm:order-1 py-12 sm:py-0">
+                          <div class="space-y-2">
+                            <h1 class="text-gray-600">2nd</h1>
+                            <%= image_tag avatar_url_for(@closers.second, size: 300), class: "mx-auto border-4 border-gray-500 h-32 w-32 rounded-full xl:w-52 xl:h-52" %>
+                            <div class="space-y-2">
+                              <div class="text-lg leading-6 font-medium space-y-1">
+                                <h4><%= @closers.second.name %></h4>
+                                <p class="text-gray-600"><%= @closers.second.team_name %></p>
+                                <h3 class="text-blue-500"><%= @closers.second.this_closers_week_points %> pts</h3>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      <% end %>
+                      <% if @closers.first.present? %>
+                        <li class="list-none order-1 sm:order-2">
+                          <div class="space-y-2">
+                            <h1 class="text-yellow-400">1st</h1>
+                            <%= image_tag avatar_url_for(@closers.first, size: 300), class: "mx-auto border-4 border-yellow-400 h-32 w-32 sm:h-40 sm:w-40 rounded-full xl:w-60 xl:h-60" %>
+                            <div class="space-y-2">
+                              <div class="text-lg leading-6 font-medium space-y-1">
+                                <h4><%= @closers.first.name %></h4>
+                                <p class="text-gray-600"><%= @closers.first.team_name %></p>
+                                <h3 class="text-blue-500"><%= @closers.first.this_closers_week_points %> pts</h3>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      <% end %>
+                      <% if @closers.third.present? %>
+                        <li class="list-none order-3">
+                          <div class="space-y-2">
+                            <h1 class="text-yellow-500">3rd</h1>
+                            <%= image_tag avatar_url_for(@closers.third, size: 300), class: "mx-auto border-4 border-yellow-500 h-32 w-32 rounded-full xl:w-52 xl:h-52" %>
+                            <div class="space-y-2">
+                              <div class="text-lg leading-6 font-medium space-y-1">
+                                <h4><%= @closers.third.name %></h4>
+                                <p class="text-gray-600"><%= @closers.first.team_name %></p>
+                                <h3 class="text-blue-500"><%= @closers.third.this_closers_week_points %> pts</h3>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      <% end %>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="hidden py-4 px-4" data-tabs-target="panel">
+              <div class="bg-white">
+                <div class="max-w-7xl mx-auto py-8 px-4 text-center sm:px-6 lg:px-8 lg:py-10">
+                  <div class="space-y-12">
+                    <ul role="list" class="mx-auto space-y-0 items-end grid sm:grid-cols-3 sm:gap-4 sm:space-y-0 lg:grid-cols-3 lg:max-w-5xl">
+                      <% if @fms.second.present? %>
+                        <li class="list-none order-2 sm:order-1 py-12 sm:py-0">
+                          <div class="space-y-2">
+                            <h1 class="text-gray-600">2nd</h1>
+                            <%= image_tag avatar_url_for(@fms.second, size: 300), class: "mx-auto border-4 border-gray-500 h-32 w-32 rounded-full xl:w-52 xl:h-52" %>
+                            <div class="space-y-2">
+                              <div class="text-lg leading-6 font-medium space-y-1">
+                                <h4><%= @fms.second.name %></h4>
+                                <p class="text-gray-600"><%= @fms.second.team_name %></p>
+                                <h3 class="text-blue-500"><%= @fms.second.this_fm_week_points %> pts</h3>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      <% end %>
+                      <% if @fms.first.present? %>
+                        <li class="list-none order-1 sm:order-2">
+                          <div class="space-y-2">
+                            <h1 class="text-yellow-400">1st</h1>
+                            <%= image_tag avatar_url_for(@fms.first, size: 300), class: "mx-auto border-4 border-yellow-400 h-32 w-32 sm:h-40 sm:w-40 rounded-full xl:w-60 xl:h-60" %>
+                            <div class="space-y-2">
+                              <div class="text-lg leading-6 font-medium space-y-1">
+                                <h4><%= @fms.first.name %></h4>
+                                <p class="text-gray-600"><%= @fms.first.team_name %></p>
+                                <h3 class="text-blue-500"><%= @fms.first.this_fm_week_points %> pts</h3>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      <% end %>
+                      <% if @fms.third.present? %>
+                        <li class="list-none order-3">
+                          <div class="space-y-2">
+                            <h1 class="text-yellow-500">3rd</h1>
+                            <%= image_tag avatar_url_for(@fms.third, size: 300), class: "mx-auto border-4 border-yellow-500 h-32 w-32 rounded-full xl:w-52 xl:h-52" %>
+                            <div class="space-y-2">
+                              <div class="text-lg leading-6 font-medium space-y-1">
+                                <h4><%= @fms.third.name %></h4>
+                                <p class="text-gray-600"><%= @fms.third.team_name %></p>
+                                <h3 class="text-blue-500"><%= @fms.third.this_fm_week_points %> pts</h3>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                      <% end %>
+                      <!-- More people... -->
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br/>
+        </div>
+      </div>
+      <!--    Table Panel-->
+      <section>
+        <% if @teams.present? && !params.has_key?('team') && !params.has_key?('view') %>
+          <%= render partial: "static/teams" %>
+        <% end %>
+        <br>
+        <% if @reps.present? && params.has_key?('view') || @reps.present? && params.has_key?('team') %>
+          <!-- This example requires Tailwind CSS v2.0+ -->
+          <div id="reps-card" class="flex flex-col">
+            <div class="my-2 overflow-x-auto">
+              <div class="rounded-lg overflow-hidden shadow-lg bg-white">
+                <div class="rounded-tl-lg rounded-tr-lg sm:rounded-tr-none relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500 overflow-x-auto">
+                  <%= render partial: "static/fms" %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- This example requires Tailwind CSS v2.0+ -->
+          <div class="flex flex-col">
+            <div class="my-2 overflow-x-auto">
+              <div class="rounded-lg overflow-hidden shadow-lg bg-white">
+                <div class="rounded-tl-lg rounded-tr-lg sm:rounded-tr-none relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500 overflow-x-auto">
+                  <%= render partial: "static/closers" %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <%#= render partial: "static/reps" %>
+          <%#= render partial: "calendar_notes/header", locals: { calendar_note: @calendar_note, show_cards: true } %>
+        <% end %>
+      </section>
+    </div>
+    <!-- Right column -->
+    <div class="grid grid-cols-1 grid-span-3 gap-4">
+      <section>
+        <%= render partial: "static/individual_overview" if current_user.sales? %>
+        <% if current_user.sales? && current_user.accounts.impersonal.active.any? %>
+          <% team_stats = @performance_stats.find_all { |stat| stat.accountable == current_user.accounts.impersonal.active&.first }&.first&.kpi %>
+          <%= render partial: "performance_stats/overview",
+                     locals: { title: "#{current_user.accounts.impersonal&.first&.name} Overview",
+                               stats: team_stats
+                     } if team_stats.present? %>
+        <% end %>
+        <%= render partial: "performance_stats/overview",
+                   locals: { title: 'HorizonPWR Overview',
+                             stats: @company_stats
+                   } %>
+        <%#= TODO: refactor partials %>
+        <%#= render partial: "static/team_overview" %>
+        <%#= render partial: "static/company_overview" %>
+      </section>
+    </div>
+  </div>
+</main>

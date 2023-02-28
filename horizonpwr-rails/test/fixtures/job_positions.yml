@@ -1,0 +1,176 @@
+# == Schema Information
+#
+# Table name: job_positions
+#
+#  id            :bigint           not null, primary key
+#  active        :boolean          default(TRUE), not null
+#  hiring        :boolean          default(FALSE)
+#  hiring_public :boolean          default(FALSE)
+#  leadership    :boolean          default(FALSE)
+#  name          :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  department_id :bigint
+#
+# Indexes
+#
+#  index_job_positions_on_department_id  (department_id)
+#
+
+#  JobPositions also have a virtual :description rich_text_field
+#  department_id :bigint
+#
+# Indexes
+#
+#  index_job_positions_on_department_id  (department_id)
+
+one:
+  name: MyString
+  active: false
+  department: one
+
+two:
+  name: MyString
+  active: false
+  department: one
+
+manager: # Not an actual Job Position
+  name: Manager
+  active: true
+  department: two
+
+# All Job Positions, alphabetically:
+# Last Updated: 2022-01-27
+
+admin: # Admin and Administrator are both existing Job Positions, for some reason.
+  name: Admin
+  active: false
+
+administrator:
+  name: Administrator
+  active: false
+
+apprentice_electrician:
+  name: Apprentice Electrician
+  active: true
+  department: install_crew
+
+ceo:
+  name: CEO
+  active: true
+  department: project_managers
+
+commercial_energy_consultant:
+  name: Commercial Energy Consultant
+  active: false
+
+dev:
+  name: Software Developer
+  active: true
+  department: it
+
+district_manager:
+  name: District Manager
+  active: true
+
+ec:
+  name: Energy Consultant
+  active: true
+  department: sales
+
+fm:
+  name: Field Marketer
+  active: true
+  department: sales
+
+fm_elite:
+  name: Field Marketer Elite
+  active: true
+  department: sales
+
+field_office_manager:
+  name: Field Office Manager
+  active: false
+
+funding_specialist:
+  name: Funding Specialist
+  active: true
+
+general:
+  name: General Application
+  active: true
+  department: sales
+
+hiring:
+  name: Hiring Manager
+  active: false
+
+hr:
+  name: Human Resources
+  active: true
+
+journeyman_electrician:
+  name: Journeyman Electrician
+  active: true
+  department: install_crew
+
+jr_energy_consultant: # Jr Energy Consultant and Junior Energy Consultant are both existing Job Positions.
+  name: Jr Energy Consultant
+  active: false
+
+junior_energy_consultant:
+  name: Junior Energy Consultant
+  active: false
+
+marketing:
+  name: Marketing
+  active: true
+
+master_electrician:
+  name: Master Electrician
+  active: true
+  department: install_crew
+
+operational_manager:
+  name: Operational Manager
+  active: true
+  department: project_managers
+
+project_management_assistant:
+  name: Project Management Assistant
+  active: false
+  department: project_managers
+
+project_manager:
+  name: Project Manager
+  active: true
+  department: project_managers
+
+project_manager_assistant:
+  name: Project Manager Assistant
+  active: true
+  department: project_managers
+
+regional_manager:
+  name: Regional Manager
+  active: true
+  department: sales
+
+sales_manager:
+  name: Sales Manager
+  active: true
+  department: sales
+
+solar_install_technician:
+  name: Solar Install Technician
+  active: true
+  department: install_crew
+
+sr_energy_consultant:
+  name: Sr Energy Consultant
+  active: false
+
+support:
+  name: Sales Support
+  active: true
+  department: support

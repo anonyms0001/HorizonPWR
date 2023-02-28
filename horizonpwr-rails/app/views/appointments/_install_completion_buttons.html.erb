@@ -1,0 +1,35 @@
+<% if @appointment.task_completion["#{btn_1_type}"] == true %>
+  <%= tag.div class: "px-4 py-3 text-green-600 bg-green-100 rounded-lg w-full flex justify-between mb-4 font-bold" do %>
+    <span>
+    <%= fa_icon "solar-panel", class: "fas text-lg mr-2" %>
+      <%= btn_1_type.capitalize %> Complete
+  </span>
+    <%= fa_icon "check-circle", class: "text-xl" %>
+  <% end %>
+<% else %>
+  <%= button_to update_task_completion_path, params: { task_completion_type: btn_1_type, id: @appointment.id }, class: "px-4 py-3 text-red-600 hover:text-white rounded-lg border-2 border-red-600 hover:bg-red-600 w-full flex justify-between mb-4 font-bold", data: { disable_with: 'processing…' } do %>
+    <span>
+    <%= fa_icon "solar-panel", class: "fas text-lg mr-2" %>
+      <%= btn_1_type.capitalize %> Incomplete
+  </span>
+    <%= fa_icon "times-circle", class: "text-xl" %>
+  <% end %>
+<% end %>
+
+<% if @appointment.task_completion["#{btn_2_type}"] == true %>
+  <%= tag.div class: "px-4 py-3 text-green-600 bg-green-100 rounded-lg w-full flex justify-between mb-4 font-bold" do %>
+    <span>
+    <%= fa_icon "bolt", class: "fas text-lg mr-2" %>
+      <%= btn_2_type.capitalize %> Complete
+  </span>
+    <%= fa_icon "check-circle", class: "text-xl" %>
+  <% end %>
+<% else %>
+  <%= button_to update_task_completion_path, params: { task_completion_type: btn_2_type, id: @appointment.id }, class: "px-4 py-3 text-red-600 hover:text-white rounded-lg border-2 border-red-600 hover:bg-red-600 w-full flex justify-between mb-4 font-bold", data: { disable_with: 'processing…' } do %>
+    <span>
+    <%= fa_icon "bolt", class: "fas text-lg mr-2" %>
+      <%= btn_2_type.capitalize %> Incomplete
+  </span>
+    <%= fa_icon "times-circle", class: "text-xl" %>
+  <% end %>
+<% end %>

@@ -1,0 +1,19 @@
+<%= link_to 'Proposal', proposal_path(@proposal), class: '' %>
+<div class="container px-4 mx-auto my-8">
+  <%= render "energy_consumption_header", proposal: @proposal %>
+
+  <% if @proposal.aurora_project_id.present? %>
+    <div class="flex items-center justify-between mb-4">
+      <h1 class="h3"><%= t("shared.scaffold.new.title", model: "Energy Consumption") %></h1>
+      <%#= link_to t("cancel"), energy_consumptions_path, class: "btn btn-link" %>
+    </div>
+    <div class="p-8 bg-white rounded shadow">
+      <h5 class="mb-4">
+        Enter Monthly Energy Usage:
+      </h5>
+      <%= render "form", energy_consumption: @energy_consumption, url: proposal_energy_consumptions_path %>
+    </div>
+  <% else %>
+    <%= render "aurora_actions" %>
+  <% end %>
+</div>

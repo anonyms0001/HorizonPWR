@@ -1,0 +1,41 @@
+<%= form_with(model: job_position) do |form| %>
+  <%= render "shared/error_messages", resource: form.object %>
+
+  <div class="form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :description %>
+    <%= form.rich_text_area :description, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.check_box :active, class: "form-checkbox" %>
+    <%= form.label :active, class: "inline" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.check_box :hiring, class: "form-checkbox" %>
+    <%= form.label :hiring, class: "inline" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.check_box :hiring_public, class: "form-checkbox" %>
+    <%= form.label :hiring_public, class: "inline" %>
+  </div>
+
+  <div class="form-group" data-controller="onInput">
+    <%= form.label :department_id %>
+    <%= form.select :department_id, options_from_collection_for_select(Department.active, 'id', 'name', form.object.department_id), {}, id: "field_type", data: { action: "onInput#checkValue" }, class: 'form-control' %>
+  </div>
+
+  <div class="form-group flex justify-between">
+    <%= form.button class: "btn btn-primary" %>
+
+    <% if form.object.persisted? %>
+      <%= link_to 'Delete', form.object, class: "btn btn-danger outline", method: :delete, data: { confirm: "Are you sure?" } %>
+    <% end %>
+  </div>
+<% end %>

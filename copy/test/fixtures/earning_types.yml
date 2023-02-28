@@ -1,0 +1,24 @@
+# == Schema Information
+#
+# Table name: earning_types
+#
+#  id                         :bigint           not null, primary key
+#  display_name               :string           not null
+#  name                       :string           not null
+#  percent                    :integer          not null
+#  preferred_financial_option :boolean          not null
+#  created_at                 :datetime         not null
+#  updated_at                 :datetime         not null
+#
+
+one:
+  name: MyString
+  display_name: MyString
+  preferred_financial_option: false
+  percent: 1
+
+two:
+  name: MyString
+  display_name: MyString
+  preferred_financial_option: false
+  percent: 1

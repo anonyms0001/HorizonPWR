@@ -1,0 +1,5 @@
+# web: bundle exec rails s # To make it easier to debug, we will be running 'foreman start' with another tab open to 'rails s' so that you can use tools like pry.
+webpack: bin/webpack-dev-server
+worker: bundle exec sidekiq
+guard: bundle exec guard
+# docker: docker-compose up

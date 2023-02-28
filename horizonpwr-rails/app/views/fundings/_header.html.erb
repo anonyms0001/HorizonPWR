@@ -1,0 +1,276 @@
+<!-- Header Card -->
+<div class="flex flex-wrap bg-transparent sm:rounded-md">
+  <!-- Header card contents  -->
+  <div class="bg-white w-full mb-1 sm:mb-2 sm:rounded-t-md shadow-md p-6">
+    <div class="flex flex-row justify-between">
+      <div class="inline-flex items-center w-full">
+        <%= image_tag "mark.png", class: "w-9 h-9 h-full rounded-lg mr-4" %>
+        <div class="inline-flex flex-col items-start h-full">
+          <div class="w-full mt-1 text-md font-semibold leading-none text-gray-900">
+            User Name
+            <%= link_to t("edit"), edit_project_funding_path(@project, @funding), class: "btn btn-link" %>
+          </div>
+          <div class="w-full mt-1 text-xs leading-3 text-gray-400">
+            Team Name
+          </div>
+        </div>
+      </div>
+      <%#= render 'shared/active_status_color', object: @funding %>
+    </div>
+
+    <div class="flex flex-col mt-2 text-md">
+      <% if @funding.finance_partner.present? %>
+        <div class="flex flex-row justify-between">
+          <p>
+            <span class="font-bold">Financed by:</span>
+            <%= @funding.finance_partner.name %>
+          </p>
+          <p>
+          </p>
+        </div>
+      <% else %>
+        <div>
+          <p class="italic">
+            No Finance Partner has been set.
+          </p>
+        </div>
+      <% end %>
+
+      <% if @funding.approved_at.present? %>
+        <div class="flex flex-row justify-between">
+          <p>
+            <span class="font-bold">Approved at:</span>
+            <%= local_time_ago(@funding.approved_at) %>
+          </p>
+          <p>
+          </p>
+        </div>
+      <% else %>
+        <div>
+          <p class="italic">
+            Not approved.
+          </p>
+        </div>
+      <% end %>
+
+      <% if @funding.denied_at.present? %>
+        <div class="flex flex-row justify-between">
+          <p>
+            <span class="font-bold">Denied at:</span>
+            <%= local_time_ago(@funding.denied_at) %>
+          </p>
+          <p>
+          </p>
+        </div>
+      <% else %>
+        <div>
+          <p class="italic">
+            Not denied.
+          </p>
+        </div>
+      <% end %>
+
+      <% if @funding.loan_docs_signed_at.present? %>
+        <div class="flex flex-row justify-between">
+          <p>
+            <span class="font-bold">Loan docs signed at:</span>
+            <%= local_time_ago(@funding.loan_docs_signed_at) %>
+          </p>
+          <p>
+          </p>
+        </div>
+      <% else %>
+        <div>
+          <p class="italic">
+            Loan docs not signed.
+          </p>
+        </div>
+      <% end %>
+
+      <% if @funding.application_submitted_at.present? %>
+        <div class="flex flex-row justify-between">
+          <p>
+            <span class="font-bold">Application submitted at:</span>
+            <%= local_time_ago(@funding.application_submitted_at) %>
+          </p>
+          <p>
+          </p>
+        </div>
+      <% else %>
+        <div>
+          <p class="italic">
+            Application not submitted.
+          </p>
+        </div>
+      <% end %>
+
+      <% if @funding.amount.present? %>
+        <div class="flex flex-row justify-between">
+          <p>
+            <span class="font-bold">Amount:</span>
+            <%= number_to_currency(@funding.amount) %>
+          </p>
+          <p>
+          </p>
+        </div>
+      <% else %>
+        <div>
+          <p class="italic">
+            Amount not entered.
+          </p>
+        </div>
+      <% end %>
+
+      <% if @funding.coc_sent_at.present? %>
+        <div class="flex flex-row justify-between">
+          <p>
+            <span class="font-bold">COC sent at:</span>
+            <%= local_time_ago(@funding.coc_sent_at) %>
+          </p>
+          <p>
+          </p>
+        </div>
+      <% else %>
+        <div>
+          <p class="italic">
+            COC not sent.
+          </p>
+        </div>
+      <% end %>
+
+      <% if @funding.coc_signed_at.present? %>
+        <div class="flex flex-row justify-between">
+          <p>
+            <span class="font-bold">COC signed at:</span>
+            <%= local_time_ago(@funding.coc_signed_at) %>
+          </p>
+          <p>
+          </p>
+        </div>
+      <% else %>
+        <div>
+          <p class="italic">
+            COC not signed.
+          </p>
+        </div>
+      <% end %>
+
+      <% if @funding.invoice_sent_at.present? %>
+        <div class="flex flex-row justify-between">
+          <p>
+            <span class="font-bold">Invoice sent at:</span>
+            <%= local_time_ago(@funding.invoice_sent_at) %>
+          </p>
+          <p>
+          </p>
+        </div>
+      <% else %>
+        <div>
+          <p class="italic">
+            Invoice not sent.
+          </p>
+        </div>
+      <% end %>
+
+      <% if @funding.sent_to_collections_at.present? %>
+        <div class="flex flex-row justify-between text-red-600">
+          <p>
+            <span class="font-bold">Sent to Collections at:</span>
+            <%= local_time_ago(@funding.sent_to_collections_at) %>
+            by
+            <% if @funding.sent_to_collections_by_id.present? %>
+              <%= link_to @funding.sent_to_collections_by.name, @funding.sent_to_collections_by %>
+            <% else %>
+              No one
+            <% end %>
+          </p>
+          <p>
+          </p>
+        </div>
+      <% else %>
+        <div>
+          <p class="italic">
+            Not sent to collections.
+          </p>
+        </div>
+      <% end %>
+
+      <div class="flex flex-row justify-between">
+        <p>
+          <span class="font-bold">Project:</span>
+          <%= link_to @funding.project.address.address, @funding.project %>
+        </p>
+        <p>
+        </p>
+      </div>
+    </div>
+  </div>
+  <!-- End of Header card contents  -->
+  <% if show_cards == true %>
+    <!-- Card 1 contents  -->
+    <div class="w-full sm:w-1/2 lg:w-1/4 pb-1 sm:pb-2 sm:pr-1 lg:pb-0 rounded-md">
+      <div class="bg-white sm:rounded-r-lg lg:rounded-tr-lg lg:rounded-br-none lg:rounded-bl-md h-full shadow-lg">
+        <div class="flex-col py-4 px-6">
+          <p class="mt-1 font-semibold leading-3 text-gray-900">Job Position</p>
+          <div class="inline-flex items-center mt-1">
+            <%= image_tag "mark.png", height: 20, width: 20, class: "w-9 h-full rounded-lg mr-4" %>
+            <div class="inline-flex flex-col justify-center">
+              <p class="text-sm font-semibold leading-none text-gray-900">User Name</p>
+              <p class="text-xs leading-3 text-gray-400 mt-1">Team Name</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End of card 1 contents  -->
+    <!-- Card 2 contents  -->
+    <div class="w-full sm:w-1/2 lg:w-1/4 pb-1 sm:pb-2 sm:pl-1 lg:pr-1 lg:pb-0">
+      <div class="bg-white sm:rounded-l-lg lg:rounded-b-none lg:rounded-t-lg h-full shadow-lg">
+        <div class="flex-col py-4 px-6">
+          <p class="mt-1 font-semibold leading-3 text-gray-900">Job Position</p>
+          <div class="inline-flex items-center mt-1">
+            <%= image_tag "mark.png", height: 20, width: 20, class: "w-9 h-full rounded-lg mr-4" %>
+            <div class="inline-flex flex-col justify-center">
+              <p class="text-sm font-semibold leading-none text-gray-900">User Name</p>
+              <p class="text-xs leading-3 text-gray-400 mt-1">Team Name</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End of card 2 contents  -->
+    <!-- Card 3 contents  -->
+    <div class="w-full sm:w-1/2 lg:w-1/4 pb-1 sm:pb-0 sm:pr-1 lg:pl-1">
+      <div class="bg-white sm:rounded-tr-lg lg:rounded-t-lg h-full sm:rounded-bl-md lg:rounded-bl-none shadow-lg">
+        <div class="flex-col py-4 px-6">
+          <p class="mt-1 font-semibold leading-3 text-gray-900">Job Position</p>
+          <div class="inline-flex items-center mt-1">
+            <%= image_tag "mark.png", height: 20, width: 20, class: "w-9 h-full rounded-lg mr-4" %>
+            <div class="inline-flex flex-col justify-center">
+              <p class="text-sm font-semibold leading-none text-gray-900">User Name</p>
+              <p class="text-xs leading-3 text-gray-400 mt-1">Team Name</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End of card 3 contents  -->
+    <!-- Card 4 contents  -->
+    <div class="w-full sm:w-1/2 lg:w-1/4 sm:pl-1 g">
+      <div class="bg-white sm:rounded-tl-lg h-full lg:rounded-br-md sm:rounded-br-md lg:rounded-bl-none sm:rounded-bl-none shadow-lg">
+        <div class="flex-col py-4 px-6">
+          <p class="mt-1 font-semibold leading-3 text-gray-900">Job Position</p>
+          <div class="inline-flex items-center mt-1">
+            <%= image_tag "mark.png", height: 20, width: 20, class: "w-9 h-full rounded-lg mr-4" %>
+            <div class="inline-flex flex-col justify-center">
+              <p class="text-sm font-semibold leading-none text-gray-900">User Name</p>
+              <p class="text-xs leading-3 text-gray-400 mt-1">Team Name</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End of card 4 contents  -->
+  <% end %>
+</div>
+<!-- End of Header Card -->

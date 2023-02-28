@@ -1,0 +1,374 @@
+<%= title "#{@project.address.contacts.first&.name} Project" %>
+<div class="container mx-auto my-8">
+  <!-- Main 3 column grid -->
+  <main class="pb-8">
+    <div class="mx-auto px-2 sm:px-6 lg:px-8">
+      <!-- Main 3 column grid -->
+      <div class="grid grid-cols-1 gap-8 items-start lg:grid-cols-3 lg:gap-8">
+        <!-- Left column -->
+        <div class="grid grid-cols-1 gap-4 lg:col-span-3">
+          <!-- Summary panel -->
+          <section aria-labelledby="profile-overview-title">
+            <div class="rounded-lg bg-white overflow-hidden shadow-lg">
+              <div class="bg-white p-6 pt-4 flex lg:justify-between lg:flex-row flex-wrap sm:flex-nowrap">
+                <div class="sm:flex sm:items-center sm:justify-between w-full">
+                  <div class="sm:flex">
+                    <div class="flex-shrink-0">
+                    </div>
+                    <div class="mt-2 text-center items-center sm:mt-0 sm:pt-1 sm:text-left">
+                      <div class="flex flex-row items-center">
+                        <span class="w-6">
+                          <!-- House icon -->
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                          </svg>
+                        </span>
+                        <p>
+                          <% if @project.address.contacts.any? %>
+                            <%= link_to @project.address.contacts.first&.name, contact_path(@project.address.contacts.first&.id), class: "no-underline text-gray-900 text-lg font-bold sm:text-2xl pl-2" %>
+                          <% else %>
+                          <p class="no-underline text-gray-900 text-lg font-bold sm:text-2xl pl-2">Unknown</p>
+                          <% end %>
+                        </p>
+                        <%= link_to 'Edit', edit_project_path(@project), class: "btn btn-link" %>
+                        <%= link_to 'Salesforce Project', @project.salesforce_url, target: :blank, class: "btn btn-link" if allowed_to?(:manage?, @project) && @project.salesforce_url.present? %>
+                        <%= link_to 'Link Salesforce Project', project_link_salesforce_path(@project), target: :blank, class: "btn btn-link" if allowed_to?(:manage?, @project) %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--                <div class="flex w-full lg:justify-end md:justify-end justify-evenly">-->
+                <!--                  <div class="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">-->
+                <!--                    <div class="flex flex-row items-center">-->
+                <!--                        <span class="px-2 py-1 text-m font-medium border shadow rounded-full text-green-600 bg-green-100">-->
+                <%#= @project.status || "new project" %>
+                <!--                        </span>-->
+                <!--                    </div>-->
+                <!--                  </div>-->
+                <!--                </div>-->
+                <!--              </div>-->
+
+                <div class="flex w-full lg:justify-end md:justify-end justify-evenly">
+                  <div class="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
+                    <div class="flex flex-row items-center">
+                      <div class="flex-1 h-3 w-3 bg-green-400 rounded-full">
+                      </div>
+                      <div class="px-1 py-2 text-base capitalize font-bold leading-normal text-green-500">
+                        <%= @project.status || "new project" %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <p class="text-sm font-medium text-gray-600 py-1 px-6">
+                <span class="text-gray-900 font-medium">
+                      Address:
+                    </span>
+                <span class="text-gray-600">
+                  <% if @project.address.present? %>
+                    <%= link_to @project.address.full_address, address_path(@project.address), class: "text-gray-600" %>
+                  <% else %>
+                    No address provided.
+                  <% end %>
+                </span>
+              </p>
+              <p class="text-sm font-medium text-gray-600 py-1 px-6">
+                <span class="text-gray-900 font-medium">
+                  Email:
+                </span>
+                <span class="text-gray-600">
+                  <% @project.contacts.each do |contact| %>
+                    <% if contact.email.present? %>
+                      <%= contact.email %>
+                    <% else %>
+                      no email added
+                    <% end %>
+                  <% end %>
+                </span>
+              </p>
+
+              <% if allowed_to?(:manage?, @project.fundings, with: FundingPolicy) %>
+                <p class="text-sm font-medium text-gray-600 py-1 px-6">
+                  <span class="text-gray-900 font-medium">
+                    Funding:
+                  </span>
+                  <span class="text-gray-600">
+                  <% if @project.fundings.any? %>
+                    <% @project.fundings.each do |funding| %>
+                      <%= link_to number_to_currency(funding.amount), project_funding_path(@project, funding), class: "mr-2" %>
+                    <% end %>
+                  <% else %>
+                    <%= link_to "Add Funding", new_project_funding_path(@project) %>
+                  <% end %>
+                </span>
+                </p>
+              <% end %>
+
+              <div class="border-t border-gray-200 bg-gray-50 grid grid-cols-1 divide-y divide-gray-200 sm:grid-cols-4 sm:divide-y-0 sm:divide-x">
+                <div class="px-6 py-5 text-sm text-center flex flex-nowrap sm:flex-wrap md:flex-wrap justify-between">
+                  <div class="w-full">
+                    <span class="text-gray-900 font-medium">
+                      System Size:
+                    </span>
+                    <span class="text-gray-600">
+                      <%= @project.system_size %>
+                    </span>
+                  </div>
+                  <div class="w-full">
+                    <span class="text-gray-900 font-medium">
+                      Solar Array Count:
+                    </span>
+                    <span class="text-gray-600">
+                      <%= @project.solar_array_count %>
+                    </span>
+                  </div>
+                </div>
+                <!--4 Bottom sections on top card-->
+                <div class="px-6 py-5 text-sm text-center flex flex-nowrap sm:flex-wrap md:flex-wrap justify-between">
+                  <div class="w-full">
+                    <span class="text-gray-900 font-medium">
+                      Concessions:
+                    </span>
+                    <span class="text-gray-900 font-medium">
+                      <%= link_to "#{number_to_currency(@project.concessions.sum(:amount).to_f)}", project_concessions_path(@project), class: "text-gray-600" %>
+                    </span>
+                  </div>
+                </div>
+                <div class="px-6 py-5 text-sm text-center flex flex-nowrap sm:flex-wrap md:flex-wrap justify-between">
+                  <div class="w-full">
+                    <span class="text-gray-900 font-medium">
+                      Installer:
+                    </span>
+                    <span class="text-gray-600">
+                     <%= @project.installer_name %>
+                    </span>
+                  </div>
+                </div>
+                <div class="px-6 py-5 text-sm text-center flex flex-nowrap sm:flex-wrap md:flex-wrap justify-between">
+                  <div class="w-full">
+                    <span class="text-gray-900 font-medium">
+                      Installation Types:
+                    </span>
+                    <span class="text-gray-600">
+                      <%= @project.active_install_types %>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="grid grid-cols-1 gap-8 lg:col-span-2">
+          <!-- Pre Install panel -->
+          <% if allowed_to?(:manage?, @project) %>
+            <div class="rounded-lg overflow-hidden shadow-lg">
+              <%# TODO: The dynamic_form variable here does not seem to be in use. %>
+              <%= render 'dynamic_forms/dynamic_form', dynamic_form: @dynamic_form, respondable: @project %>
+            </div>
+          <% end %>
+          <!-- Post Install panel -->
+          <!--          <section>-->
+          <!--            <div class="rounded-lg overflow-hidden shadow-lg bg-white h-72">-->
+          <!--              <div class="rounded-tl-lg rounded-tr-lg sm:rounded-tr-none relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">-->
+          <!--                <p class="text-xl font-medium text-gray-900 sm:text-2xl">Install</p>-->
+          <!--TODO: ADD CUSTOM ELEMENTS HERE FOR THIS SECTION-->
+          <!--              </div>-->
+          <!--            </div>-->
+          <!--          </section>-->
+          <!-- Attachments panel -->
+          <section>
+            <div id="attachments-section" class="rounded-lg shadow-lg bg-white">
+              <div class="rounded-lg relative group bg-white p-6 pb-0">
+                <div class="flex sm:justify-between flex-col sm:flex-row">
+                  <p class="text-xl font-medium text-gray-900 sm:text-2xl mb-2">Attachments </p>
+                  <div class="text-right">
+                    <%= link_to 'Edit Tags', project_attachment_tags_path(@project), class: 'text-sm font-medium text-gray-900' %>
+                    <% if allowed_to?(:manage?, @project.attachments, with: AttachmentPolicy) %>
+                      |
+                      <%= link_to "Edit Attachments", edit_attachments_path(project_id: @project.id), class: 'text-sm font-medium text-gray-900' %>
+                    <% end %>
+                  </div>
+                </div>
+                <!--                  Tags-->
+                <% if @project.sorted_tags.any? %>
+                  <div class="flex justify-between">
+                    <p class="mb-1">Filter By Tag:</p>
+                    <% if request.original_url.include?('tag_id') %>
+                      <p>
+                        <%= link_to 'Clear Filter', project_path(@project) %>
+                      </p>
+                    <% end %>
+                  </div>
+                  <div class="flex">
+                    <p class="inline-flex flex-wrap text-md text-gray-600" id="tags-selected">
+                      <% @project.sorted_tags.each do |tag| %>
+                        <%= link_to project_path(@project, :tab => params['tab'] ? params['tab'] : 'close', :tag_id => tag.id, :anchor => "attachments-section"), class: "#{params['tag_id'].to_i == tag.id ? "bg-blue-400 text-white" : "bg-gray-100 text-gray-700"} inline-flex mb-3 mr-3 rounded-md items-center py-0.5 p-2.5 text-md font-medium   border-gray-300 shadow-lg ring-gray-500 border border-gray-500 filter-buttons" do %>
+                          <%= tag %> (<%= @project.attachments.tagged_with(tag).size %>)
+                        <% end %>
+                      <% end %>
+                    </p>
+                  </div>
+                <% end %>
+                <% if @project.missing_tags.any? %>
+                  <p class="mb-1">Missing Tags:</p>
+                  <div class="flex flex-wrap">
+                    <% @project.missing_tags.each do |tag| %>
+                      <span class="inline-flex mb-3 mr-3 rounded-md items-center py-0.5 p-2.5 text-md font-medium bg-red-100 text-red-700 border-red-300 ring-red-500 border border-red-500">
+                        <%= tag %>
+                      </span>
+                    <% end %>
+                    </p>
+                  </div>
+                <% end %>
+                <!-- Attachments preview div-->
+                <div class="overflow-x-auto flex">
+                  <div class="flex flex-row">
+                    <% @project.attachments.each do |attachment| %>
+                      <% if params['tag_id'] %>
+                        <%= next if !attachment.tags.map { |a| a.id }.include? params['tag_id'].to_i %>
+                      <% end %>
+                      <div class="w-32 mr-2 mb-4 break-all">
+
+                        <% if attachment.content_type.include?("image/") %>
+                          <%= link_to (image_tag attachment, class: 'shadow-xl rounded-lg '), attachment, target: '_blank', title: attachment.blob.filename %>
+                        <% else %>
+                          <% settings = get_preview_image_settings(attachment.content_type) %>
+                          <%# TODO: make these icons links, like the images above are. Do this in Proposals#show, too. %>
+                          <%= link_to attachment, target: '_blank', title: attachment.blob.filename do %>
+                            <div class="text-<%= settings[0] %>-600 text-6xl text-center w-full h-auto py-8">
+                              <%= fa_icon settings[1], class: settings[2] %>
+                            </div>
+                          <% end %>
+                        <% end %>
+
+                        <%= link_to attachment.blob.filename, attachment, target: '_blank', title: attachment.blob.filename %>
+                        <br/>
+                        <%= attachment.created_at.strftime("%m-%d-%Y %H:%M:%S %Z") %>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+                <!-- Upload dropzone-->
+                <%= form_with(model: @project) do |form| %>
+                  <div class="flex flex-col mt-4">
+                    <div class="dropzone dropzone-default dz-clickable" data-controller="dropzone" data-dropzone-max-file-size="<%= @files[:size] %>" data-dropzone-max-files="<%= @files[:count] %>">
+                      <% @project.attachments.each do |attached| %>
+                        <%= form.hidden_field :attachments, multiple: true, value: attached.signed_id %>
+                      <% end %>
+                      <%= form.file_field :attachments, multiple: true, direct_upload: true, data: { target: 'dropzone.input' } %>
+                      <div class="dropzone-msg dz-message needs-click text-gray-600">
+                        <h3 class="dropzone-msg-title">Drag here to upload or click here to browse</h3>
+                        <span class="dropzone-msg-desc text-sm"><%= @files[:size] %> MB file size maximum.</span>
+                      </div>
+                    </div>
+                    <div class="form-group flex justify-end pt-4">
+                      <%= form.button 'Save', class: "btn btn-primary", id: "save-attachments" %>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Right column -->
+        <div class="w-full mb-8">
+          <section>
+            <div class="rounded-lg bg-white overflow-hidden shadow-lg p-6">
+              <h2 class="text-base font-medium text-gray-900 mb-2" id="announcements-title">Appointments</h2>
+              <div class="">
+                <% if allowed_to?(:manage?, @project) %>
+                  <%= render 'appointments/form', appointment: @appointment %>
+                  <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t-2 sm:border-gray-300 sm:pt-5 mt-6">
+                  </div>
+                <% end %>
+              </div>
+              <div class="">
+                <div class="">
+                  <% if @project.address.present? %>
+                    <%= link_to 'Proposal', @project.consult.proposal.presence, class: 'text-xl font-medium text-gray-900 sm:text-2xl' %>
+                    <div class="mb-6">
+                      <% if @project.consult.proposal.present? %>
+                        <div class="inline-flex w-full h-full my-2 items-center justify-center pl-6 bg-white border rounded-md">
+                          <p class="w-1/2 h-full text-sm leading-none text-gray-800">
+                            <%= link_to date_mdy(@project.consult.start_at), proposal_path(@project.consult.proposal), class: "text-gray-700 font-medium" %>
+                          </p>
+                          <div class="flex items-center justify-center flex-1 h-full bg-<%= @project.consult.status_color %>-100 rounded-tr-md rounded-br-md">
+                            <p class="h-full text-sm font-medium leading-snug text-center capitalize text-<%= @project.consult.status_color %>-700 px-2 py-1">
+                              <%= @project.consult.appointment_status %>
+                              <%#= TODO: Update the rest of the colors https://www.pivotaltracker.com/story/show/178094538 %>
+                            </p>
+                          </div>
+                        </div>
+                      <% else %>
+                        This appointment has no proposal.
+                      <% end %>
+                    </div>
+                    <p class="text-sm font-small text-gray-700 mb-1">
+                      <span class="text-xl font-medium text-gray-900 sm:text-2xl">
+                      Appointments
+                      </span>
+                      related to this project:
+                    </p>
+                    <% @project.appointments.order(start_at: :desc).each do |appointment| %>
+                      <div class="inline-flex w-full h-full my-2 items-center justify-center pl-6 bg-white border rounded-md border-<%= appointment.status_color %>-200">
+                        <p class="w-1/2 h-full text-sm leading-none text-gray-800">
+                          <%= link_to "#{appointment.appointment_type} - #{date_mdy(appointment.start_at)}", appointment, class: "btn-link no-underline capitalize text-gray-700 font-medium" %>
+                        </p>
+                        <div class="flex items-center justify-center flex-1 h-full bg-<%= appointment.status_color %>-100 rounded-tr-md rounded-br-md">
+                          <p class="h-full text-sm font-medium leading-snug text-center capitalize text-<%= appointment.status_color %>-700 px-2 py-1">
+                            <%= appointment.appointment_status %>
+                            <%#= TODO: Update the rest of the colors https://www.pivotaltracker.com/story/show/178094538 %>
+                          </p>
+                        </div>
+                      </div>
+                    <% end %>
+                  <% else %>
+                    <p>
+                      No address has been provided for this project.
+                    </p>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Notes section -->
+          <section class="mt-8">
+            <div class="rounded-lg bg-white overflow-hidden shadow-lg">
+              <div class="p-6">
+                <p class="text-xl font-medium text-gray-900 sm:text-2xl">Notes</p>
+                <div class="flow-root mt-6">
+                  <!--TODO: ADD CUSTOM ELEMENTS HERE FOR THIS SECTION-->
+                  <div class="flow-root">
+                    <ul class="-mb-8 list-none">
+                      <li class="border-b-2 border-gray-400 mb-4">
+                        <% if allowed_to?(:manage?, @new_note) %>
+                          <%= render partial: "notes/form", locals: { note: @new_note } %>
+                        <% end %>
+                      </li>
+                    </ul>
+                    <div class="overflow-y-auto mt-8 pt-3">
+                      <% @feedables.each do |feedable| %>
+                        <% if feedable.project_feedable_type == 'Note' %>
+                          <%= render partial: "notes/note", locals: { note: feedable.note, last: (feedable == @feedables.last) } %>
+                        <% elsif feedable.project_feedable_type == 'Event' %>
+                          <% if allowed_to?(:manage?, @project) %>
+                            <% if lookup_context.template_exists?(feedable.event.action, "events/activities", true) %>
+                              <%= render partial: "events/activities/#{feedable.event.action}", locals: { event: feedable.event, last: (feedable == @feedables.last) } %>
+                            <% end %>
+                          <% end %>
+                        <% end %>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

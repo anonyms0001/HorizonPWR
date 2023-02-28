@@ -1,0 +1,16 @@
+<% install_appt = funding.project.appointments.where(appointment_type: 'install').last %>
+<% install_date = install_appt&.start_at %>
+<p>
+  <%= link_to "Project #{funding.project.id}", funding.project %> •
+  <%= link_to funding.project.address.address, funding.project.address %> •
+  <span class="font-bold">Install:</span>
+  <% if install_date.present? %>
+    <%= link_to install_appt ||= root_path do %>
+      <%= local_time(install_date, format: '%m/%d %I:%M%p') %>
+    <% end %>
+  <% else %>
+    Not Scheduled
+  <% end %>
+  •
+  <%= link_to "Funding", project_funding_path(funding.project, funding) %>
+</p>

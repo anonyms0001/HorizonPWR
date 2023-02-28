@@ -1,0 +1,96 @@
+<div class="mx-auto my-4 px-1 md:px-2 lg:px-4">
+  <div class="flow-root lg:mb-4 <%= 'hidden' if !@applicants.any? && allowed_to?(:create?, Applicant, with: ApplicantPolicy) %>">
+    <%= link_to t("shared.scaffold.new.title", model: "Applicant"), new_applicant_path, class: "btn btn-primary float-right hidden lg:inline-block" %>
+  </div>
+  <div class="flex-none flex-wrap-reverse lg:flex-wrap lg:flex items-center mb-4">
+    <div class="w-full lg:w-1/4">
+      <div class="flex justify-between">
+        <h1 class="h3 mr-2">
+          <%= link_to 'Applicants', applicants_path, class: "text-gray-900" %>
+        </h1>
+        <%= link_to t("shared.scaffold.new.title", model: "Applicant"), new_applicant_path, class: "btn btn-primary lg:hidden" %>
+      </div>
+    </div>
+
+    <% if allowed_to?(:create?, Applicant, with: ApplicantPolicy) %>
+      <div class="w-full lg:w-1/2">
+        <%= render partial: "applicants/filter" %>
+      </div>
+      <div class="w-full lg:w-1/4">
+        <%= render partial: "applicants/search" %>
+      </div>
+      <div class="w-full mt-2 text-center text-sm <%= 'hidden' if !params[:filter].present? %>">
+        Filtered by: <%= "'#{params[:filter]}'" %>
+      </div>
+    <% end %>
+  </div>
+  <div class="bg-white rounded-lg">
+    <% if @applicants.any? %>
+      <div class="table-responsive">
+        <div class="p-6">
+          <table class="table">
+            <thead>
+            <tr>
+              <th class="p-3 uppercase text-left text-xs"><%= sortable @applicants, :first_name, "First name", class: "text-gray-700" %></th>
+              <th class="p-3 uppercase text-left text-xs"><%= sortable @applicants, :last_name, "Last name", class: "text-gray-700" %></th>
+              <th class="p-3 uppercase text-left text-xs"><%= sortable @applicants, :email, "Email", class: "text-gray-700" %></th>
+              <th class="p-3 uppercase text-left text-xs"><%= sortable @applicants, :phone, "Phone", class: "text-gray-700" %></th>
+              <th class="p-3 uppercase text-left text-xs"><%= sortable @applicants, :user_id, "User", class: "text-gray-700" %></th>
+              <th class="p-3 uppercase text-left text-xs"><%= sortable @applicants, :account_id, "Team", class: "text-gray-700" %></th>
+              <th class="p-3 uppercase text-left text-xs"><%= sortable @applicants, :previously_employed_here, "Previously employed here", class: "text-gray-700" %></th>
+              <th class="p-3 uppercase text-left text-xs"><%= sortable @applicants, :status, "Status", class: "text-gray-700" %></th>
+              <th class="p-3 uppercase text-left text-xs text-gray-700">Notes?</th>
+              <th class="p-3 uppercase text-left text-xs text-gray-700 w-20"><%= t("shared.scaffold.actions") %></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <% @applicants.each do |applicant| %>
+              <tr class="group border-t border-gray-400 hover:bg-gray-100">
+                <td class="p-3"><%= applicant.first_name %></td>
+                <td class="p-3"><%= applicant.last_name %></td>
+                <td class="p-3"><%= applicant.email %></td>
+                <td class="p-3"><%= applicant.phone %></td>
+                <td class="p-3"><%= applicant.user_id %></td>
+                <td class="p-3"><%= applicant.account&.name %></td>
+                <td class="p-3"><%= applicant.previously_employed_here %></td>
+                <td class="p-3">
+                  <div class="flex items-center text-gray-500">
+                    <div class="ml-3 h-3 w-3 bg-<%= applicant.status_color %>-400 rounded-full">
+                    </div>
+                    <div class="px-1 text-base capitalize font-bold leading-normal text-<%= applicant.status_color %>-500">
+                      <%= applicant.status %>
+                    </div>
+                  </div>
+                <td class="p-3">
+                  <% if applicant.notes.any? %>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                  <% end %>
+                </td>
+                <td>
+                  <%= link_to t("shared.scaffold.view"), applicant, class: "btn btn-link no-underline" %>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+        <%= render "shared/custom_pagy" %>
+      </div>
+    <% else %>
+      <div class="bg-white rounded shadow flex flex-col items-center justify-between p-8 lg:flex-row">
+        <%= image_tag "empty.svg", class: "mb-4 lg:w-1/2" %>
+        <div class="flex-1 text-center">
+          <% if allowed_to?(:create?, Applicant, with: ApplicantPolicy) %>
+            <p class="h3 mb-4">Create your first Applicant</p>
+            <%= link_to t("shared.scaffold.new.title", model: "Applicant"), new_applicant_path, class: "btn btn-primary" %>
+          <% else %>
+            <p class="h3 mb-4">You do not have permission to create Applicant</p>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

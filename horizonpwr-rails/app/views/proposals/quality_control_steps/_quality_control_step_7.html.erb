@@ -1,0 +1,16 @@
+<div class="p-8">
+  <h4 class="pb-3">
+    <%= Proposal.steps[@proposal.quality_control_step - 1] %>
+  </h4>
+
+  <label for="check_templates" class="flex items-center space-x-3 pb-3">
+    <input id="check_templates" type="checkbox" name="check_templates" value="1" class="form-tick appearance-none h-6 w-6 border border-gray-300 rounded-md checked:bg-blue-600 checked:border-transparent focus:outline-none" required>
+    <span class="text-gray-900 font-medium">&nbsp;&nbsp;Is the correct templated selected?</span>
+  </label>
+
+  <ul>
+    <li>If Idaho, the Idaho 21 Year Analysis</li>
+    <li>If Pacific Power customer, the Pacific Power 21 Year Analysis</li>
+    <li>(This is important so the rebate shows on the proposals.)</li>
+  </ul>
+</div>

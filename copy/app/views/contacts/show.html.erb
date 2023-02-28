@@ -1,0 +1,208 @@
+<div class="container mx-auto my-8 px-4">
+  <!-- Main 3 column grid -->
+  <main class="pb-8">
+    <div class="mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Main 3 column grid -->
+      <div class="grid grid-cols-1 gap-4 items-start lg:grid-cols-3 lg:gap-8">
+        <!-- Left column -->
+        <div class="grid grid-cols-1 gap-4 lg:col-span-3">
+          <!-- Summary panel -->
+          <section aria-labelledby="profile-overview-title">
+            <div class="rounded-lg bg-white overflow-hidden shadow-lg">
+              <div class="bg-white p-6 pt-4 flex lg:justify-between lg:flex-row flex-wrap sm:flex-nowrap">
+                <div class="sm:flex sm:items-center sm:justify-between w-full">
+                  <div class="sm:flex">
+                    <div class="flex-shrink-0">
+                    </div>
+                    <div class="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
+                      <div class="flex flex-row items-center">
+                        <!-- Contact avatar -->
+                        <div class="flex-shrink-0 h-10 w-10">
+                          <%= image_tag avatar_url_for(@contact), class: "h-10 inline-block rounded-full mr-2" %>
+                        </div>
+                        <p class="text-xl font-bold text-gray-900 sm:text-2xl pl-4"><%= @contact.first_name %> <%= @contact.last_name %></p>
+                        <%= link_to 'Edit', edit_contact_path(@contact), class: "btn btn-link" %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex w-full lg:justify-end md:justify-end justify-evenly">
+                  <div class="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
+                    <!-- Hidden for future use-->
+                    <div class="flex flex-row items-center hidden">
+                      <div class="flex-1 h-3 w-3 bg-green-400 rounded-full">
+                      </div>
+                      <div class="px-1 py-2 text-base font-bold leading-normal capitalize text-green-500">
+                        STATUS HERE
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p class="text-sm font-medium text-gray-600 py-1 px-6">
+                <span class="font-medium text-gray-900">
+                    Email:
+                </span>
+                <span class="text-sm font-medium text-gray-600 py-1">
+                  <% if @contact.email.present? %>
+                    <%= @contact.email %>
+                  <% else %>
+                    No email added
+                  <% end %>
+                </span>
+              </p>
+              <p class="text-sm font-medium text-gray-600 py-1 px-6">
+                <span class="font-medium text-gray-900">
+                    Phone:
+                </span>
+                <span class="text-sm font-medium text-gray-600 py-1">
+                  <% if @contact.phone.present? %>
+                    <%= @contact.phone %>
+                  <% else %>
+                    No phone added
+                  <% end %>
+                </span>
+              </p>
+              <div class="border-t border-gray-200 bg-gray-50 grid grid-cols-1 divide-y divide-gray-200 sm:grid-cols-4 sm:divide-y-0 sm:divide-x">
+                <div class="px-6 py-5 text-sm text-center flex flex-nowrap sm:flex-wrap md:flex-wrap justify-between">
+                  <div class="w-full">
+                    <span class="text-gray-900 font-medium">
+                      TITLE:
+                    </span>
+                    <span class="text-gray-600">
+                      Something here
+                    </span>
+                  </div>
+                  <div class="w-full">
+                    <span class="text-gray-900 font-medium">
+                      TITLE:
+                    </span>
+                    <span class="text-gray-600">
+                      Something here
+                    </span>
+                  </div>
+                </div>
+                <!--4 Bottom sections on top card-->
+                <div class="px-6 py-5 text-sm text-center flex flex-nowrap sm:flex-wrap md:flex-wrap justify-between">
+                  <div class="w-full">
+                    <span class="text-gray-900 font-medium">
+                      TITLE:
+                    </span>
+                    <span class="text-gray-600">
+                      Something here
+                    </span>
+                  </div>
+                  <div class="w-full">
+                    <span class="text-gray-900 font-medium">
+                      TITLE:
+                    </span>
+                    <span class="text-gray-600">
+                      Something here
+                    </span>
+                  </div>
+                </div>
+                <div class="px-6 py-5 text-sm text-center flex flex-nowrap sm:flex-wrap md:flex-wrap justify-between">
+                  <div class="w-full">
+                    <span class="text-gray-900 font-medium">
+                      TITLE:
+                    </span>
+                    <span class="text-gray-600">
+                      Something here
+                    </span>
+                  </div>
+                  <div class="w-full">
+                    <span class="text-gray-900 font-medium">
+                      TITLE:
+                    </span>
+                    <span class="text-gray-600">
+                      Something here
+                    </span>
+                  </div>
+                </div>
+                <div class="px-6 py-5 text-sm text-center flex flex-nowrap sm:flex-wrap md:flex-wrap justify-between">
+                  <div class="w-full">
+                    <span class="text-gray-900 font-medium">
+                      TITLE:
+                    </span>
+                    <span class="text-gray-600">
+                      Something here
+                    </span>
+                  </div>
+                  <div class="w-full">
+                    <span class="text-gray-900 font-medium">
+                      TITLE:
+                    </span>
+                    <span class="text-gray-600">
+                      Something here
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div class="grid grid-cols-1 gap-8 lg:col-span-2">
+          <!-- Address panel -->
+          <section>
+            <div class="rounded-lg overflow-hidden shadow-lg bg-white">
+              <div class="rounded-tl-lg rounded-tr-lg sm:rounded-tr-none relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
+                <p class="text-xl font-bold text-gray-900 sm:text-2xl">Address</p>
+                <br/>
+                <% if @contact.addresses.count > 0 %>
+                  <% @contact.addresses.each do |address| %>
+                    <%= link_to address.full_address, address, class: "text-gray-600" %>
+                  <% end %>
+                <% else %>
+                  No Address has been added for this contact
+                <% end %>
+              </div>
+            </div>
+          </section>
+          <!-- Actions panel 2-->
+          <section>
+            <div class="rounded-lg overflow-hidden shadow-lg bg-white">
+              <div class="rounded-tl-lg rounded-tr-lg sm:rounded-tr-none relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
+                <p class="text-xl font-bold text-gray-900 sm:text-2xl">WORK ACTIONS 2</p>
+                <p class="text-sm font-medium text-gray-600">A subtitle here</p>
+                <!--TODO: ADD CUSTOM ELEMENTS HERE FOR THIS SECTION-->
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Right column -->
+        <div class="grid grid-span-3 gap-4">
+          <!-- Appointment -->
+          <section>
+            <div class="rounded-lg bg-white overflow-hidden shadow-lg">
+              <div class="p-6">
+                <h2 class="text-m font-bold text-gray-900 sm:text-xl">Appointments</h2>
+                <div class="flow-root mt-6">
+                  <% if @contact.addresses.each do |address| %>
+                    <% address.appointments.each do |appointment| %>
+                      <div class="inline-flex w-full h-full my-2 items-center justify-center pl-6 bg-white border rounded-md border-<%= appointment.status_color %>-200">
+                        <p class="w-1/2 h-full text-sm leading-none text-gray-800">
+                          <%= link_to "#{appointment.appointment_type} - #{date_mdy(appointment.date)}", appointment, class: "w-full btn-link no-underline capitalize text-gray-700" %>
+                        </p>
+                        <div class="flex items-center justify-center flex-1 h-full bg-<%= appointment.status_color %>-100 rounded-tr-md rounded-br-md">
+                          <p class="h-full text-sm font-medium leading-snug text-center text-<%= appointment.status_color %>-700 px-2 py-1">
+                            <%= appointment.appointment_status %>
+                            <%#= TODO: Update the rest of the colors https://www.pivotaltracker.com/story/show/178094538 %>
+                          </p>
+                        </div>
+                      </div>
+                    <% end %>
+                    <% end %>
+                  <% else %>
+                    <p>No appointments scheduled</p>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

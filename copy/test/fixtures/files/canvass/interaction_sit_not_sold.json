@@ -1,0 +1,56 @@
+{
+  "action": "create",
+  "type": "interaction",
+  "data": {
+    "interaction": {
+      "id": 477846,
+      "address_id": 134361200,
+      "customer_id": 33540,
+      "employee_id": 50,
+      "type_id": 9,
+      "sub_type_id": 35,
+      "offline_uuid": "0E6169A1-34FA-49B4-B73E-39C3FA083DB2",
+      "created": "2021-02-17T03:43:47.000Z",
+      "modified": "2021-02-17T03:43:47.000Z",
+      "type_name": "Sit Not Sold",
+      "sub_type_name": "Closed Minded"
+    },
+    "address": {
+      "id": 134361200,
+      "lat": "43.49326950",
+      "lng": "-111.96199900",
+      "number": "3621",
+      "street": "Jason Dr",
+      "unit": "",
+      "city": "Idaho Falls",
+      "district": "Bonneville",
+      "region": "ID",
+      "postal": "83401",
+      "country": null
+    },
+    "address_fields": {},
+    "customer": {
+      "id": 33540,
+      "first_name": "Brenda",
+      "last_name": "Patterson",
+      "gender": "F",
+      "birthdate": "1969-05-08",
+      "email_personal": null,
+      "phone_mobile": "",
+      "created": "2021-02-15T22:39:13.000Z",
+      "modified": "2021-02-15T22:39:13.000Z"
+    },
+    "custom_fields": {},
+    "employee": {
+      "id": 50,
+      "first_name": "Ryker",
+      "alias": "",
+      "last_name": "Parkinson",
+      "email": "ryker.parkinson@horizonpwr.com",
+      "group_id": 1,
+      "created": "2020-04-06T23:55:15.000Z",
+      "modified": "2020-12-10T20:20:09.000Z",
+      "group_name": "Rexburg"
+    }
+  }
+}

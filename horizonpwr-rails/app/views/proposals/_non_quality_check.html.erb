@@ -1,0 +1,6 @@
+<div class="pb-3 text-center flex flex-wrap items-center space-x-3">
+  <% unless proposal.completion_state == 'complete' || proposal.completion_state == 'closed' || proposal.completion_state == 'ready for close call' %>
+    <%=  ProposalDecorator.new(proposal).incomplete_state_block %>
+  <% end %>
+  <%=  ProposalDecorator.new(proposal).completion_state_link_block %>
+</div>

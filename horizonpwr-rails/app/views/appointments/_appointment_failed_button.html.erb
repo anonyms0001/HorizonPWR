@@ -1,0 +1,18 @@
+<% if @appointment.failed? %>
+  <%= tag.div class: "px-4 py-3 text-red-600 bg-red-100 rounded-lg w-full flex justify-between mb-4 font-bold" do %>
+    <span>
+      <%= fa_icon "times", class: "fas text-lg mr-2" %>
+      Failed
+     </span>
+  <% end %>
+<% end %>
+
+<% if !@appointment.failed? && (current_user.support? || current_user.project_manager?) %>
+  <%= button_to appointment_failed_path, params: { id: @appointment.id }, class: "px-4 py-3 text-red-600 hover:text-white rounded-lg border-2 border-red-600 hover:bg-red-600 w-full flex justify-start content-center mb-4 font-bold", data: { disable_with: 'processing…' } do %>
+    <span class="fa-stack text-xs">
+      <%= fa_icon "check", class: "fas fa-stack-1x mr-2", style: "color:Green" %>
+      <%= fa_icon "ban", class: "fas fa-stack-2x mr-2", style: "color:Tomato" %>
+    </span>
+    Mark As Failed
+  <% end %>
+<% end %>

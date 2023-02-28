@@ -1,0 +1,12 @@
+<h3>Hey <%= @user.first_name %>,</h3>
+
+<p class="italic">
+  This is an automated message from PWRStation:
+</p>
+
+<p>
+  Duplicate proposals have been created for <%= @proposal.appointment.address.contacts.first.name %>. They have been both been marked as blocked.
+</p>
+<p>
+  We urge you to promptly delete the unneeded proposal, so work can proceed.
+</p>

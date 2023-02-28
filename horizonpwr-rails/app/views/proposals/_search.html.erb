@@ -1,0 +1,32 @@
+<div class="lg:w-1/5 w-full pb-4">
+  <form action="/proposals" accept-charset="UTF-8" method="get">
+    <div class="border border-gray-300 rounded-lg relative mb-2">
+      <input class="transition focus:outline-0 border border-transparent focus:bg-white focus:border-gray-300 placeholder-gray-700 rounded-lg bg-white py-2 pr-4 pl-10 block w-full appearance-none leading-normal ds-input shadow-inner shadow-lg" placeholder="Search..." type="text" name="q" id="q" value="<%= params[:q] %>" required>
+      <div class="pointer-events-none absolute inset-y-0 left-0 pl-4 flex items-center">
+        <svg class="fill-current pointer-events-none text-gray-600 w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+          <path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"></path>
+        </svg>
+      </div>
+    </div>
+  </form>
+
+  <div class="bg-white border border-gray-300 rounded-lg shadow-lg">
+    <%= link_to "Today", proposals_path(days: 1), class: "block no-underline p-3 px-6 text-gray-700 hover:bg-gray-100" %>
+    <%= link_to "New", proposals_path(completion_state: 'new'), class: "block no-underline p-3 px-6 text-gray-700 hover:bg-gray-100" %>
+    <%= link_to "Pending Aurora", proposals_path(completion_state: 'pending aurora'), class: "block no-underline p-3 px-6 text-gray-700 hover:bg-gray-100" %>
+    <%= link_to "Drawing", proposals_path(completion_state: 'draw'), class: "block no-underline p-3 px-6 text-gray-700 hover:bg-gray-100" %>
+    <%= link_to "QC", proposals_path(completion_state: 'quality'), class: "block no-underline p-3 px-6 text-gray-700 hover:bg-gray-100" %>
+    <%= link_to "Blocked", proposals_path(blocked: 'true'), class: "block no-underline p-3 px-6 text-gray-700 hover:bg-gray-100" %>
+    <%= link_to "Blocked Due Today (#{@blocked_due_today_size})", proposals_path(blocked: 'true', days: 2), class: "block no-underline p-3 px-6 text-gray-700 hover:bg-gray-100" %>
+    <%= link_to "Completed", proposals_path(completion_state: 'complete'), class: "block no-underline p-3 px-6 text-gray-700 hover:bg-gray-100" %>
+    <%= link_to "Ready For Close Call", proposals_path(completion_state: 'ready for close call'), class: "block no-underline p-3 px-6 text-gray-700 hover:bg-gray-100" %>
+    <%= link_to "Closed", proposals_path(completion_state: 'closed'), class: "block no-underline p-3 px-6 text-gray-700 hover:bg-gray-100" %>
+    <%#= link_to "All", proposals_path, class: "block no-underline p-3 px-6 text-gray-700 hover:bg-gray-100" %>
+    <%#= link_to "Not Blocked", proposals_path(blocked: 'false'), class: "block no-underline p-3 px-6 text-gray-700 hover:bg-gray-100" %>
+    <%#= link_to "Mine", proposals_path(scope: 'mine'), class: "block no-underline p-3 px-6 text-gray-700 hover:bg-gray-100" %>
+    <%# Proposal.blocked_choices.each do |choice| %>
+      <%#= link_to "#{choice}", proposals_path(blocked_on: "#{choice}"), class: "block no-underline p-3 px-6 text-gray-700 hover:bg-gray-100" %>
+    <%# end %>
+  </div>
+</div>
+<br/>

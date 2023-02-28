@@ -1,0 +1,70 @@
+<div class="mx-auto my-4 px-1 md:px-2 lg:px-4">
+  <div class="flow-root lg:mb-4 <%= 'hidden' if !@concessions.any? && allowed_to?(:create?, Concession, with: ConcessionPolicy ) %>">
+    <%= link_to t("shared.scaffold.new.title", model: "Concession"), new_concession_path, class: "btn btn-primary float-right hidden lg:inline-block" %>
+  </div>
+  <div class="flex-none flex-wrap-reverse lg:flex-wrap lg:flex items-center mb-4">
+    <div class="w-full lg:w-1/4">
+      <div class="flex justify-between">
+        <h1 class="h3 mr-2">
+          <%= link_to 'Concessions', concessions_path, class:"text-gray-900" %>
+        </h1>
+        <%= link_to t("shared.scaffold.new.title", model: "Concession"), new_concession_path, class: "btn btn-primary lg:hidden" %>
+      </div>
+    </div>
+
+    <% if @concessions.any? && allowed_to?(:create?, Concession, with: ConcessionPolicy ) %>
+      <div class="w-full lg:w-1/2">
+        <%= render partial: "concessions/filter" %>
+      </div>
+      <div class="w-full lg:w-1/4">
+        <%= render partial: "concessions/search" %>
+      </div>
+    <div class="w-full mt-2 text-center text-sm <%= 'hidden' if !params[:filter].present? %>">
+      Filtered by: <%= "'#{params[:filter]}'" %>
+    </div>
+    <% end %>
+  </div>
+  <div class="bg-white rounded-lg">
+    <% if @concessions.any? %>
+      <div class="table-responsive">
+        <div class="p-6">
+        <table class="table">
+          <thead>
+            <tr>
+                <th class="p-3 uppercase text-left text-xs"><%= sortable @concessions, :amount, "Amount", class: "text-gray-700" %></th>
+                <th class="p-3 uppercase text-left text-xs"><%= sortable @concessions, :project_id, "Project", class: "text-gray-700" %></th>
+                <th class="p-3 uppercase text-left text-xs text-gray-700 w-20"><%= t("shared.scaffold.actions") %></th>
+            </tr>
+          </thead>
+
+          <tbody>
+          <% @concessions.each do |concession| %>
+            <tr class="group border-t border-gray-400 hover:bg-gray-100">
+                          <td class="p-3"><%= number_to_currency(concession.amount) %></td>
+                          <td class="p-3"><%= concession.project_id %></td>
+            
+              <td>
+                <%= link_to t("shared.scaffold.view"), concession, class: "btn btn-link no-underline" %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+        </div>
+        <%= render "shared/custom_pagy" %>
+      </div>
+    <% else %>
+      <div class="bg-white rounded shadow flex flex-col items-center justify-between p-8 lg:flex-row">
+        <%= image_tag "empty.svg", class: "mb-4 lg:w-1/2" %>
+        <div class="flex-1 text-center">
+          <% if allowed_to?(:create?, Concession, with: ConcessionPolicy ) %>
+          <p class="h3 mb-4">Create your first Concession</p>
+          <%= link_to t("shared.scaffold.new.title", model: "Concession"), params[:project_id] ? new_project_concession_path(params[:project_id]) : new_concession_path, class: "btn btn-primary" %>
+          <% else %>
+            <p class="h3 mb-4">You do not have permission to create Concession</p>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

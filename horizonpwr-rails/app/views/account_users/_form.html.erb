@@ -1,0 +1,21 @@
+<%= form_with(model: [@account, account_user]) do |form| %>
+  <%= render "shared/error_messages", resource: form.object %>
+  <h5 class="mb-2"><%= t("accounts.roles") %></h5>
+  <div class="form-group">
+    <% AccountUser::ROLES.each do |role| %>
+      <div>
+        <%= form.check_box role, id: role.to_s.parameterize, class: "form-checkbox mr-1", disabled: account_user.can_edit_role?(current_user, role) %>
+        <label for="<%= role.to_s.parameterize %>" class="inline-block"><%= role.to_s.humanize %></label>
+      </div>
+    <% end %>
+  </div>
+  <h5 class="mb-2"><%= t("accounts.default_consultant_id") %></h5>
+  <div class="form-group">
+    <%= form.select :default_consultant_id, options_from_collection_for_select(@account.closers, "id", "name", account_user.default_energy_consultant.id), {}, class: "form-control", required: true %>
+  </div>
+  <div class="flex justify-between form-group">
+    <%= form.button class: "btn btn-primary" %>
+    <%= link_to "Remove from Team", account_account_user_path(@account), data: { method: :delete } , class: "btn btn-danger" if allowed_to?(:edit?, account_user) %>
+    <%= link_to "De-Activate User", account_account_user_deactivate_path(@account, account_user), class: "btn btn-danger" if allowed_to?(:edit?, account_user) %>
+  </div>
+<% end %>

@@ -1,0 +1,201 @@
+<%= title 'Calendar' %>
+<div class="my-8">
+  <!-- Main 3 column grid -->
+  <main class="mx-auto sm:px-6 lg:px-8">
+    <!-- Main 3 column grid -->
+    <div class="grid grid-cols-1 gap-4 lg:col-span-3">
+      <!-- Header Card -->
+      <section aria-labelledby="profile-overview-title">
+        <%= render partial: "calendars/header", locals: { calendar: @calendar, show_cards: false } %>
+      </section>
+    </div>
+    <div class="grid grid-cols-1 gap-4 items-start lg:grid-cols-3 lg:gap-4 mt-4">
+      <div class="grid grid-cols-1 gap-4 lg:col-span-2 order-2 lg:order-1">
+        <!-- Card 1 -->
+        <section>
+          <div class="sm:rounded-md shadow-lg bg-white">
+            <div class="flex justify-between pt-3 px-3">
+              <% if allowed_to?(:view?, @active_users, with: CalendarViewPolicy) %>
+                <div class="flex">
+                  <% if @view_as_user.present? %>
+                    <%= image_tag avatar_url_for(User.find(@view_as_user)), class: "rounded-full mr-4 w-9 h-9 ring-2 ring-white lg:hidden" %>
+                  <% else %>
+                    <%= image_tag "mark.png", class: "w-9 h-9 h-full rounded-lg mr-4 lg:hidden" %>
+                  <% end %>
+                  <span class="text-left">
+                    <strong><%= local_time(Time.now, format: "%l:%M %p") %></strong>
+                    <br/>
+                    <span class="text-gray-400 text-sm"><%= current_user.time_zone %></span>
+                  </span>
+                </div>
+              <% end %>
+              <span class="relative z-0 inline-flex shadow-sm rounded-md">
+                <%= link_to 'Month', request.params.except(:appt_details_for).merge(calendar_view: "month"), class: "relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500" %>
+                <%= link_to 'Week', request.params.except(:appt_details_for).merge(calendar_view: "week"), class: "-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500" %>
+                <%= link_to 'Day', request.params.except(:appt_details_for).merge(calendar_view: "day"), class: "-ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500" %>
+              </span>
+            </div>
+            <%= render partial: "calendars/tailwind_calendar/#{ @calendar_partial }", locals: {} %>
+          </div>
+        </section>
+        <!-- Card 2-->
+        <section>
+          <div class="sm:rounded-md shadow-lg bg-white p-6">
+            <p class="text-lg font-semibold leading-none text-gray-900">
+              Appointment Details
+            </p>
+            <p class="text-sm font-medium text-gray-600 mt-4">
+              <% if @appt_details.present? %>
+                <%= link_to @appt_details.name, appointment_path(@appt_details), target: :blank %>
+                - <%= @appt_details.appointment_type.capitalize %><br/>
+                <% if @appt_details.calendar_title.is_a?(Project) %>
+                  <%= @appt_details.project.calendar_details_array_count %>
+                  <%= tag.br %>
+                <% end %>
+                <%= render "time_range_by_appointment_type", appointment: @appt_details %><br/>
+                Scheduled With: <%= @appt_details.scheduled_with_consultant.name %>
+              <% else %>
+                Nothing selected.
+              <% end %>
+            </p>
+            <% if @appt_details.present? %>
+              <p class="text-sm font-medium text-gray-600">
+                <%= fa_icon "long-arrow-alt-right", class: "fas mr-1" %>
+                <%= link_to @appt_details.calendar_title.class.name.titleize, @appt_details.calendar_title %>
+              </p>
+            <% end %>
+            <% if  @appt_details.present? && @appt_details.calendar_title.is_a?(Project) %>
+              <div class="p-6">
+                <%#= link_to "Add Note", new_note_path(notable_type: 'Appointment', notable_id: @appt_details.id, start_date: @appt_details.start_at.strftime("%Y-%m-%d")), class: "btn btn-primary bg-indigo-600 text-white float-right" %>
+                <p class="text-lg font-semibold leading-none text-gray-900">
+                  Install Notes
+                </p>
+
+                <div class="flow-root mt-6">
+                  <div class="flow-root">
+                    <div class="border-b-2 border-gray-400 mb-4">
+                        <% if allowed_to?(:manage?, @new_note) %>
+                          <%= render partial: "notes/form", locals: { note: @new_note } %>
+                        <% end %>
+                    </div>
+                    <div class="overflow-y-auto mt-8">
+                      <% @appt_details.notes.chronologically_ordered.each do |note| %>
+                        <%= render partial: "notes/note", locals: { note: note, last: false } %>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </section>
+      </div>
+      <!-- Right column -->
+      <!-- Card 3 -->
+      <div class="grid grid-span-3 gap-4 order-1 lg:order-2">
+        <section>
+          <div class="sm:rounded-md bg-white shadow-lg p-6">
+            <% if allowed_to?(:view?, @active_users, with: CalendarViewPolicy) %>
+              <div class="flex flex-row justify-between mb-2">
+                <div class="inline-flex items-center w-full">
+                  <% if @view_as_user.present? %>
+                    <%= image_tag avatar_url_for(User.find(@view_as_user)), class: "rounded-full mr-4 w-9 h-9 ring-2 ring-white" %>
+                  <% else %>
+                    <%= image_tag "mark.png", class: "w-9 h-9 h-full rounded-lg mr-4" %>
+                  <% end %>
+                  <div class="inline-flex flex-col items-start h-full flex-grow">
+                    <% if @view_as_user.present? %>
+                      <div class="flex justify-between items-center w-full">
+                        <div class="w-full text-xs leading-3 text-gray-400" id="viewing_as_div">
+                          Viewing As
+                        </div>
+                        <%= link_to "clear", request.params.except(:view_as_user), class: "" %>
+                      </div>
+                    <% else %>
+                      <div class="w-full text-xs leading-3 text-gray-400 py-1.5" id="view_as_div">
+                        View As
+                      </div>
+                    <% end %>
+                    <% if allowed_to?(:view?, @active_users, with: CalendarViewPolicy) %>
+                      <%= form_with(url: '#', class: "w-full") do |form| %>
+                        <div class="w-full flex justify-between mt-1 text-md font-semibold leading-none text-gray-900 items-center" data-controller="params">
+                          <%= form.select :view_as,
+                                          options_from_collection_for_select(@active_users, "id", "name", @view_as_user),
+                                          { prompt: "Select…" },
+                                          { data: { action: "change->params#add" }, class: "mt-1 block w-full border border-gray-300 rounded-lg shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" }
+                          %>
+                        </div>
+                      <% end %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+            <%= render "calendars/search" %>
+
+            <div>
+              <%# if request.original_url.include?('?') %>
+                <div class="text-center mt-2" data-controller='params'>
+                  <%= link_to "clear all filters", calendars_path, "data-action": "click->params#clearFilters" %>
+                </div>
+              <%# end %>
+
+              <%= form_with(url: "#", class: "w-full ") do |form| %>
+                <% unless current_user.solar_installer? %>
+                  <%= render "filter_category", category: "Appointment Type", param: "appointment_type", entries: @appointment_types, form: form %>
+                  <%= render "filter_category", category: "Appointment Subtype", param: "appointment_subtype", entries: @appointment_subtypes, form: form %>
+                  <%= render "filter_category", category: "Installer", param: "installer_id", entries: @installers, form: form %>
+                  <%= render "filter_category", category: "Team", param: "account_id", entries: @teams, form: form %>
+                <% end %>
+                <div data-controller="params" data-action="click->params#submitFilters" class="btn btn-primary w-full text-white grid place-content-center" >
+                  Apply Filters
+                </div>
+              <% end %>
+
+              <div class="w-full mt-1 leading-none">
+                <div class="flex justify-between items-center">
+                  <div class="text-gray-900 text-md font-semibold my-3">
+                    Saved Filters
+                  </div>
+                </div>
+
+                <%= form_with(model: current_user.user_filters.new) do |form| %>
+                  <div class="flex overflow-hidden mb-2">
+                    <%= form.text_field :name, placeholder: "New Filter Name", class: "form-control rounded-r-none" %>
+                    <%= form.hidden_field :filter, value: request.original_url %>
+                    <%= form.button "Add New", class: "w-1/4 btn btn-primary inline mt-1 rounded-l-none" %>
+                  </div>
+                <% end %>
+
+                <% if @user_filters.any? %>
+                  <% @user_filters.each do |filter| %>
+                    <div class="flex mb-2 w-full">
+                      <%= fa_icon 'list', class: "fas h-8 w-8 text-xl text-gray-300" %>
+                      <div class="w-full">
+                        <%= link_to filter.name, filter.filter, class: "block" %>
+                        <div class="text-right bg-gray-100 p-1">
+                          <%= form_with(model: filter, class: "inline") do |form| %>
+                            <%= form.hidden_field :filter, value: request.original_url %>
+                            <%= form.button "update", class: "hover:text-blue-600" %>
+                          <% end %>
+                          |
+                          <%= link_to "delete", filter, class: "text-red-600", method: :delete, data: { confirm: t("are_you_sure") } %>
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+                <% end %>
+
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>
+
+<%# NOTE: Preload bg colors for appointments. %>
+<% "bg-green-600 bg-gray-600 bg-blue-600 bg-purple-600 bg-red-600 bg-yellow-500" %>
+<% "border-green-600 border-gray-600 border-blue-600 border-purple-600 border-red-600 border-yellow-600" %>
+<% "border-green-200 border-gray-200 border-blue-200 border-purple-200 border-red-200 border-yellow-200" %>

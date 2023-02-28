@@ -1,0 +1,56 @@
+{
+  "action": "create",
+  "type": "interaction",
+  "data": {
+    "interaction": {
+      "id": 477808,
+      "address_id": 141195662,
+      "customer_id": 33074,
+      "employee_id": 195,
+      "type_id": 9,
+      "sub_type_id": 33,
+      "offline_uuid": "7021083C-26F7-483A-9293-CE764248AAFC",
+      "created": "2021-02-17T03:08:04.000Z",
+      "modified": "2021-02-17T03:08:04.000Z",
+      "type_name": "Sit Not Sold",
+      "sub_type_name": "Talk To Realtor"
+    },
+    "address": {
+      "id": 141195662,
+      "lat": "44.01643292",
+      "lng": "-121.29227443",
+      "number": "60126",
+      "street": "SE Ruby Peak Loop",
+      "unit": null,
+      "city": "Bend",
+      "district": null,
+      "region": "OR",
+      "postal": "97702",
+      "country": null
+    },
+    "address_fields": {},
+    "customer": {
+      "id": 33074,
+      "first_name": "Lori",
+      "last_name": "Stepanek",
+      "gender": "F",
+      "birthdate": null,
+      "email_personal": null,
+      "phone_mobile": "7047730527",
+      "created": "2021-02-03T22:25:36.000Z",
+      "modified": "2021-02-03T22:25:36.000Z"
+    },
+    "custom_fields": {},
+    "employee": {
+      "id": 195,
+      "first_name": "James",
+      "alias": "",
+      "last_name": "Woods",
+      "email": "james.woods@horizonpwr.com",
+      "group_id": 7,
+      "created": "2021-01-06T16:40:53.000Z",
+      "modified": "2021-01-06T19:07:36.000Z",
+      "group_name": "Bend"
+    }
+  }
+}

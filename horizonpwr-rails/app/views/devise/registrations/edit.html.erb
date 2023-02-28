@@ -1,0 +1,101 @@
+<div class="flex flex-wrap my-4 lg:px-4">
+  <div class="w-full p-4 lg:w-1/4">
+    <%= render partial: "shared/account_navbar" %>
+  </div>
+  <div class="w-full p-4 lg:w-3/4">
+    <div class="p-4 bg-white border border-gray-300 rounded-lg lg:p-10">
+      <h2 class="mb-4"><%= t('.title', resource: resource.model_name.human) %></h2>
+      <%= form_with(model: resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, class: "mb-16") do |f| %>
+        <%= render "shared/error_messages", resource: resource %>
+        <div class="flex flex-wrap items-start justify-between">
+          <div class="w-full lg:w-1/2">
+            <div class="form-group">
+              <%= f.label :name, "Full name" %>
+              <%= f.text_field :name, autofocus: true, autocomplete: "name", placeholder: "Judd Ferguson", class: "form-control" %>
+            </div>
+            <div class="form-group">
+              <%= f.label :email %>
+              <%= f.email_field :email, autocomplete: "email", placeholder: "your.name@horizonpwr.com", :disabled => true, class: "form-control" %>
+            </div>
+            <div class="form-group">
+              <%= f.label :personal_email %>
+              <%= f.email_field :personal_email, autocomplete: "email", placeholder: true, class: "form-control" %>
+            </div>
+            <div class="form-group">
+              <%= f.label :phone %>
+              <%= f.text_field :phone, autocomplete: "phone", placeholder: true, class: "form-control" %>
+            </div>
+            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+              <div class="alert alert-warning mb-4"><%= t('.currently_waiting_confirmation_for_email', email: resource.unconfirmed_email) %></div>
+            <% end %>
+            <div class="form-group">
+              <%= f.label :time_zone %>
+              <%= f.time_zone_select :time_zone, nil, { default: browser_time_zone.name }, { class: "select" } %>
+            </div>
+            <% if I18n.available_locales.length > 1 %>
+              <div class="form-group">
+                <%= f.label :preferred_language %>
+                <%= f.select :preferred_language, language_options, {}, { class: "select" } %>
+              </div>
+            <% end %>
+          </div>
+          <div class="w-full lg:pl-16 lg:w-1/2">
+            <div class="flex flex-wrap items-center justify-start">
+              <div class="form-group">
+                <%= image_tag avatar_url_for(f.object), class: "rounded-full ml-4 w-16" %>
+              </div>
+              <div class="form-group">
+                <%= f.file_field :avatar, accept: 'image/*', class: "input-file" %>
+                <label for="user_avatar" class="ml-4">
+                  <%= render_svg "icons/photo", styles: "fill-current icon-xs mr-2" %>
+                  <span><%= t("users.avatar.upload") %></span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="w-full lg:w-1/2">
+            <% if !f.object.persisted? %>
+              <div class="form-group">
+                <%= f.label :start_date %>
+                <%= f.text_field :start_date,
+                                 data: {
+                                   controller: "flatpickr",
+                                   flatpickr_date_format: "Y-m-d",
+                                   flatpickr_alt_input: true,
+                                   flatpickr_default_date: f.object.start_date ||= Time.zone.now,
+                                   allow_input: true
+                                 },
+                                 class: 'form-control' %>
+              </div>
+            <% end %>
+            <div class="form-group">
+              <%= f.label :birth_date %>
+              <%= f.text_field :birth_date,
+                               data: {
+                                 controller: "flatpickr",
+                                 flatpickr_date_format: "Y-m-d",
+                                 flatpickr_alt_input: true,
+                                 flatpickr_default_dateZ: f.object.birth_date ||= Time.zone.now - 18.years,
+                                 allow_input: true
+                               },
+                               class: 'form-control' %>
+            </div>
+            <div class="flex justify-between">
+              <div class="form-group">
+                <%= f.label :shirt_size %>
+                <%= f.select :shirt_size, options_for_select(f.object.shirt_sizes, f.object.shirt_size), {}, class: "form-control" %>
+              </div>
+              <div class="form-group">
+                <%= f.label :shoe_size %>
+                <%= f.select :shoe_size, options_for_select(f.object.shoe_sizes, f.object.shoe_size), {}, class: "form-control" %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-2 form-group">
+          <%= f.button t('.update'), class: "btn btn-primary", data: { disable_with: disable_with(t(".saving")) } %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

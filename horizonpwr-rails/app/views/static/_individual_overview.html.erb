@@ -1,0 +1,26 @@
+<!--          My Overview-->
+<div class="rounded-lg overflow-hidden shadow-lg bg-white mb-8">
+  <div class="rounded-tl-lg rounded-tr-lg sm:rounded-tr-none relative group text-center bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
+    <p class="text-lg font-extrabold text-blue-500 pb-4">My Overview</p>
+    <!-- Group Buttons -->
+    <span class="inline-flex shadow-sm rounded-md mb-3">
+                  <button type="button" class="relative inline-flex items-center px-3 py-2 sm:px-6 sm:py-3 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                    Week
+                  </button>
+                  <button type="button" class="-ml-px relative inline-flex items-center px-3 py-2 sm:px-6 sm:py-3 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                    Month
+                  </button>
+                  <button type="button" class="-ml-px relative inline-flex items-center px-3 py-2 sm:px-6 sm:py-3 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
+                    Year
+                  </button>
+                </span>
+    <!-- Boxes -->
+    <div class="bg-white relative">
+      <div class="relative max-w-7xl mx-auto">
+        <div class="max-w-4xl mx-auto">
+          <%= LeaderboardDecorator.new(current_user).personal %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

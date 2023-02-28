@@ -1,0 +1,95 @@
+<div class="flex flex-wrap my-4 px-4">
+    <div class="w-full lg:p-4 lg:w-1/4">
+      <%= render partial: "shared/account_navbar" %>
+    </div>
+    <div class="w-full pt-4 lg:p-4 lg:w-3/4">
+      <div class="h2 bg-white rounded-t-lg pt-4 p-3 lg:p-10 rounded-t-lg border border-gray-300">
+        Documents
+        <%= link_to (image_tag avatar_url_for(@user), class: "h-8 w-8 rounded-full inline-block mr-1"), user_path(@user) %>
+      </div>
+
+      <div class="bg-white border-r border-l border-gray-300 w-full rounded-b-lg">
+            <table class="w-full">
+              <thead class="bg-white text-gray-600">
+              <tr>
+                <th class="p-3 pl-10 text-xs text-left uppercase">
+                  <%#= sortable @documents, :installer_id, 'Installer', class:  hover:text-indigo-400' %>
+                  Name
+                </th>
+            <th class="p-3 pl-10 text-xs text-left uppercase">
+              <%#= sortable @documents, :status, 'Status', class:  hover:text-indigo-400' %>
+              Date Added
+            </th>
+                <th class="p-3 pl-10 text-xs text-left uppercase">
+                  <%#= sortable @documents, :created_at, 'Created', class:  hover:text-indigo-400' %>
+                  Size
+                </th>
+                <th class="p-3 pl-10 text-xs text-left uppercase">
+                  <%#= sortable @documents, :created_at, 'Created', class: 'text-gray-700 hover:text-indigo-400' %>
+                  Type
+                </th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @documents.each do |document| %>
+                <tr class="group border-b border-t border-gray-300 hover:bg-gray-50">
+                  <td>
+                    <%= link_to document, target: "_blank" do %>
+                      <div class="pl-10 p-3 text-m font-semibold text-gray-900">
+                        <%= document.blob.filename %>
+                      </div>
+                      </td>
+                      <td>
+                        <div class="pl-10 p-3 text-m text-gray-900">
+                          <%= date_mdy(document.blob.created_at) %> at <%= document.blob.created_at.strftime("%I:%M %p") %>
+                          <%#= link_to 'view', user_documents_path(document) %>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="pl-10 p-3 text-m">
+                                <%= document.blob.byte_size / 1000 %> KB
+                        </div>
+                      </td>
+                      <td>
+                        <div class="pl-10 p-3 text-m uppercase">
+                                <%= document.blob.content_type %>
+                        </div>
+                      </td>
+                  <% end %>
+                    </tr>
+              <% end %>
+              </tbody>
+            </table>
+        <%= render "shared/custom_pagy" %>
+      </div>
+      <section>
+        <div class="rounded-lg shadow-lg bg-white mt-6">
+          <div class="rounded-lg relative group bg-white p-6 pb-0 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
+            <p class="text-xl font-bold text-gray-900 sm:text-2xl mb-4"></p>
+            <!-- Upload dropzone-->
+            <% if allowed_to?(:manage?, @user) %>
+              <%= form_with(model: @user) do |form| %>
+                <div class="flex flex-col mt-4">
+                  <div class="dropzone dropzone-default dz-clickable" data-controller="dropzone" data-dropzone-max-file-size="20" data-dropzone-max-files="5">
+                    <% @user.documents.each do |attached| %>
+                      <%= form.hidden_field :documents, multiple: true, value: attached.signed_id %>
+                    <% end %>
+                    <%= form.file_field :documents, multiple: true, direct_upload: true, data: { target: 'dropzone.input' } %>
+                    <div class="dropzone-msg dz-message needs-click text-gray-600">
+                      <h3 class="dropzone-msg-title">Drag here to upload or click here to browse</h3>
+                      <span class="dropzone-msg-desc text-sm">20 MB file size maximum.</span>
+                    </div>
+                  </div>
+                  <div class="form-group flex justify-end pt-4">
+                    <%= form.button 'Save', class: "btn btn-primary bg-indigo-900 text-white" %>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </section>
+        </div>
+
+        </div>
+

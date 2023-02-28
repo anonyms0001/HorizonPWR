@@ -1,0 +1,13 @@
+<h3>Hey <%= @user.first_name %>,</h3>
+<p>
+  <%= "The proposal for #{@contact.name} can't be completed. #{@blocked_by.first_name} #{@blocked_by.last_name} added the next note on the case:" %>
+  <br>
+  <br>
+  <%= @proposal.blocked_on.downcase.humanize %>
+  <br>
+  <br>
+  <%= @proposal.reason_incomplete %>
+</p>
+<p>
+  We urge you to promptly resolve this so <%= @blocked_by.first_name %> can finish the design.
+</p>

@@ -1,0 +1,19 @@
+# == Schema Information
+#
+# Table name: installers
+#
+#  id                      :bigint           not null, primary key
+#  active                  :boolean
+#  name                    :string
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  salesforce_installer_id :string
+#
+
+one:
+  name: MyString
+  active: false
+
+two:
+  name: MyString
+  active: false

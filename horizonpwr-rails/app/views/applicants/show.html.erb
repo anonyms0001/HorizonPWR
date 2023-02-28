@@ -1,0 +1,254 @@
+<!-- This example requires Tailwind CSS v2.0+ -->
+<% if user_signed_in? %>
+  <div class="text-right">
+    <button type="button" class="inline-flex items-center h-10 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+      <%= link_to "onboarding", applicants_path(), class: "btn btn-link text-indigo-700" %>
+    </button>
+    <button type="button" class="inline-flex items-center h-10 mt-4 mx-4 px-4 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+      <%= link_to "Add a Sales Rep", new_applicant_path(), class: "text-white hover:text-white" %>
+    </button>
+  </div>
+<% end %>
+
+<div class="bg-white my-4 mx-4 shadow overflow-hidden sm:rounded-lg">
+  <div class="flex justify-between items-center">
+    <div class="px-4 py-5 sm:px-6">
+      <h3 class="text-lg leading-6 font-medium text-gray-900">
+        Applicant Information
+      </h3>
+      <p class="mt-1 max-w-2xl text-sm text-gray-500">
+        Personal details and application.
+      </p>
+    </div>
+    <div>
+      <%= tag.button "copy signup link", data: { controller:"clipboard", clipboard_text: new_user_registration_url(applicant: @applicant.secure_public_id) }, class:"mr-4" %>
+      <button type="button" class="inline-flex items-center h-10 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        <%= link_to "Edit Applicant", edit_applicant_path(@applicant), class: "btn btn-link text-indigo-700" %>
+      </button>
+      <!--    <button type="button" class="inline-flex items-center h-10 my-2 mx-4 px-4 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">-->
+      <!--      Begin Onboarding-->
+      <%#= link_to "Begin Onboarding", onboard_user_path(applicant_id: @applicant.id), method: :post, class: "text-white hover:text-white" %>
+      <!--    </button>-->
+      <button type="button" class="inline-flex items-center h-10 my-2 mx-4 px-4 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        <!--      Begin Onboarding-->
+        <% if @applicant.user_id.present? %>
+          <%= link_to "User Created", user_path(@applicant.user), class: "text-white hover:text-white" %>
+        <% else %>
+          <%= link_to @applicant.status == "new" ? "Send Sign Up Link" : "Resend Sign Up Link", applicant_invite_path(applicant_id: @applicant.id), method: :get, class: "text-white hover:text-white" %>
+        <% end  %>
+      </button>
+    </div>
+  </div>
+  <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
+    <dl class="sm:divide-y sm:divide-gray-200">
+      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">
+          Full name
+        </dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+          <%= @applicant.first_name %> <%= @applicant.last_name %>
+        </dd>
+      </div>
+      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">
+          Job Position
+        </dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+          <%= @applicant.job_position&.name %>
+        </dd>
+      </div>
+      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">
+          Team
+        </dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+          <%= @applicant.account&.name %>
+        </dd>
+      </div>
+      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">
+          Status
+        </dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+          <%= @applicant.status.titlecase %>
+        </dd>
+      </div>
+      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">
+          Personal Email
+        </dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+          <%= tag.button "#{@applicant.email}", data: { controller:"clipboard", clipboard_text: @applicant.email }, class:"" %>
+        </dd>
+      </div>
+      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">
+          Work Email
+        </dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+          <% if @applicant.user.present? %>
+            <%= link_to @applicant.default_email, user_path(@applicant.user_id) %>
+          <% else %>
+            <%= @applicant.default_email %>
+          <% end %>
+        </dd>
+      </div>
+      <% if @applicant.canvass_user_id.present? %>
+        <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-gray-500">
+            Canvass User
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+            <%= link_to "Canvass", @applicant.canvass_link %>
+          </dd>
+        </div>
+      <% end %>
+      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">
+          Phone
+        </dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+          <%= link_to @applicant.phone, "tel:#{@applicant.phone}", class: "text-gray-900" %>
+        </dd>
+      </div>
+      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">
+          Has previously worked at HorizonPWR
+        </dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 capitalize">
+          <%= @applicant.previously_employed_here %>
+        </dd>
+      </div>
+      <% if allowed_to?(:view_links?, @applicant) %>
+        <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt>
+            <span class="text-sm font-medium text-gray-500">
+              Attachment Links
+            </span>
+            <br/>
+            <span class="text-sm text-gray-400">
+              If you have the wrong docs showing, you need to change the user's current job position
+            </span>
+          </dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 capitalize">
+            <% if @applicant.user.present? %>
+              <% @links.each do |link| %>
+                <%= tag.button link[0], data: { controller:"clipboard", clipboard_text: link[1] }, class:"mr-4" %>
+
+                <%#= link_to link[0], link[1], target: :blank %>
+                <br/>
+              <% end %>
+            <% else %>
+              Applicant must create a user before these links will show up
+            <% end %>
+          </dd>
+        </div>
+      <% end %>
+      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">
+          Attachments
+        </dt>
+        <% if @applicant.attachments.any? %>
+          <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+            <ul class="border border-gray-200 rounded-md divide-y divide-gray-200">
+              <% @applicant.attachments.each do |attachment| %>
+                <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+                  <div class="w-0 flex-1 flex items-center">
+                    <!-- Heroicon name: solid/paper-clip -->
+                    <svg class="flex-shrink-0 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z" clip-rule="evenodd"/>
+                    </svg>
+                    <span class="ml-2 flex-1 w-0 truncate">
+                      <%= attachment.blob.filename %>
+                    </span>
+                  </div>
+                  <div class="ml-4 flex-shrink-0">
+                    <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
+                      <%= link_to 'Download', attachment, target: '_blank' %>
+                    </a>
+                  </div>
+                </li>
+              <% end %>
+            </ul>
+          </dd>
+        <% end %>
+      </div>
+
+      <div class="py-4 sm:py-5 sm:px-6">
+        <dt class="text-lg leading-6 font-medium flex justify-between text-gray-900 pb-2">
+          <div>Notes</div>
+          <%= link_to "Add Note", new_note_path(notable_type: 'Applicant', notable_id: @applicant.id), class: "btn btn-primary bg-indigo-600 text-white" %>
+        </dt>
+
+        <table class="w-full">
+          <thead>
+          <tr>
+            <th class="p-3 text-xs text-left text-gray-600 uppercase">Contact Date</th>
+            <th class="p-3 text-xs text-left text-gray-600 uppercase">Contacted By</th>
+            <th class="p-3 text-xs text-left text-gray-600 uppercase">Note</th>
+            <th class="p-3 text-xs text-left text-gray-600 uppercase"></th>
+          </tr>
+          </thead>
+          <tbody class="bg-white">
+          <% if @applicant.notes.present? %>
+            <% @applicant.notes.chronologically_ordered.each do |note| %>
+              <tr class="border-t border-gray-400 group bg-white hover:bg-gray-200">
+                <td class="py-4 whitespace-nowrap">
+                  <%= local_time(note.created_at) %>
+                </td>
+                <td class="p-3">
+                  <%= note.user&.name %>
+                </td>
+                <td class="p-3">
+                  <%= note.body.body %>
+                </td>
+                <td class="p-3">
+                  <%= link_to 'View', note %>
+                </td>
+              </tr>
+            <% end %>
+          <% else %>
+            <tr class="group border-t border-gray-400 hover:bg-gray-100">
+              <td class="p-3">
+                No notes for this Applicant, yet.
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+
+      </div>
+      <% if @applicant.user.present? %>
+        <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <dt class="text-sm font-medium text-gray-500">
+            User Attachments
+          </dt>
+          <% if @applicant.user.documents.any? %>
+            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+              <ul class="border border-gray-200 rounded-md divide-y divide-gray-200">
+                <% @applicant.user.documents.each do |attachment| %>
+                  <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+                    <div class="w-0 flex-1 flex items-center">
+                      <!-- Heroicon name: solid/paper-clip -->
+                      <svg class="flex-shrink-0 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z" clip-rule="evenodd"/>
+                      </svg>
+                      <span class="ml-2 flex-1 w-0 truncate">
+                          <%= attachment.blob.filename %>
+                        </span>
+                    </div>
+                    <div class="ml-4 flex-shrink-0">
+                      <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
+                        <%= link_to 'Download', attachment, target: '_blank' %>
+                      </a>
+                    </div>
+                  </li>
+                <% end %>
+              </ul>
+            </dd>
+          <% end %>
+        </div>
+      <% end %>
+    </dl>
+  </div>
+</div>

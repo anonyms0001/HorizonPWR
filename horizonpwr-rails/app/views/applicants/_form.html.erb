@@ -1,0 +1,86 @@
+<%= form_with(model: applicant) do |form| %>
+  <%= render "shared/error_messages", resource: form.object %>
+  <%= form.hidden_field :job_position_id, value: form.object.job_position_id %>
+  <% if form.object.persisted? && allowed_to?(:manage?, form.object) %>
+    <% if allowed_to?(:manage_custom?, form.object) %>
+      <div class="form-group">
+        <%= form.label :user_id %>
+        <%= form.select :user_id, options_from_collection_for_select(User.order(created_at: :desc), :id, :name, selected: form.object.user&.id), { prompt: "Select…" }, class: "form-control" %>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= form.label :work_email %>
+      <%= form.email_field :new_email, value: form.object.default_email, disabled: form.object.user_id.present?, placeholder: true, class: "form-control" %>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :name, "Full name" %>
+    <%= form.text_field :name, autocomplete: "name", placeholder: "First Last", class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :middle_initial, "Middle initial" %>
+    <%= form.text_field :middle_initial, autocomplete: "middle_initial", placeholder: true, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :personal_email %>
+    <%= form.email_field :email, placeholder: true, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :phone %>
+    <%= form.text_field :phone, autocomplete: "phone", placeholder: true, class: "form-control" %>
+  </div>
+
+  <% if user_signed_in? %>
+    <div class="form-group">
+      <%= form.label :job_position_id %>
+      <%= form.select :job_position_id, options_from_collection_for_select(JobPosition.active.sorted_by_name, :id, :name, selected: form.object.job_position&.id), { prompt: "Select…" }, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :start_date %>
+      <%= form.text_field :start_date, class: "form-control", data: { controller: :flatpickr, flatpickr_enable_time: false, flatpickr_alt_input: true, flatpickr_alt_format: t("time.formats.long") } %>
+    </div>
+
+    <div class="form-group">
+      <label for="applicant_account_id">Teams</label>
+      <%= form.select :account_id, grouped_options_for_select(Account.options_for_select), { include_blank: false }, class: "form-control" %>
+    </div>
+    <%= form.hidden_field :created_by_id, value: form.object.created_by_id %>
+  <% end %>
+
+  <% if controller.action_name == "edit" %>
+    <div class="form-group ">
+      <%= form.label :status %>
+      <%= form.select :status, options_for_select(Applicant.status_choices, form.object.status), {}, class: "rounded form-control" %>
+    </div>
+  <% end %>
+  <div class="form-group">
+    <%= form.label :previously_employed_here %>
+    <%= form.check_box :previously_employed_here, class: "form-checkbox" %>
+  </div>
+<%# TODO: Specify what can be uploaded. Make sure dropzone limits to those filetypes. %>
+  <div class="dropzone dropzone-default dz-clickable" data-controller="dropzone" data-dropzone-max-file-size="20" data-dropzone-max-files="5">
+    <% form.object.attachments.each do |attached| %>
+      <%= form.hidden_field :attachments, multiple: true, value: attached.signed_id %>
+    <% end %>
+    <%= form.file_field :attachments, multiple: true, direct_upload: true, data: { target: 'dropzone.input' } %>
+
+    <div class="dropzone-msg dz-message needs-click text-gray-600">
+      <h3 class="dropzone-msg-title">Drop resume/cover letter here, or click to browse</h3>
+      <span class="dropzone-msg-desc text-sm">20 MB file size maximum.</span>
+    </div>
+  </div>
+  <br>
+  <div class="flex justify-between form-group">
+    <%= form.button class: "btn btn-primary" %>
+
+    <% if form.object.persisted? && allowed_to?(:destroy?, form.object) %>
+      <%#= link_to t("delete"), form.object, class: "btn btn-danger outline", method: :delete, data: { confirm: t("are_you_sure") } %>
+    <% end %>
+  </div>
+<% end %>

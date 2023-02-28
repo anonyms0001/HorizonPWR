@@ -1,0 +1,361 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                            :bigint           not null, primary key
+#  accepted_privacy_at           :datetime
+#  accepted_terms_at             :datetime
+#  active                        :boolean          default(FALSE)
+#  admin                         :boolean
+#  announcements_read_at         :datetime
+#  archived                      :boolean          default(FALSE), not null
+#  aurora_user_active            :boolean          default(FALSE)
+#  birth_date                    :date
+#  canvass_user_active           :boolean
+#  confirmation_sent_at          :datetime
+#  confirmation_token            :string
+#  confirmed_at                  :datetime
+#  email                         :string           default(""), not null
+#  encrypted_password            :string           default(""), not null
+#  end_date                      :date
+#  end_reason                    :string
+#  extra_salesforce_account_ids  :text             default([]), is an Array
+#  first_name                    :string
+#  invitation_accepted_at        :datetime
+#  invitation_created_at         :datetime
+#  invitation_limit              :integer
+#  invitation_sent_at            :datetime
+#  invitation_token              :string
+#  invitations_count             :integer          default(0)
+#  invited_by_type               :string
+#  last_name                     :string
+#  last_otp_timestep             :integer
+#  last_seen_at                  :datetime
+#  onboarding_checklist_complete :boolean          default(FALSE)
+#  otp_backup_codes              :text
+#  otp_required_for_login        :boolean
+#  otp_secret                    :string
+#  permissions                   :jsonb            not null
+#  personal_email                :string
+#  phone                         :string
+#  preferred_language            :string
+#  remember_created_at           :datetime
+#  reset_password_sent_at        :datetime
+#  reset_password_token          :string
+#  shirt_size                    :string
+#  shoe_size                     :string
+#  start_date                    :date
+#  time_zone                     :string
+#  unconfirmed_email             :string
+#  created_at                    :datetime         not null
+#  updated_at                    :datetime         not null
+#  aurora_user_id                :text
+#  canvass_user_id               :string
+#  invited_by_id                 :bigint
+#  job_position_id               :bigint
+#  salesforce_account_id         :string
+#  secure_public_id              :string
+#
+# Indexes
+#
+#  index_users_on_email                              (email) UNIQUE
+#  index_users_on_invitation_token                   (invitation_token) UNIQUE
+#  index_users_on_invitations_count                  (invitations_count)
+#  index_users_on_invited_by_id                      (invited_by_id)
+#  index_users_on_invited_by_type_and_invited_by_id  (invited_by_type,invited_by_id)
+#  index_users_on_job_position_id                    (job_position_id)
+#  index_users_on_reset_password_token               (reset_password_token) UNIQUE
+#  index_users_on_secure_public_id                   (secure_public_id) UNIQUE
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+one:
+  email: one@horizonpwr.com
+  first_name: UserOne
+  last_name: LastOne
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  accepted_terms_at: <%= Time.current %>
+  accepted_privacy_at: <%= Time.current %>
+  time_zone: "America/Chicago"
+  confirmed_at: <%= Time.current %>
+  active: true
+  permissions:
+    can_view_notes: false
+    can_view_users: false
+    can_manage_notes: true
+    can_manage_users: true
+    can_view_payouts: false
+    can_view_accounts: false
+    can_view_contacts: false
+    can_view_projects: false
+    can_manage_payouts: true
+    can_view_addresses: false
+    can_view_feedbacks: false
+    can_view_proposals: false
+    can_manage_accounts: true
+    can_manage_contacts: false
+    can_manage_projects: true
+    can_view_applicants: true
+    can_manage_applicants: true
+    can_view_installers: false
+    can_manage_addresses: true
+    can_manage_feedbacks: true
+    can_manage_proposals: true
+    can_view_adjustments: false
+    can_manage_installers: true
+    can_manage_adjustments: true
+    can_view_account_users: false
+    can_view_dynamic_forms: false
+    can_view_earning_types: false
+    can_view_appointments: true # can_manage_appointments doesn't provide view access, so both are required
+    can_manage_appointments: true
+    can_manage_account_users: true
+    can_manage_dynamic_forms: true
+    can_manage_earning_types: true
+    can_view_job_positions: false
+    can_manage_job_positions: true
+    can_view_notifications: false
+    can_manage_notifications: true
+    can_view_finance_partners: false
+    can_view_upline_relations: false
+    can_view_all_project_notes: false
+    can_view_contact_addresses: false
+    can_manage_finance_partners: true
+    can_manage_upline_relations: true
+    can_manage_all_project_notes: true
+    can_manage_contact_addresses: true
+    can_view_contact_appointments: false
+    can_manage_contact_appointments: true
+    can_view_default_proposal_quality_check: false
+    can_manage_default_proposal_quality_check: true
+  phone: MyStringPhoneOne
+  job_position: one
+  admin: false
+  secure_public_id: Y8QwRYP5B3H2pnecDawVmgEdEvgggqa42fLArCFK
+
+two:
+  email: two@horizonpwr.com
+  first_name: UserTwo
+  last_name: LastTwo
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  accepted_terms_at: <%= Time.current %>
+  accepted_privacy_at: <%= Time.current %>
+  time_zone: "America/Chicago"
+  confirmed_at: <%= Time.current %>
+  active: true
+  phone: MyStringPhoneTwo
+  job_position: one
+  secure_public_id: 7pEw92BzBba6KJkhyTk4Ri97XNYvuz9CSj4rVH6z
+
+three:
+  email: three@horizonpwr.com
+  first_name: UserThree
+  last_name: LastThree
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  accepted_terms_at: <%= Time.current %>
+  accepted_privacy_at: <%= Time.current %>
+  time_zone: "America/Chicago"
+  confirmed_at: <%= Time.current %>
+  active: true
+  phone: MyStringPhoneThree
+  secure_public_id: vu67xgZcCVoQBVbRLUxMYTENvepbwGRUZmJJJ9py
+
+four:
+  email: four@horizonpwr.com
+  first_name: UserFour
+  last_name: LastFour
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  accepted_terms_at: <%= Time.current %>
+  accepted_privacy_at: <%= Time.current %>
+  time_zone: "America/Chicago"
+  confirmed_at: <%= Time.current %>
+  active: true
+  phone: MyStringPhoneFour
+  secure_public_id: uGRWLfRDxBfvaZwexm1e3Au3Yx7eTj18MsB3Wrck
+
+admin:
+  email: admin@horizonpwr.com
+  first_name: Admin
+  last_name: User
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  accepted_terms_at: <%= Time.current %>
+  accepted_privacy_at: <%= Time.current %>
+  time_zone: "America/Chicago"
+  confirmed_at: <%= Time.current %>
+  active: true
+  admin: true
+  secure_public_id: HbnjUDATvrFzUuVFGnFrcAZsJZedM91NWMHSFs8b
+
+dev:
+  email: dev@horizonpwr.com
+  first_name: Dev
+  last_name: User
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  accepted_terms_at: <%= Time.current %>
+  accepted_privacy_at: <%= Time.current %>
+  time_zone: "America/Chicago"
+  confirmed_at: <%= Time.current %>
+  active: true
+  admin: true
+  job_position: dev
+  secure_public_id: EhQhuaT5J549E9AP5TQ7dB9o1TJgmx5f97w6Wd7s
+
+invited:
+  email: invited@horizonpwr.com
+  first_name: Invited
+  last_name: User
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  accepted_terms_at: <%= Time.current %>
+  accepted_privacy_at: <%= Time.current %>
+  time_zone: "America/Chicago"
+  confirmed_at: <%= Time.current %>
+  active: true
+  secure_public_id: SaU8hTQwbxkVr7RUY961sE8qQc5zPQD32ejaUzhn
+
+noaccount:
+  email: noaccount@horizonpwr.com
+  first_name: No Account
+  last_name: User
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  accepted_terms_at: <%= Time.current %>
+  accepted_privacy_at: <%= Time.current %>
+  time_zone: "America/Chicago"
+  confirmed_at: <%= Time.current %>
+  active: true
+  secure_public_id: CVN77pzh5UqTvaZkdi4TXB34BfXZehyQQGx3yzwS
+
+twofactor:
+  email: twofactor@example.com
+  first_name: TwoFactor
+  otp_required_for_login: true
+  otp_secret: NJZNMRJFS6XBRMZ4NDEDAUIYIVTBJXOM
+  otp_backup_codes:
+    - "0000000001"
+    - "0000000002"
+    - "0000000003"
+    - "0000000004"
+    - "0000000005"
+  secure_public_id: X2ZuA5tc9hp9YtNwyM4tmJFDNeuDzsGFfQNNG5Pa
+
+ryker:
+  email: ryker.parkinson@horizonpwr.com
+  first_name: Ryker
+  last_name: parkinson
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  accepted_terms_at: <%= Time.current %>
+  accepted_privacy_at: <%= Time.current %>
+  time_zone: "America/Chicago"
+  confirmed_at: <%= Time.current %>
+  active: true
+  job_position: one
+  secure_public_id: XKcmpJEUuNtmyrW8geLyLDqdpMn8hHSNQetqvwPc
+
+willard:
+  email: willard.moore@horizonpwr.com
+  first_name: Willard
+  last_name: Moore
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  accepted_terms_at: <%= Time.current %>
+  accepted_privacy_at: <%= Time.current %>
+  time_zone: "America/Chicago"
+  confirmed_at: <%= Time.current %>
+  active: true
+  job_position: one
+  secure_public_id: RgN2WFdkNvxXsz2vALAA92hcitwix4iAh1jxtwBc
+
+judd:
+  email: judd@horizonpwr.com
+  first_name: judd
+  last_name: User
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  accepted_terms_at: <%= Time.current %>
+  accepted_privacy_at: <%= Time.current %>
+  time_zone: "America/Chicago"
+  confirmed_at: <%= Time.current %>
+  active: true
+  job_position: one
+  secure_public_id: c4wkKbZP7EWusQ1PFS7jd9S6TVkZeT41ZbdgTdc5
+
+manager:
+  email: manager@horizonpwr.com
+  first_name: Manager
+  last_name: User
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  accepted_terms_at: <%= Time.current %>
+  accepted_privacy_at: <%= Time.current %>
+  time_zone: "America/Chicago"
+  confirmed_at: <%= Time.current %>
+  active: true
+  job_position: manager
+  secure_public_id: 71aCaqLGUF89NkwYR1pfDyqHi2CtQkANHKrziELz
+
+manager2:
+  email: manager2@horizonpwr.com
+  first_name: Manager2
+  last_name: User
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  accepted_terms_at: <%= Time.current %>
+  accepted_privacy_at: <%= Time.current %>
+  time_zone: "America/Chicago"
+  confirmed_at: <%= Time.current %>
+  active: true
+  job_position: manager
+  secure_public_id: 2jcgYMmZYMseVe23v1Rjz2xwjnCHayRyDPJrr3fr
+
+# This user is important for times when you need to know someone is not associated with anything, and has no permissions!
+nobody:
+  email: nobody@horizonpwr.com
+  first_name: User
+  last_name: Nobody
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  accepted_terms_at: <%= Time.current %>
+  accepted_privacy_at: <%= Time.current %>
+  time_zone: "America/Chicago"
+  confirmed_at: <%= Time.current %>
+  active: true
+  job_position: ec
+  secure_public_id: QsU51rVNcrKcKQsoMJfoi5YKP7mpGX9kkL4eMNHU
+  # permissions: {} Intentionally left blank. Do not change!
+
+inactive:
+  email: inactive@horizonpwr.com
+  first_name: User
+  last_name: Inactive
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  accepted_terms_at: <%= Time.current %>
+  accepted_privacy_at: <%= Time.current %>
+  time_zone: "America/Chicago"
+  confirmed_at: <%= Time.current %>
+  active: false
+  secure_public_id: 2y3E8c2eju3JkNm9bxR4rQCUGLh3j5D5VuL1cLVu
+
+ec:
+  email: ec@horizonpwr.com
+  first_name: Energy
+  last_name: Consultant
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  accepted_terms_at: <%= Time.current %>
+  accepted_privacy_at: <%= Time.current %>
+  time_zone: "America/Chicago"
+  confirmed_at: <%= Time.current %>
+  active: true
+  job_position: ec
+  secure_public_id: 62aCaxLGUF74NkwRY1pfDyqHi2CtQkANKHrzoELy
+
+solar_installer:
+  email: solar.installer@horizonpwr.com
+  first_name: Solar
+  last_name: Installer
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  accepted_terms_at: <%= Time.current %>
+  accepted_privacy_at: <%= Time.current %>
+  time_zone: "America/Chicago"
+  confirmed_at: <%= Time.current %>
+  active: true
+  job_position: solar_install_technician
+  secure_public_id: 63aCazLGIF79NkwRY1pfDyqHi2CtOkANKHrzoELy

@@ -1,0 +1,43 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "HTTP Client",
+        "repositoryURL": "https://github.com/joemasilotti/HTTP-Client",
+        "state": {
+          "branch": "main",
+          "revision": "d9bce6f66e41f3527668064b29377249048f4b12",
+          "version": null
+        }
+      },
+      {
+        "package": "KeychainAccess",
+        "repositoryURL": "https://github.com/kishikawakatsumi/KeychainAccess",
+        "state": {
+          "branch": null,
+          "revision": "84e546727d66f1adc5439debad16270d0fdd04e7",
+          "version": "4.2.2"
+        }
+      },
+      {
+        "package": "swift-log",
+        "repositoryURL": "https://github.com/apple/swift-log.git",
+        "state": {
+          "branch": null,
+          "revision": "5d66f7ba25daf4f94100e7022febf3c75e37a6c7",
+          "version": "1.4.2"
+        }
+      },
+      {
+        "package": "Turbo",
+        "repositoryURL": "https://github.com/joemasilotti/turbo-ios/",
+        "state": {
+          "branch": "jam/path-config-sync",
+          "revision": "e93c554a2bb41514a21b193e30cd7f1d51ceff23",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

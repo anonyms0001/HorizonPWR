@@ -1,0 +1,72 @@
+<div class="mx-auto my-4 px-1 md:px-2 lg:px-4">
+  <div class="flow-root lg:mb-4 <%= 'hidden' if !@contests.any? && allowed_to?(:create?, Contest, with: ContestPolicy ) %>">
+    <%= link_to t("shared.scaffold.new.title", model: "Contest"), new_contest_path, class: "btn btn-primary float-right hidden lg:inline-block" %>
+  </div>
+  <div class="flex-none flex-wrap-reverse lg:flex-wrap lg:flex items-center mb-4">
+    <div class="w-full lg:w-1/4">
+      <div class="flex justify-between">
+        <h1 class="h3 mr-2">
+          <%= link_to 'Contests', contests_path, class:"text-gray-900" %>
+        </h1>
+        <%= link_to t("shared.scaffold.new.title", model: "Contest"), new_contest_path, class: "btn btn-primary lg:hidden" %>
+      </div>
+    </div>
+
+    <% if @contests.any? && allowed_to?(:create?, Contest, with: ContestPolicy ) %>
+      <div class="w-full lg:w-1/2">
+        <%= render partial: "contests/filter" %>
+      </div>
+      <div class="w-full lg:w-1/4">
+        <%= render partial: "contests/search" %>
+      </div>
+    <div class="w-full mt-2 text-center text-sm <%= 'hidden' if !params[:filter].present? %>">
+      Filtered by: <%= "'#{params[:filter]}'" %>
+    </div>
+    <% end %>
+  </div>
+  <div class="bg-white rounded-lg">
+    <% if @contests.any? %>
+      <div class="table-responsive">
+        <div class="p-6">
+        <table class="table">
+          <thead>
+            <tr>
+                <th class="p-3 uppercase text-left text-xs"><%= sortable @contests, :name, "Name", class: "text-gray-700" %></th>
+                <th class="p-3 uppercase text-left text-xs"><%= sortable @contests, :start_at, "Start at", class: "text-gray-700" %></th>
+                <th class="p-3 uppercase text-left text-xs"><%= sortable @contests, :end_at, "End at", class: "text-gray-700" %></th>
+                <th class="p-3 uppercase text-left text-xs text-gray-700 w-20"><%= t("shared.scaffold.actions") %></th>
+            </tr>
+          </thead>
+
+          <tbody>
+          <% @contests.each do |contest| %>
+            <tr class="group border-t border-gray-400 hover:bg-gray-100">
+                          <td class="p-3"><%= contest.name %></td>
+                          <td class="p-3"><%= contest.start_at %></td>
+                          <td class="p-3"><%= contest.end_at %></td>
+            
+              <td>
+                <%= link_to t("shared.scaffold.view"), contest, class: "btn btn-link no-underline" %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+        </div>
+        <%= render "shared/custom_pagy" %>
+      </div>
+    <% else %>
+      <div class="bg-white rounded shadow flex flex-col items-center justify-between p-8 lg:flex-row">
+        <%= image_tag "empty.svg", class: "mb-4 lg:w-1/2" %>
+        <div class="flex-1 text-center">
+          <% if allowed_to?(:create?, Contest, with: ContestPolicy ) %>
+          <p class="h3 mb-4">Create your first Contest</p>
+          <%= link_to t("shared.scaffold.new.title", model: "Contest"), new_contest_path, class: "btn btn-primary" %>
+          <% else %>
+            <p class="h3 mb-4">You do not have permission to create Contest</p>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

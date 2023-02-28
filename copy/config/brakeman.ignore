@@ -1,0 +1,46 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "5911bc8515381d95e57478e85de56171f1043ab5e5c5b183dc0828ab8a5f60ca",
+      "check_name": "Redirect",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/attachment_tags_controller.rb",
+      "line": 41,
+      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(ActiveStorage::Attachment.find(params[:id]), :notice => \"Attachment tag was successfully updated.\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "AttachmentTagsController",
+        "method": "update"
+      },
+      "user_input": "params[:id]",
+      "confidence": "Weak",
+      "note": ""
+    },
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 105,
+      "fingerprint": "8f1d8cb99e480932a02c6e6cb119e0b3f1b124cce1894791eab776cfcca48266",
+      "check_name": "PermitAttributes",
+      "message": "Potentially dangerous key allowed for mass assignment",
+      "file": "app/controllers/account_users_controller.rb",
+      "line": 50,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.require(:account_user).permit(:admin, :member)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "AccountUsersController",
+        "method": "account_user_params"
+      },
+      "user_input": ":admin",
+      "confidence": "High",
+      "note": "Brakeman doesn't like :admin in params"
+    }
+  ],
+  "updated": "2021-05-03 16:43:46 -0500",
+  "brakeman_version": "5.0.1"
+}

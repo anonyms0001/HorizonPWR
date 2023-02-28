@@ -1,0 +1,50 @@
+# == Schema Information
+#
+# Table name: energy_consumptions
+#
+#  id            :bigint           not null, primary key
+#  daily_usage   :text             default([])
+#  data_source   :string
+#  monthly_usage :text             default([])
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  created_by_id :bigint
+#  proposal_id   :bigint           not null
+#  updated_by_id :bigint
+#
+# Indexes
+#
+#  index_energy_consumptions_on_created_by_id  (created_by_id)
+#  index_energy_consumptions_on_proposal_id    (proposal_id)
+#  index_energy_consumptions_on_updated_by_id  (updated_by_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (created_by_id => users.id)
+#  fk_rails_...  (proposal_id => proposals.id)
+#  fk_rails_...  (updated_by_id => users.id)
+#
+
+one:
+  daily_usage: [23.7, 23.7, 23.6, 24.4, 23.6, 24.4, 23.6, 23.6, 24.4, 23.6, 24.4, 23.6]
+  monthly_usage: [713, 644, 713, 720, 713, 720, 713, 713, 720, 713, 720, 713]
+  proposal: one
+  updated_by: one (User)
+  created_by: one (User)
+  data_source: MyString
+
+two:
+  daily_usage: [23.7, 23.7, 23.6, 24.4, 23.6, 24.4, 23.6, 23.6, 24.4, 23.6, 24.4, 23.6]
+  monthly_usage: [713, 644, 713, 720, 713, 720, 713, 713, 720, 713, 720, 713]
+  proposal: two
+  updated_by: two (User)
+  created_by: two (User)
+  data_source: MyString
+
+three:
+  daily_usage: [23.7, 23.7, 23.6, 24.4, 23.6, 24.4, 23.6, 23.6, 24.4, 23.6, 24.4, 23.6]
+  monthly_usage: [713, 644, 713, 720, 713, 720, 713, 713, 720, 713, 720, 713]
+  proposal: one
+  updated_by: one (User)
+  created_by: one (User)
+  data_source: MyString

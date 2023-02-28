@@ -1,0 +1,8 @@
+<h3>Hey <%= @account_project_manager.first_name %>,</h3>
+<p>
+  <%= "A Sales Representative has marked as completed #{@contact.name} project. Please verify that the COC has been signed" %>
+  <br>
+  <br>
+  <%= link_to 'View Project', project_url(@project.id) %>
+</p>
+

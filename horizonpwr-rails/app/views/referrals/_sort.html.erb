@@ -1,0 +1,72 @@
+<div class="relative text-left" data-controller="dropdown" >
+  <!-- sort dropdown -->
+  <div data-action="click->dropdown#toggle click@window->dropdown#hide touch->dropdown#toggle touch@window->dropdown#hide" role="button" class="select-none relative rounded-l-none focus:outline-none rounded-r-md border-t border-b border-r border-gray-300 bg-white text-gray-700 hover:bg-gray-50" aria-label="Sort Menu">
+    <p class="text-base leading-normal text-gray-500 absolute left-0 top-2">|</p>
+    <div class="ml-1">
+      <button type="button" class="inline-flex justify-center w-full p-2 hover:text-blue-500 focus:outline-none <%= 'font-semibold' if params[:sort].present? %>" id="menu-button" aria-expanded="true" aria-haspopup="true">
+        sort
+        <!-- Heroicon name: solid/chevron-down -->
+        <svg class="h-5 w-5 pt-1 hover:text-blue-500 <%= 'font-semibold' if params[:sort].present? %>" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <!-- end of sort dropdown -->
+  <!-- dropdown -->
+  <div data-dropdown-target="menu" class="hidden origin-top-right absolute right-0 mt-2 w-36 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+    <div class="py-1" role="none">
+              <div class="flex hover:bg-primary-100">
+          <a href="#" class="text-gray-700 group flex items-center py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">
+            <%= sortable @referrals, :referrer_contact_id, "Referrer contact", class: "text-gray-700 mx-2 p-2 #{'font-semibold' if params[:sort].present? && params[:sort] == "referrer_contact_id"}" %>
+          </a>
+        </div>
+              <div class="flex hover:bg-primary-100">
+          <a href="#" class="text-gray-700 group flex items-center py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">
+            <%= sortable @referrals, :referral_contact_id, "Referral contact", class: "text-gray-700 mx-2 p-2 #{'font-semibold' if params[:sort].present? && params[:sort] == "referral_contact_id"}" %>
+          </a>
+        </div>
+              <div class="flex hover:bg-primary-100">
+          <a href="#" class="text-gray-700 group flex items-center py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">
+            <%= sortable @referrals, :email, "Email", class: "text-gray-700 mx-2 p-2 #{'font-semibold' if params[:sort].present? && params[:sort] == "email"}" %>
+          </a>
+        </div>
+              <div class="flex hover:bg-primary-100">
+          <a href="#" class="text-gray-700 group flex items-center py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">
+            <%= sortable @referrals, :phone, "Phone", class: "text-gray-700 mx-2 p-2 #{'font-semibold' if params[:sort].present? && params[:sort] == "phone"}" %>
+          </a>
+        </div>
+              <div class="flex hover:bg-primary-100">
+          <a href="#" class="text-gray-700 group flex items-center py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">
+            <%= sortable @referrals, :first_name, "First name", class: "text-gray-700 mx-2 p-2 #{'font-semibold' if params[:sort].present? && params[:sort] == "first_name"}" %>
+          </a>
+        </div>
+              <div class="flex hover:bg-primary-100">
+          <a href="#" class="text-gray-700 group flex items-center py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">
+            <%= sortable @referrals, :last_name, "Last name", class: "text-gray-700 mx-2 p-2 #{'font-semibold' if params[:sort].present? && params[:sort] == "last_name"}" %>
+          </a>
+        </div>
+              <div class="flex hover:bg-primary-100">
+          <a href="#" class="text-gray-700 group flex items-center py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">
+            <%= sortable @referrals, :contest_id, "Contest", class: "text-gray-700 mx-2 p-2 #{'font-semibold' if params[:sort].present? && params[:sort] == "contest_id"}" %>
+          </a>
+        </div>
+              <div class="flex hover:bg-primary-100">
+          <a href="#" class="text-gray-700 group flex items-center py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">
+            <%= sortable @referrals, :referrer_name, "Referrer name", class: "text-gray-700 mx-2 p-2 #{'font-semibold' if params[:sort].present? && params[:sort] == "referrer_name"}" %>
+          </a>
+        </div>
+              <div class="flex hover:bg-primary-100">
+          <a href="#" class="text-gray-700 group flex items-center py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">
+            <%= sortable @referrals, :status, "Status", class: "text-gray-700 mx-2 p-2 #{'font-semibold' if params[:sort].present? && params[:sort] == "status"}" %>
+          </a>
+        </div>
+              <div class="flex hover:bg-primary-100">
+          <a href="#" class="text-gray-700 group flex items-center py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">
+            <%= sortable @referrals, :eligible, "Eligible", class: "text-gray-700 mx-2 p-2 #{'font-semibold' if params[:sort].present? && params[:sort] == "eligible"}" %>
+          </a>
+        </div>
+          </div>
+  </div>
+  <!-- end of dropdown -->
+</div>

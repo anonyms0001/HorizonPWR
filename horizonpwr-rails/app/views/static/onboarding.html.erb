@@ -1,0 +1,36 @@
+<div class="p-8">
+  <!-- This example requires Tailwind CSS v2.0+ -->
+  <div class="rounded-lg overflow-hidden shadow-lg mt-4 bg-white overflow-hidden mx-auto">
+    <div class="px-4 py-5 sm:px-6">
+      <h3 class="text-lg text-gray-900 mb-2">
+        <%= current_user.name %>,
+        <span class="leading-6 font-medium">
+        welcome to
+        </span>
+      </h3>
+      <%= image_tag 'logo-horizonpwr.png', class: "mx-auto" %>
+      <p class="mt-4 text-sm text-gray-500 text-center">
+        “He who is not courageous enough to take the risk will accomplish nothing in life”
+      </p>
+    </div>
+  </div>
+
+  <div class="rounded-lg overflow-hidden shadow-lg mt-4">
+    <%= render 'dynamic_forms/dynamic_form', dynamic_form: @dynamic_form, respondable: current_user %>
+  </div>
+  <div class="bg-white rounded-lg overflow-hidden shadow-lg mt-4 p-4">
+    <% if @sales %>
+      Contractor Forms
+    <% else %>
+      Employee Forms
+    <% end %>
+    <br/>
+    <% @links.each do |link| %>
+      <%= link_to link[0], link[1], target: :blank %>
+      <br/>
+    <% end %>
+    <button type="button" class="items-center h-10 mt-4 px-4 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+      <%= link_to "I have Completed the Onboarding Checklist", user_onboarding_complete_path(current_user), class: "text-white hover:text-white" %>
+    </button>
+  </div>
+</div>

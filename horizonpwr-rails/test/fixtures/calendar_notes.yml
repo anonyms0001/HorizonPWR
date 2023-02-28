@@ -1,0 +1,21 @@
+# == Schema Information
+#
+# Table name: calendar_notes
+#
+#  id         :bigint           not null, primary key
+#  active     :boolean          default(TRUE), not null
+#  date       :datetime
+#  global     :boolean
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+one:
+  global: false
+  date: 2021-08-17 14:44:29
+  active: false
+
+two:
+  global: false
+  date: 2021-08-17 14:44:29
+  active: false

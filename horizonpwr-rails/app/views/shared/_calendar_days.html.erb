@@ -1,0 +1,10 @@
+<% appts.scheduled_on_given_day(date).order(start_at: :asc).each do |appt| %>
+  <% @type_color = Appointment.appointment_type_bg_colors[appt.appointment_type.to_sym] %>
+  <p class="p-1 border-<%= @type_color %>-600 bg-<%= @type_color %>-200 border-2 rounded-md">
+    <%= link_to time_by_appointment_type(appt), request.params.merge(appt_details_for: appt.id, start_date: date) %>
+    <%= appt.name %>
+    <% if appt.project.present? &&  appt.project.battery_backup %>
+      <i class="fas fa-battery-full text-blue-400 -rotate-90"></i>
+    <% end  %>
+  </p>
+<% end %>

@@ -1,0 +1,17 @@
+<div class="p-8">
+  <h4 class="pb-3">
+    <%= Proposal.steps[@proposal.quality_control_step - 1] %>
+  </h4>
+  <label for="check_consumption" class="flex items-center space-x-3 pb-3">
+    <input id="check_consumption" type="checkbox" class="form-tick appearance-none h-6 w-6 border border-gray-300 rounded-md checked:bg-blue-600 checked:border-transparent focus:outline-none" required>
+    <span class="text-gray-900 font-medium">Check the consumption against the bill the rep provided</span>
+  </label>
+  <label for="check_power_company" class="flex items-center space-x-3 pb-3">
+    <input id="check_power_company" type="checkbox" class="form-tick appearance-none h-6 w-6 border border-gray-300 rounded-md checked:bg-blue-600 checked:border-transparent focus:outline-none" required>
+    <span class="text-gray-900 font-medium">Make sure the correct power company is selected <b>(Don’t assume)</b></span>
+  </label>
+  <label for="check_escalation" class="flex items-center space-x-3 pb-3">
+    <input id="check_escalation" type="checkbox" class="form-tick appearance-none h-6 w-6 border border-gray-300 rounded-md checked:bg-blue-600 checked:border-transparent focus:outline-none" required>
+    <span class="text-gray-900 font-medium">&nbsp;Make sure escalation is set at 4</span>
+  </label>
+</div>

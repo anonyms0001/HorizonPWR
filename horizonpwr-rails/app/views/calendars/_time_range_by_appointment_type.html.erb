@@ -1,0 +1,6 @@
+<%# NOTE: This was created as a partial instead of a presenter because it needs access to local_time. %>
+<% if Appointment.inspection_types.include?(appointment.appointment_type) %>
+  <%= datetime_by_appointment_type(appointment) %>
+<% else %>
+  <%= local_time(appointment.start_at) %> - <%= local_time(appointment.end_at) %>
+<% end %>

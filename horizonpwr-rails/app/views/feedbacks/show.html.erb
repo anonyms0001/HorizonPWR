@@ -1,0 +1,97 @@
+<%= title "Feedback: #{@feedback.title}" %>
+<div class="mx-auto my-8 px-4">
+  <div class="mx-auto">
+    <nav class="flex mb-5" aria-label="Breadcrumb">
+      <ol class="flex items-center">
+        <li class="list-none">
+          <div class="flex items-center">
+            <!-- Heroicon name: solid/chevron-right -->
+            <svg class="flex-shrink-0 h-5 w-5 text-gray-400 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+            </svg>
+            <p class="text-xl font-bold mr-4 text-blue-500 hover:text-blue-700"><%= link_to "Feedbacks", feedbacks_path %></p>
+          </div>
+        </li>
+
+        <li class="list-none">
+          <div class="flex items-center">
+            <!-- Heroicon name: solid/chevron-right -->
+            <svg class="flex-shrink-0 h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+            </svg>
+            <p class="ml-4 text-xl font-bold text-gray-500 hover:text-gray-700" aria-current="page">
+              <%= @feedback.title %>
+            </p>
+          </div>
+        </li>
+      </ol>
+      <div>
+        <%= link_to t("edit"), edit_feedback_path(@feedback), class: "btn btn-link" if allowed_to?(:edit?, @feedback) %>
+      </div>
+    </nav>
+
+    <!--    <div class="flex justify-between items-center mb-4">-->
+
+    <!--    </div>-->
+    <%= render partial: 'feedbacks/feedback', locals: { feedback: @feedback } %>
+    <div class="my-4 bg-white rounded shadow p-4">
+      <div class="flex justify-between mb-8">
+        <div class="h5">
+          Feedback:
+        </div>
+        <% if @user_subscription_status == true %>
+          <div class="flex items-center">
+            <span class="mr-2 text-xs">
+              Receive mentions only
+            </span>
+            <%= button_to unsubscribe_from_note_path(feedback_id: @feedback.id, id: @feedback.note), class: "inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" do %>
+              <%= fa_icon "bell-slash", class: "fas mr-1" %>
+              Unsubscribe
+            <% end %>
+          </div>
+        <% else %>
+          <div class="flex items-center">
+            <span class="mr-2 text-xs">
+              Receive all notifications
+            </span>
+            <%= button_to subscribe_to_note_path(feedback_id: @feedback.id, id: @feedback.note), class: "inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" do %>
+              <%= fa_icon "bell", class: "fas mr-1" %>
+              Subscribe
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <%= render partial: 'feedbacks/note', locals: { note: @feedback.note } %>
+      <div class="mb-4 h5">
+        Conversation:
+      </div>
+      <%#= render partial: 'notes/note', locals: {note: @feedback.note, last: false}  %>
+      <% if @feedback.note.notes.any? %>
+        <% @feedback.note.notes.sort_by(&:created_at).each do |note| %>
+          <%= render partial: 'notes/note', locals: { note: note, last: false } %>
+        <% end %>
+      <% else %>
+        <div class="bg-gray-200 rounded p-2 mb-4">
+          No comments on this post yet.
+        </div>
+      <% end %>
+
+      <div class="flex">
+        <div class="mr-2">
+          <div class="relative">
+            <%= image_tag avatar_url_for(current_user), height: 20, width: 20, class: "h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center inline-block rounded-full" %>
+            <span class="absolute -bottom-3 -right-1 bg-white rounded-tl px-0.5 py-px">
+              <!-- Heroicon name: solid/chat-alt -->
+              <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z" clip-rule="evenodd"/>
+              </svg>
+            </span>
+          </div>
+        </div>
+        <div class="w-full ml-1">
+          <%= render partial: 'notes/form', locals: { note: @feedback.note.notes.new } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

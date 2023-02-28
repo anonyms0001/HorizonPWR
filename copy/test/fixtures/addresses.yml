@@ -1,0 +1,42 @@
+# == Schema Information
+#
+# Table name: addresses
+#
+#  id                        :bigint           not null, primary key
+#  address                   :string
+#  address_type              :string
+#  city                      :string
+#  latitude                  :decimal(, )
+#  longitude                 :decimal(, )
+#  number                    :string
+#  postal_code               :string
+#  state                     :string
+#  street                    :string
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#  canvass_address_id        :string
+#  salesforce_lead_id        :string
+#  salesforce_opportunity_id :string
+#
+
+one:
+  address: address_string_one
+  address_type: address_type_string_one
+  city: city_string_one
+  latitude: 9.99
+  longitude: 9.99
+  number: number_string_one
+  postal_code: postal_code_string_one
+  state: state_string_one
+  street: street_string_one
+
+two:
+  address: address_string_two
+  address_type: address_type_string_two
+  city: city_string_two
+  latitude: 9.99
+  longitude: 9.99
+  number: number_string_two
+  postal_code: postal_code_string_two
+  state: state_string_two
+  street: street_string_two

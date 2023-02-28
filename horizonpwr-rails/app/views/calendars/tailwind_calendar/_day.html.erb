@@ -1,0 +1,34 @@
+<%= calendar(number_of_days: 1) do |date| %>
+  <div class="text-sm border border-gray-300 dark:border-gray-700 overflow-y-auto p-2">
+    <div>
+      <% if @day_note.present? && @day_note[0].active %>
+        <%= link_to edit_calendar_note_path(@day_note[0].id, :note_type => "daily", :date => date, :calendar_view => "day") do %>
+          <i class="fas fa-sticky-note text-blue-400 "></i>
+        <% end %>
+      <% elsif @day_note.present? && !@day_note[0].active %>
+        <%= link_to edit_calendar_note_path(@day_note[0].id, :note_type => "daily", :date => date, :calendar_view => "day") do %>
+          <i class="far fa-sticky-note text-blue-400 "></i>
+        <% end %>
+      <% elsif @day_note.empty? %>
+        <%= link_to new_calendar_note_path(:note_type => "daily", :date => date, :calendar_view => "day", :start_date => date) do %>
+          <i class="far fa-sticky-note text-blue-400 "></i>
+        <% end %>
+      <% end %>
+      <p class="text-gray-800 dark:text-gray-100 float-right">
+        <%= link_to date.day, request.params.merge(calendar_view: "day", date: date) %>
+      </p>
+      <div>
+        <% if @day_note.present? && @day_note[0].active %>
+          <hr class="pb-2">
+          <%= link_to "edit note", edit_calendar_note_path(@day_note[0].id, :note_type => "daily", :date => date, :calendar_view => "day", :start_date => date), class: "float-right text-xs" %>
+          <div class="text-center pb-2">
+            <%= @day_note[0].note.body %>
+          </div>
+          <hr class="pb-2">
+        <% end %>
+      </div>
+    </div>
+
+    <%= render partial: 'shared/calendar_days', locals: {appts: @appts, date: date} %>
+  </div>
+<% end %>

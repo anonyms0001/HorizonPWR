@@ -1,0 +1,168 @@
+<div class="container mx-auto my-8 px-4">
+  <!-- Main 3 column grid -->
+  <main class="pb-8">
+    <div class="mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Main 3 column grid -->
+      <div class="grid grid-cols-1 gap-4 items-start lg:grid-cols-3 lg:gap-8">
+        <!-- Left column -->
+        <div class="grid grid-cols-1 gap-4 lg:col-span-3">
+          <!-- Summary panel -->
+          <section aria-labelledby="profile-overview-title">
+            <div class="rounded-lg bg-white overflow-hidden shadow-lg">
+              <div class="bg-white p-6 pt-4 flex lg:justify-between lg:flex-row flex-wrap sm:flex-nowrap">
+                <div class="sm:flex sm:items-center sm:justify-between w-full">
+                  <div class="sm:flex">
+                    <div class="flex-shrink-0">
+                    </div>
+                    <div class="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
+                      <div class="flex flex-row items-center">
+                        <!-- Contact avatar -->
+                        <div class="flex-shrink-0 h-10 w-10">
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                          </svg>
+                        </div>
+                        <p class="text-xl font-bold text-gray-900 sm:text-2xl pl-4">
+                          <%= link_to @form_config.dynamic_form.use_case, @form_config.dynamic_form %> >
+                          <%= @form_config.title %>
+                          <%#= link_to @form_config.name, contact_path(@form_config.contacts.first) %>
+                        </p>
+                        <%= link_to 'Edit', edit_form_config_path(@form_config), class: "btn btn-link" %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<!--                Status icon-->
+              <div class="flex w-full lg:justify-end md:justify-end justify-evenly">
+                <div class="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
+                  <div class="flex flex-row items-center">
+                    <div class="flex-1 h-3 w-3 bg-<%= @form_config.active_status_color %>-400 rounded-full">
+                    </div>
+                    <div class="px-1 py-2 text-base capitalize font-bold leading-normal text-<%= @form_config.active_status_color %>-500">
+                      <%= @form_config.active %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+              <div class="border-t border-gray-200 bg-gray-50 grid grid-cols-1 divide-y divide-gray-200 sm:grid-cols-4 sm:divide-y-0 sm:divide-x">
+                <!--4 Bottom sections on top card-->
+                <div class="px-6 py-5 text-sm text-center flex flex-nowrap sm:flex-wrap md:flex-wrap justify-between">
+                  <div class="w-full">
+                    <span class="text-gray-900 font-medium">
+                     Dynamic Form:
+                    </span>
+                    <span class="text-gray-600">
+                      <%= link_to @form_config.dynamic_form.use_case, @form_config.dynamic_form %>
+                    </span>
+                  </div>
+                </div>
+                <div class="px-6 py-5 text-sm text-center flex flex-nowrap sm:flex-wrap md:flex-wrap justify-between">
+                  <div class="w-full">
+                    <span class="text-gray-900 font-medium">
+                      Form:
+                    </span>
+                    <span class="text-gray-600">
+                      <%= @form_config.title %>
+                    </span>
+                  </div>
+                </div>
+                <div class="px-6 py-5 text-sm text-center flex flex-nowrap sm:flex-wrap md:flex-wrap justify-between">
+                  <div class="w-full">
+                    <span class="text-gray-900 font-medium">
+                      Created At:
+                    </span>
+                    <span class="text-gray-600">
+                     <%= local_time(@form_config.created_at) %>
+                    </span>
+                  </div>
+                </div>
+                <div class="px-6 py-5 text-sm text-center flex flex-nowrap sm:flex-wrap md:flex-wrap justify-between">
+                  <div class="w-full">
+                    <span class="text-gray-900 font-medium">
+                     Updated At:
+                    </span>
+                    <span class="text-gray-600">
+                     <%= local_time(@form_config.updated_at) %>
+                    </span>
+                  </div>
+                  <div class="w-full">
+                    <%#= link_to "Check Proposal", proposal_path(@form_config.proposals.first), class: "text-gray-900 font-medium" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        <div class="grid grid-cols-1 gap-8 lg:col-span-2">
+          <!-- Members panel -->
+          <section>
+            <div class="rounded-lg overflow-hidden shadow-lg bg-white">
+              <div class="rounded-tl-lg rounded-tr-lg sm:rounded-tr-none relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
+                <p class="text-xl font-medium text-gray-900 sm:text-2xl mb-4">
+                  Add a Field
+                </p>
+                <p class="text-xl font-bold text-gray-900 sm:text-2xl">
+                  <%= render "field_configs/form", field_config: @form_config.field_configs.new(field_type: 3) %>
+                </p>
+
+              </div>
+            </div>
+          </section>
+          <section>
+            <div class="rounded-lg overflow-hidden shadow-lg bg-white p-6">
+              <p class="text-xl font-medium text-gray-900 sm:text-2xl mb-4">
+                Preview
+              </p>
+              <%= render "form_responses/form", form_response: FormResponse.find_or_initialize_by(respondable: nil, dynamic_form: @dynamic_form, form_config: @form_config) %>
+            </div>
+          </section>
+        </div>
+        <!-- Right column -->
+        <div class="grid grid-span-3 gap-4">
+          <!-- Needs to be updated-->
+          <!-- Appointment section -->
+          <section>
+            <div class="rounded-lg bg-white overflow-hidden shadow-lg overflow-y-auto ">
+              <div class="p-6">
+                <p class="text-xl font-medium text-gray-900 sm:text-2xl">Fields</p>
+                <div class="mt-6" data-controller="drag">
+                  <% @form_config.field_configs.order(:position).each do |field_config| %>
+<!--                    <div class="flex flex-row justify-between items-center rounded-lg bg-gray-50 p-4 mb-2 shadow moving-boxes" data-id="<%#= field_config.id %>" data-position="<%#= field_config.position %>" >-->
+<!--                      <div class="flex items-center ">-->
+                        <%#= link_to "#{field_config.position}. #{field_config.title}", field_config, class: "text-gray-900 font-medium" %>
+<!--                      </div>-->
+<!--                    </div>-->
+
+
+
+                    <div class="inline-flex w-full h-full my-2 items-center justify-center pl-6 bg-white border rounded-md border-<%= field_config.active_status_color %>-200 moving-boxes" data-id="<%= field_config.id %>" data-position="<%= field_config.position %>">
+                      <p class="w-2/3 h-full text-sm leading-none text-gray-800">
+                        <%#= link_to "#{field_config.position}. #{field_config.title}", field_config, class: "text-gray-900 font-medium" %>
+                        <%= link_to field_config, class: "text-gray-900 font-medium" do %>
+                          <span class="position-number"> <%= field_config.position %></span>. <%= field_config.title %>
+                        <% end %>
+
+                      </p>
+                      <div class="flex items-center justify-center flex-1 h-full bg-<%= field_config.active_status_color %>-100 rounded-tr-md rounded-br-md">
+                        <p class="h-full text-sm font-medium leading-snug capitalize text-center text-<%= field_config.active_status_color %>-700 px-2 py-1">
+                          <%= field_config.active %>
+                          <%#= TODO: Make the active dynamic %>
+                          <%#= TODO: Make the colors dynamic %>
+                        </p>
+                      </div>
+                    </div>
+
+
+
+
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

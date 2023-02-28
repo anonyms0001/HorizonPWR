@@ -1,0 +1,60 @@
+# == Schema Information
+#
+# Table name: proposals
+#
+#  id                           :bigint           not null, primary key
+#  blocked                      :boolean          default(FALSE), not null
+#  blocked_on                   :string
+#  completion_state             :string           default("new"), not null
+#  design_completed_at          :datetime
+#  design_started_at            :datetime
+#  quality_control_completed_at :datetime
+#  quality_control_section_step :integer          default(1)
+#  quality_control_started_at   :datetime
+#  quality_control_step         :integer          default(1)
+#  reason_incomplete            :string
+#  created_at                   :datetime         not null
+#  updated_at                   :datetime         not null
+#  address_id                   :bigint
+#  appointment_id               :bigint
+#  design_by_id                 :bigint
+#  project_id                   :bigint
+#  quality_control_by_id        :bigint
+#
+# Indexes
+#
+#  index_proposals_on_address_id             (address_id)
+#  index_proposals_on_appointment_id         (appointment_id)
+#  index_proposals_on_design_by_id           (design_by_id)
+#  index_proposals_on_project_id             (project_id)
+#  index_proposals_on_quality_control_by_id  (quality_control_by_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (appointment_id => appointments.id)
+#  fk_rails_...  (design_by_id => users.id)
+#  fk_rails_...  (project_id => projects.id)
+#  fk_rails_...  (quality_control_by_id => users.id)
+#
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+one:
+  appointment: one
+  blocked: false
+  completion_state: 'new'
+  address: one
+  created_at: <%= Time.current %>
+  design_by: three
+  quality_control_by: four
+
+two:
+  appointment: two
+  blocked: false
+  completion_state: 'draw'
+  address: two
+  created_at: <%= Time.current %>
+  design_by: three
+  quality_control_by: four

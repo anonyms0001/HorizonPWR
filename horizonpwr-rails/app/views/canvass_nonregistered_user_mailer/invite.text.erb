@@ -1,0 +1,6 @@
+
+  Hey <%= @applicant.first_name %>,
+
+  <%= "You need to sign up on pwrstation so your appointments and proposals can show up properly." %>
+
+  <%= new_user_registration_url(:applicant => @applicant.secure_public_id) %>

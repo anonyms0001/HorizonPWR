@@ -1,0 +1,56 @@
+# == Schema Information
+#
+# Table name: fundings
+#
+#  id                        :bigint           not null, primary key
+#  amount                    :integer
+#  application_submitted_at  :datetime
+#  approved_at               :datetime
+#  coc_sent_at               :datetime
+#  coc_signed_at             :datetime
+#  denied_at                 :datetime
+#  invoice_sent_at           :datetime
+#  loan_docs_signed_at       :datetime
+#  sent_to_collections_at    :datetime
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#  finance_partner_id        :bigint           not null
+#  project_id                :bigint           not null
+#  sent_to_collections_by_id :bigint
+#
+# Indexes
+#
+#  index_fundings_on_finance_partner_id         (finance_partner_id)
+#  index_fundings_on_project_id                 (project_id)
+#  index_fundings_on_sent_to_collections_by_id  (sent_to_collections_by_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (finance_partner_id => finance_partners.id)
+#  fk_rails_...  (project_id => projects.id)
+#  fk_rails_...  (sent_to_collections_by_id => users.id)
+#
+
+one:
+  approved_at: 2021-07-27 08:09:45
+  denied_at: 2021-07-27 08:09:45
+  loan_docs_signed_at: 2021-07-27 08:09:45
+  application_submitted_at: 2021-07-27 08:09:45
+  amount: 1
+  coc_sent_at: 2021-07-27 08:09:45
+  coc_signed_at: 2021-07-27 08:09:45
+  invoice_sent_at: 2021-07-27 08:09:45
+  project: one
+  finance_partner: one
+
+two:
+  approved_at: 2021-07-27 08:09:45
+  denied_at: 2021-07-27 08:09:45
+  loan_docs_signed_at: 2021-07-27 08:09:45
+  application_submitted_at: 2021-07-27 08:09:45
+  amount: 1
+  coc_sent_at: 2021-07-27 08:09:45
+  coc_signed_at: 2021-07-27 08:09:45
+  invoice_sent_at: 2021-07-27 08:09:45
+  project: two
+  finance_partner: one

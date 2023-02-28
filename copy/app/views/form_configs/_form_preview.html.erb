@@ -1,0 +1,27 @@
+<div class="bg-white rounded shadow p-8 my-4">
+  <h3 class="">Preview</h3>
+  <p>This is a preview of what the form you are creating will look like.</p>
+  <hr/>
+  <h5 class="font-bold py-4"><%= form_config.title.titleize %></h5>
+  <% if form_config.field_configs.any? %>
+    <%= form_with model: form_config, url: root_path do |f| %>
+      <% form_config.field_configs.each do |field_config| %>
+        <%= render 'form_configs/dynamic_field_config', f: f, field_config: field_config, form_config: form_config %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
+
+<button data-action="click->reveal#toggle" type="button" class="btn btn-primary">
+  Add New Field
+  &nbsp;
+  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+</button>
+
+<div class="bg-white rounded shadow p-8 my-4 hidden" data-reveal-target="item">
+  <h3 class="">Add A Field To This Form</h3>
+  <p class="text-sm mb-2">
+    Fields will appear in the Preview, above, once submitted.
+  </p>
+  <hr class="mb-4" />
+</div>

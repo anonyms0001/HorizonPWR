@@ -1,0 +1,69 @@
+<div class="mx-auto my-4 px-1 md:px-2 lg:px-4">
+<!--  <div class="flow-root lg:mb-4 <%#= 'hidden' if !@earnings.any? %>">-->
+    <%#= link_to t("shared.scaffold.new.title", model: "Earning"), new_earning_path, class: "btn btn-primary lg:hidden" %>
+<!--  </div>-->
+  <div class="flex-none flex-wrap-reverse lg:flex-wrap lg:flex items-center mb-4">
+    <div class="w-full lg:w-1/4">
+      <div class="flex justify-between">
+        <h1 class="h3 mr-2">
+          <%= link_to 'Earnings', earnings_path, class:"text-gray-900" %>
+        </h1>
+        <%#= link_to t("shared.scaffold.new.title", model: "Earning"), new_earning_path, class: "btn btn-primary lg:hidden" %>
+      </div>
+    </div>
+
+    <% if @earnings.any? %>
+      <div class="w-full lg:w-1/2">
+        <%= render partial: "earnings/filter" %>
+      </div>
+      <div class="w-full lg:w-1/4">
+        <%= render partial: "earnings/search" %>
+      </div>
+    <div class="w-full mt-2 text-center text-sm <%= 'hidden' if !params[:filter].present? %>">
+      Filtered by: <%= "'#{params[:filter]}'" %>
+    </div>
+    <% end %>
+  </div>
+  <div class="">
+    <% if @earnings.any? %>
+      <div class="bg-white rounded shadow table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+                <th class="p-3 uppercase text-left text-xs"><%= sortable @earnings, :downline_earning_id, "Downline earning", class: "text-gray-700" %></th>
+                <th class="p-3 uppercase text-left text-xs"><%= sortable @earnings, :payout_rate_variant_id, "Payout rate variant", class: "text-gray-700" %></th>
+                <th class="p-3 uppercase text-left text-xs"><%= sortable @earnings, :amount, "Amount", class: "text-gray-700" %></th>
+                <th class="p-3 uppercase text-left text-xs"><%= sortable @earnings, :unit, "Unit", class: "text-gray-700" %></th>
+                <th class="p-3 uppercase text-left text-xs text-gray-700 w-20"><%= t("shared.scaffold.actions") %></th>
+            </tr>
+          </thead>
+          <tbody>
+          <% @earnings.each do |earning| %>
+            <tr class="group border-t border-gray-400 hover:bg-gray-100">
+                          <td class="p-3"><%= earning.downline_earning_id %></td>
+                          <td class="p-3"><%= earning.payout_rate_variant_id %></td>
+                          <td class="p-3"><%= earning.amount %></td>
+                          <td class="p-3"><%= earning.unit %></td>
+            
+              <td>
+                <%= link_to t("shared.scaffold.view"), earning, class: "btn btn-link no-underline" %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+
+   <%= render "shared/custom_pagy" %>
+
+    <% else %>
+      <div class="bg-white rounded shadow flex flex-col items-center justify-between p-8 lg:flex-row">
+        <%= image_tag "empty.svg", class: "mb-4 lg:w-1/2" %>
+        <div class="flex-1 text-center">
+          <p class="h3 mb-4">Create your first Earning</p>
+          <%= link_to t("shared.scaffold.new.title", model: "Earning"), new_earning_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

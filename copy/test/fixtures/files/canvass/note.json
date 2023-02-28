@@ -1,0 +1,43 @@
+{
+  "action": "create",
+  "type": "note",
+  "data": {
+    "note": {
+      "id": 20282,
+      "address_id": 134307546,
+      "customer_id": null,
+      "employee_id": 108,
+      "content": "moving in a year",
+      "offline_uuid": null,
+      "created": "2021-02-17T02:37:47.000Z",
+      "modified": "2021-02-17T02:37:47.000Z"
+    },
+    "address": {
+      "id": 134307546,
+      "lat": "43.47636160",
+      "lng": "-111.97772250",
+      "number": "2240",
+      "street": "Curlew Dr",
+      "unit": "",
+      "city": "Idaho Falls",
+      "district": "Bonneville",
+      "region": "ID",
+      "postal": "83406",
+      "country": null
+    },
+    "address_fields": {},
+    "customer": null,
+    "custom_fields": {},
+    "employee": {
+      "id": 108,
+      "first_name": "Harrison",
+      "alias": "",
+      "last_name": "Price",
+      "email": "harrison.price@horizonpwr.com",
+      "group_id": 1,
+      "created": "2020-07-07T17:50:38.000Z",
+      "modified": "2020-09-11T20:43:45.000Z",
+      "group_name": "Rexburg"
+    }
+  }
+}

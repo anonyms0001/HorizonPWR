@@ -1,0 +1,76 @@
+{
+  "canvass": {
+    "action": "create",
+    "type": "appointment",
+    "data": {
+      "appointment": {
+        "id": 20935,
+        "address_id": 134719203,
+        "customer_id": 24092,
+        "employee_id": 208,
+        "uuid": "6ceb3e90-712f-11eb-99a6-03bb2f50246f",
+        "title": "Lejames Bron",
+        "location": "237 North 2Nd East Street  Rexburg Idaho 83440",
+        "start": "2021-02-19T16:45:49.000Z",
+        "end": "2021-02-19T16:45:49.000Z",
+        "notes": "",
+        "held": false,
+        "held_by": null,
+        "offline_uuid": "F60742FB-A0BC-4554-9881-6B3B76995173",
+        "created": "2021-02-17T14:50:07.000Z",
+        "modified": "2021-02-17T14:50:07.000Z"
+      },
+      "address": {
+        "id": 134719203,
+        "lat": "43.83106655",
+        "lng": "-111.77838989",
+        "number": "237",
+        "street": "North 2nd East Street",
+        "unit": null,
+        "city": "Rexburg",
+        "district": null,
+        "region": "Idaho",
+        "postal": "83440",
+        "country": "US"
+      },
+      "address_fields": {},
+      "customer": {
+        "id": 24092,
+        "first_name": "Lejames",
+        "last_name": "Bron",
+        "gender": "un",
+        "birthdate": null,
+        "email_personal": "",
+        "phone_mobile": "",
+        "created": "2020-02-25T18:13:15.000Z",
+        "modified": "2020-06-10T18:01:18.000Z"
+      },
+      "custom_fields": {},
+      "appointment_assignments": [
+        {
+          "id": 208,
+          "first_name": "TestAccount",
+          "alias": "Test",
+          "last_name": "Account",
+          "email": "willard.moore@horizonpwr.com",
+          "group_id": 1,
+          "created": "2021-01-25T16:10:56.000Z",
+          "modified": "2021-02-14T05:07:42.000Z",
+          "group_name": "Rexburg",
+          "permission": "owner"
+        }
+      ],
+      "employee": {
+        "id": 208,
+        "first_name": "TestAccount",
+        "alias": "Test",
+        "last_name": "Account",
+        "email": "willard.moore@horizonpwr.com",
+        "group_id": 1,
+        "created": "2021-01-25T16:10:56.000Z",
+        "modified": "2021-02-14T05:07:42.000Z",
+        "group_name": "Rexburg"
+      }
+    }
+  }
+}

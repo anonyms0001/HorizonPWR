@@ -1,0 +1,2 @@
+module ConcessionsHelper
+end

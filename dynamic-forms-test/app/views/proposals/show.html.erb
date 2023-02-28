@@ -1,0 +1,20 @@
+<div class="container mx-auto my-8 px-4">
+  <div class="max-w-3xl mx-auto">
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="h3"><%= link_to "Proposals", proposals_path %> > Proposal #<%= @proposal.id %></h1>
+      <%= link_to t("edit"), edit_proposal_path(@proposal), class: "btn btn-link" %>
+    </div>
+    <div class="bg-white rounded shadow p-8">
+      <div class="mb-4">
+        <h5>Name</h5>
+        <%= @proposal.name %>
+        <br />
+<!--        Sort by use cases-->
+<!--        <h5>Form configs</h5>-->
+        <% @form_configs.each do |form_config| %>
+         <p> <%= form_config.position %> - <%= form_config.title %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

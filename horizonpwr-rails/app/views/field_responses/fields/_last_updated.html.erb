@@ -1,0 +1,7 @@
+<% if field_response.last_updated_by.present? %>
+  <div class="mb-4">
+    <span class="text-sm text-gray-400 float-right">
+      Last Updated By: <%= field_response.last_updated_by.name %> <%= local_time_ago(field_response.updated_at) %>.
+    </span>
+  </div>
+<% end %>

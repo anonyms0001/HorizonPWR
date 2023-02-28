@@ -1,0 +1,352 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "21d2cf3521016d434847437eddc0e138cc4fc796194b5ee0324891d564bbaea7",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/contacts/show.html.erb",
+      "line": 157,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(\"google maps\", (Unresolved Model).new.link_google_maps, :target => :blank, :class => \"text-gray-900\")",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "ContactsController",
+          "method": "show",
+          "line": 20,
+          "file": "app/controllers/contacts_controller.rb",
+          "rendered": {
+            "name": "contacts/show",
+            "file": "app/views/contacts/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "contacts/show"
+      },
+      "user_input": "(Unresolved Model).new.link_google_maps",
+      "confidence": "Weak",
+      "note": ""
+    },
+    {
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "22d98c6e0ce378327480efbcb04815dec5be444f4b931ae76abfd047965af19f",
+      "check_name": "Redirect",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/appointments_controller.rb",
+      "line": 66,
+      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(Appointment.find_by(:id => appointment_params.dig(:consult_id)).appointments.new(appointment_params.merge(:source => \"pwrstation\", :created_by => current_user, :account => Appointment.find_by(:id => appointment_params.dig(:consult_id)).account, :project => Project.find_by(:id => appointment_params.dig(:project, :id)), :created_by_position_id => current_user.job_position_id, :address => Appointment.find_by(:id => appointment_params.dig(:consult_id)).address)).create_appointment_redirect_to, :notice => \"Appointment was successfully created.\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "AppointmentsController",
+        "method": "create"
+      },
+      "user_input": "Appointment.find_by(:id => appointment_params.dig(:consult_id)).appointments.new(appointment_params.merge(:source => \"pwrstation\", :created_by => current_user, :account => Appointment.find_by(:id => appointment_params.dig(:consult_id)).account, :project => Project.find_by(:id => appointment_params.dig(:project, :id)), :created_by_position_id => current_user.job_position_id, :address => Appointment.find_by(:id => appointment_params.dig(:consult_id)).address)).create_appointment_redirect_to",
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "28f0a3950b6a043e9b2d4dcef034ee3eaf421014cb407d6ae18b7eac1816fd0c",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/users/show.html.erb",
+      "line": 73,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(\"Canvass\", User.find(params[:id]).canvass_link, :class => \"text-sm pl-2\", :target => :blank)",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "UsersController",
+          "method": "show",
+          "line": 29,
+          "file": "app/controllers/users_controller.rb",
+          "rendered": {
+            "name": "users/show",
+            "file": "app/views/users/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "users/show"
+      },
+      "user_input": "User.find(params[:id]).canvass_link",
+      "confidence": "Weak",
+      "note": ""
+    },
+    {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "372742257992cb661f7f9a36b29e40bb781a6b08dc59956be1ff38dc31663151",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/calendars/index.html.erb",
+      "line": 38,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(partial => \"calendars/tailwind_calendar/#{(params[:calendar_view] or \"month\")}\", { :locals => ({}) })",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "CalendarsController",
+          "method": "index",
+          "line": 35,
+          "file": "app/controllers/calendars_controller.rb",
+          "rendered": {
+            "name": "calendars/index",
+            "file": "app/views/calendars/index.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "calendars/index"
+      },
+      "user_input": "params[:calendar_view]",
+      "confidence": "Medium",
+      "note": ""
+    },
+    {
+      "warning_type": "SQL Injection",
+      "warning_code": 0,
+      "fingerprint": "410672b17101e2576d8bdbd98c9479c9503c9ebd0f7d3383840775cef10f65e2",
+      "check_name": "SQL",
+      "message": "Possible SQL injection",
+      "file": "app/models/proposal.rb",
+      "line": 97,
+      "link": "https://brakemanscanner.org/docs/warning_types/sql_injection/",
+      "code": "where(:archived => false, :completion_state => ([\"new\", \"draw\", \"quality\", \"complete\", \"closed\", \"ready for close call\", \"pending aurora\"])).includes(:design_by, :quality_control_by, :appointment => ([:contacts, :scheduled_with, :created_by, :address])).order(\"appointments.start_at #{direction}\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Proposal",
+        "method": "Proposal.ordered_by_appointment_date"
+      },
+      "user_input": "direction",
+      "confidence": "Weak",
+      "note": ""
+    },
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "49d8a0bcd73cd5c067ef02b0901b60868f00fd2bc60012e1f2aeef85cf8f0ea8",
+      "check_name": "FileAccess",
+      "message": "Parameter value used in file name",
+      "file": "app/controllers/api/v1/uploads_controller.rb",
+      "line": 39,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "File.delete(\"#{Rails.root}/tmp/#{(\"#{(request.request_parameters[\"document\"][\"workEmail\"] or (User.find_by(:email => request.request_parameters[\"document\"][\"workEmail\"]) or (User.find_by(:secure_public_id => request.request_parameters[\"document\"][\"user_id\"]) or User.find(349))).email).split(\"@\").first.tr(\".\", \"_\")}_#{(request.request_parameters[\"document\"][\"document_type\"].downcase or \"b-contract\")}_#{DateTime.now.strftime(\"%m_%d_%Y_%H:%M:%S\")}\" or request.request_parameters[\"document\"][\"name\"])}.pdf\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Api::V1::UploadsController",
+        "method": "create"
+      },
+      "user_input": "request.request_parameters[\"document\"][\"workEmail\"]",
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "Redirect",
+      "warning_code": 18,
+      "fingerprint": "5911bc8515381d95e57478e85de56171f1043ab5e5c5b183dc0828ab8a5f60ca",
+      "check_name": "Redirect",
+      "message": "Possible unprotected redirect",
+      "file": "app/controllers/attachment_tags_controller.rb",
+      "line": 41,
+      "link": "https://brakemanscanner.org/docs/warning_types/redirect/",
+      "code": "redirect_to(ActiveStorage::Attachment.find(params[:id]), :notice => \"Attachment tag was successfully updated.\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "AttachmentTagsController",
+        "method": "update"
+      },
+      "user_input": "params[:id]",
+      "confidence": "Weak",
+      "note": ""
+    },
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "81222d36c51f56d54c4eb6e30ad1927b3026fe62431f39faab1153da58d96d0a",
+      "check_name": "FileAccess",
+      "message": "Parameter value used in file name",
+      "file": "app/controllers/api/v1/uploads_controller.rb",
+      "line": 20,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "File.open(\"#{Rails.root}/tmp/#{(\"#{(request.request_parameters[\"document\"][\"workEmail\"] or (User.find_by(:email => request.request_parameters[\"document\"][\"workEmail\"]) or (User.find_by(:secure_public_id => request.request_parameters[\"document\"][\"user_id\"]) or User.find(349))).email).split(\"@\").first.tr(\".\", \"_\")}_#{(request.request_parameters[\"document\"][\"document_type\"].downcase or \"b-contract\")}_#{DateTime.now.strftime(\"%m_%d_%Y_%H:%M:%S\")}\" or request.request_parameters[\"document\"][\"name\"])}.pdf\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Api::V1::UploadsController",
+        "method": "create"
+      },
+      "user_input": "request.request_parameters[\"document\"][\"workEmail\"]",
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "8125ab1c825f3b5e164656e02029c058ab1255a4ed564b21c02d7278e68718e5",
+      "check_name": "FileAccess",
+      "message": "Parameter value used in file name",
+      "file": "app/controllers/api/v1/uploads_controller.rb",
+      "line": 18,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "File.open(\"#{Rails.root}/tmp/#{(\"#{(request.request_parameters[\"document\"][\"workEmail\"] or (User.find_by(:email => request.request_parameters[\"document\"][\"workEmail\"]) or (User.find_by(:secure_public_id => request.request_parameters[\"document\"][\"user_id\"]) or User.find(349))).email).split(\"@\").first.tr(\".\", \"_\")}_#{(request.request_parameters[\"document\"][\"document_type\"].downcase or \"b-contract\")}_#{DateTime.now.strftime(\"%m_%d_%Y_%H:%M:%S\")}\" or request.request_parameters[\"document\"][\"name\"])}.pdf\", \"wb\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Api::V1::UploadsController",
+        "method": "create"
+      },
+      "user_input": "request.request_parameters[\"document\"][\"workEmail\"]",
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 105,
+      "fingerprint": "aeeb925d7569fb931d3de2d28c949dd208cdaa1e22f7bc5818a91bf399f20e21",
+      "check_name": "PermitAttributes",
+      "message": "Potentially dangerous key allowed for mass assignment",
+      "file": "app/controllers/applicants_controller.rb",
+      "line": 122,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.require(:applicant).permit(:first_name, :last_name, :middle_initial, :name, :email, :new_email, :phone, :user_id, :created_by_id, :start_date, :account_id, :previously_employed_here, :status, :job_position_id, :attachments => ([]))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ApplicantsController",
+        "method": "applicant_params"
+      },
+      "user_input": ":account_id",
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "c83303a0fe540d23ba8e42c77551ad01eb7753a6dc14a35e9c4eafbd9b59ff35",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/applicants/show.html.erb",
+      "line": 102,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(\"Canvass\", Applicant.new(applicant_params).canvass_link)",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "ApplicantsController",
+          "method": "create",
+          "line": 62,
+          "file": "app/controllers/applicants_controller.rb",
+          "rendered": {
+            "name": "applicants/show",
+            "file": "app/views/applicants/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "applicants/show"
+      },
+      "user_input": "Applicant.new(applicant_params).canvass_link",
+      "confidence": "Weak",
+      "note": ""
+    },
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 105,
+      "fingerprint": "cb0c839a245b6fbc20092ff5a12b016446b418fee2b88fa515392002089ed76d",
+      "check_name": "PermitAttributes",
+      "message": "Potentially dangerous key allowed for mass assignment",
+      "file": "app/controllers/contacts_controller.rb",
+      "line": 105,
+      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.require(:contact).permit(:first_name, :last_name, :email, :phone, :account_id, :gender, :user_id, :lead_source, :referral_id, :appointment_attributes => ([:start_at, :created_by_id, :scheduled_with_id, :appointment_status]), :address_attributes => ([:address]))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ContactsController",
+        "method": "contact_params"
+      },
+      "user_input": ":account_id",
+      "confidence": "High",
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "dc674a2c790163b03691b09c5adc2695fd0125fba93b3a263b9b92e124378b63",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/projects/show.html.erb",
+      "line": 34,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(\"Salesforce Project\", Project.find(params[:project_id]).salesforce_url, :target => :blank, :class => \"btn btn-link\")",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "ProjectsController",
+          "method": "show",
+          "line": 44,
+          "file": "app/controllers/projects_controller.rb",
+          "rendered": {
+            "name": "projects/show",
+            "file": "app/views/projects/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "projects/show"
+      },
+      "user_input": "Project.find(params[:project_id]).salesforce_url",
+      "confidence": "Weak",
+      "note": ""
+    },
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 4,
+      "fingerprint": "e221038686ccd91bce33409a94438d4986d4134aadd2e2fc67692eeea7f3f8f9",
+      "check_name": "LinkToHref",
+      "message": "Potentially unsafe model attribute in `link_to` href",
+      "file": "app/views/users/show.html.erb",
+      "line": 72,
+      "link": "https://brakemanscanner.org/docs/warning_types/link_to_href",
+      "code": "link_to(\"Salesforce\", User.find(params[:id]).sf_account_link, :class => \"text-sm pl-2\", :target => :blank)",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "UsersController",
+          "method": "show",
+          "line": 29,
+          "file": "app/controllers/users_controller.rb",
+          "rendered": {
+            "name": "users/show",
+            "file": "app/views/users/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "users/show"
+      },
+      "user_input": "User.find(params[:id]).sf_account_link",
+      "confidence": "Weak",
+      "note": ""
+    }
+  ],
+  "updated": "2022-03-07 10:31:18 -0700",
+  "brakeman_version": "5.0.4"
+}

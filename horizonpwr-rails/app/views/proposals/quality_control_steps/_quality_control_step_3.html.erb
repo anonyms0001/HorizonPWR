@@ -1,0 +1,25 @@
+<div class="p-8">
+  <h4 class="pb-3">
+    <%= Proposal.steps[@proposal.quality_control_step - 1] %>
+  </h4>
+  <label for="check_landscape" class="flex items-center space-x-3 pb-3">
+    <input id="check_landscape" type="checkbox" name="check_landscape" value="1" class="form-tick appearance-none h-6 w-6 border border-gray-300 rounded-md checked:bg-blue-600 checked:border-transparent focus:outline-none" required>
+    <span class="text-gray-900 font-medium">Are the panels landscape when they could be portrait?</span>
+  </label>
+  <label for="check_lidar" class="flex items-center space-x-3 pb-3">
+    <input id="check_lidar" type="checkbox" name="check_lidar" value="1" class="form-tick appearance-none h-6 w-6 border border-gray-300 rounded-md checked:bg-blue-600 checked:border-transparent focus:outline-none" required>
+    <span class="text-gray-900 font-medium">Are there different arrays (An array is a cluster of panels) scattered all over the home when it could be consolidated into fewer arrays?</span>
+  </label>
+  <label for="check_panels" class="flex items-center space-x-3 pb-3">
+    <input id="check_panels" type="checkbox" name="check_panels" value="1" class="form-tick appearance-none h-6 w-6 border border-gray-300 rounded-md checked:bg-blue-600 checked:border-transparent focus:outline-none" required>
+    <span class="text-gray-900 font-medium">&nbsp;&nbsp;Is this design going too far out of setbacks? (If in Oregon, it’s okey to go out bit)</span>
+  </label>
+  <label for="check_panel_option" class="flex items-center space-x-3 pb-3">
+    <input id="check_panel_option" type="checkbox" name="check_panel_option" value="1" class="form-tick appearance-none h-6 w-6 border border-gray-300 rounded-md checked:bg-blue-600 checked:border-transparent focus:outline-none" required>
+    <span class="text-gray-900 font-medium">&nbsp;&nbsp;&nbsp;Do you see a shop or another spot you could do panels so you could preemptively provide another option for the rep??</span>
+  </label>
+  <label for="check_ground_mount" class="flex items-center space-x-3 pb-3">
+    <input id="check_ground_mount" type="checkbox" name="check_ground_mount" value="1" class="form-tick appearance-none h-6 w-6 border border-gray-300 rounded-md checked:bg-blue-600 checked:border-transparent focus:outline-none" required>
+    <span class="text-gray-900 font-medium">&nbsp;&nbsp;&nbsp;Do you see a spot where we could potentially add a ground mount to provide a better offset for the customer?</span>
+  </label>
+</div>

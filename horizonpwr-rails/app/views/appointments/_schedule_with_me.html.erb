@@ -1,0 +1,7 @@
+<div class="text-center">
+  <%= button_to appointment_path(appointment), params: { appointment: { scheduled_with_id: current_user.id } }, method: :put, data: { confirm: "I am going to be the closer for this appointment. Move it to my calendar." }, class: "inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" do %>
+    <%= fa_icon "user-clock", class: "fas mr-2" %> Schedule With Me
+  <% end %>
+</div>
+
+<hr class="mt-6 mb-6">

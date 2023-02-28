@@ -1,0 +1,15 @@
+<div class="flex items-left">
+  <div class="flex-shrink-0 h-10 w-10">
+    <%= image_tag avatar_url_for(account), class: "h-10 inline-block rounded-full mr-2" %>
+  </div>
+  <div class="ml-4">
+    <div class="flex w-full justify-center space-x-3 items-center">
+      <div class="w-full">
+        <%= link_to account.name, account_path(account), class: "text-m text-gray-900" %>
+      </div>
+    </div>
+    <div class="text-sm text-gray-500">
+      <%= link_to 'manage', account_path(account), class: 'text-gray-500 text-sm' if allowed_to?(:manage?, account) %>
+    </div>
+  </div>
+</div>

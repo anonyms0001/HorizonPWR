@@ -1,0 +1,88 @@
+# == Schema Information
+#
+# Table name: accounts
+#
+#  id                        :bigint           not null, primary key
+#  active                    :boolean          default(FALSE)
+#  card_exp_month            :string
+#  card_exp_year             :string
+#  card_last4                :string
+#  card_type                 :string
+#  domain                    :string
+#  extra_billing_info        :text
+#  historic_canvass_team_ids :text             default([]), is an Array
+#  name                      :string           not null
+#  personal                  :boolean          default(FALSE)
+#  processor                 :string
+#  subdomain                 :string
+#  trial_ends_at             :datetime
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#  canvass_team_id           :string
+#  installer_id              :bigint
+#  owner_id                  :bigint
+#  processor_id              :string
+#
+# Indexes
+#
+#  index_accounts_on_installer_id  (installer_id)
+#  index_accounts_on_owner_id      (owner_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (installer_id => installers.id)
+#  fk_rails_...  (owner_id => users.id)
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+one:
+  owner: one
+  name: "Account One"
+  personal: false
+
+two:
+  owner: two
+  name: "Account Two"
+  personal: false
+
+rexburg:
+  owner: two
+  name: "Rexburg"
+  personal: false
+
+personal:
+  owner: one
+  name: "Account Personal"
+  personal: true
+
+company:
+  owner: one
+  name: "Company"
+  personal: false
+  domain: company.com
+  subdomain: company
+
+impersonal:
+  owner: one
+  name: "impersonal"
+  personal: false
+  domain: impersonal.com
+  subdomain: impersonal
+
+invited:
+  owner: invited
+  name: "Invited User"
+  personal: true
+
+install_team:
+  owner: one
+  name: MyString
+  personal: false
+  installer: one
+#  domain: impersonal.com
+#  subdomain: impersonal

@@ -1,0 +1,51 @@
+<div class="my-8 px-4">
+  <div class="flex flex-col items-start justify-between sm:flex-row-reverse flex-wrap">
+    <%= render partial: "addresses/search" %>
+    <div class="lg:w-3/4 w-full lg:pr-8 lg:mb-0 mb-6 overflow-hidden overflow-x-auto">
+      <div class="rounded-lg overflow-hidden shadow-lg bg-white">
+        <div class="rounded-tl-lg rounded-tr-lg sm:rounded-tr-none relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
+          <p class="text-xl font-bold text-gray-900 sm:text-2xl">Addresses</p>
+          <br/>
+            <table class="w-full">
+              <thead>
+              <tr>
+                <th class="p-3 text-xs text-left text-gray-600 uppercase"><%= sortable @addresses, :date, 'ADDRESS', class: 'text-gray-700' %></th>
+                <th class="p-3 text-xs text-left text-gray-600 uppercase"><%= sortable @addresses, :address_type, 'Address type', class: 'text-gray-700' %></th>
+              </tr>
+              </thead>
+              <tbody class="bg-white">
+              <% if @addresses.size > 0 %>
+                <% @addresses.each do |address| %>
+                  <tr class="border-t border-gray-400 group bg-white hover:bg-gray-200">
+                    <td class="py-4 whitespace-nowrap">
+                      <%= link_to address do %>
+                        <div class="text-m text-gray-900">
+                          <%= address.full_address %>
+                        </div>
+                      <% end %>
+                    </td>
+                    <td class="p-3">
+                      <%= link_to address do %>
+                        <div class="text-m text-gray-900">
+                          <%= address.address_type ? address.address_type.split.map { |i| i.capitalize }.join(' ') : 'N/A' %>
+                        </div>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              <% else %>
+                <tr class="group border-t border-gray-400 hover:bg-gray-100">
+                  <td class="p-3">
+                    You don't have any <%= params['address_type'] ? params['address_type'].downcase : '' %> addresses
+                  </td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+        <%= render "shared/custom_pagy" %>
+        </div>
+      </div>
+  </div>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+<%= form_with(model: calendar_note) do |form| %>
+  <%= render "shared/error_messages", resource: form.object %>
+  <div class="form-group">
+    <%= form.fields_for :note do |note_form| %>
+      <div class="form-group">
+        <%= note_form.rich_text_area :body, class: "form-control", data: { controller: "mentions", mentions_target: "field" } %>
+      </div>
+      <%= note_form.hidden_field :notable_type %>
+      <%= note_form.hidden_field :notable_id %>
+      <%= note_form.hidden_field :user_id, value: note_form.object.user_id || current_user.id %>
+    <% end %>
+  </div>
+  <div class="form-group hidden">
+    <%= form.text_field :start_date, value: params[:start_date] if params[:start_date].present? %>
+    <%= form.text_field :calendar_view, value: params[:calendar_view] if params[:calendar_view].present? %>
+  </div>
+  <div class="form-group hidden">
+    <%= form.label :global %>
+    <%= form.check_box :global, class: "form-checkbox", checked: params[:note_type] == "global" ? true :  false, value: params[:note_type] == "global" ? true :  false %>
+  </div>
+  <div class="form-group ">
+    <%= form.label :date %>
+    <%= form.text_field :date, class: "form-control", value: params[:date] %>
+  </div>
+  <div class="form-group">
+    <%= form.label :active %>
+    <%= form.check_box :active, class: "form-checkbox" %>
+  </div>
+  <div class="flex justify-between form-group">
+    <%= form.button class: "btn btn-primary" %>
+    <% if form.object.persisted? && allowed_to?(:destroy?, form.object)%>
+      <%= link_to t("delete"), form.object, class: "btn btn-danger outline", method: :delete, data: { confirm: t("are_you_sure") } %>
+    <% end %>
+  </div>
+<% end %>

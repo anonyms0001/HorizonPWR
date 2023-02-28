@@ -1,0 +1,21 @@
+<% if ['production', 'staging'].include?(Rails.env) %>
+  <% if user_signed_in? %>
+    <script>
+      var uid = <%= current_user.id %> || null; // Replace your_user_id with your own if available.
+      smartlook('identify', uid, {
+        'name': '<%= current_user.name %>',
+        'email': '<%= current_user.email %>',
+        'JobPosition': '<%= current_user&.job_position&.name %>',
+        'user_str': '<%= admin_user_url(current_user) %>',
+        'account_str': '<%= admin_account_url(current_account) %>',
+        'Leadership': '<%= current_user.job_position&.leadership %>',
+        'Canvass': '<%= current_user.canvass_user_id %>',
+        'Accounts': '<%= current_user.accounts.impersonal.map(&:name).uniq %>',
+        'Phone': '<%= current_user.phone %>',
+        'Active': '<%= current_user.active %>',
+        'Admin': '<%= current_user.admin %>',
+        'UserLink': '<%= user_url(current_user) %>',
+      });
+    </script>
+  <% end %>
+<% end %>

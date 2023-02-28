@@ -1,0 +1,33 @@
+{
+  "action": "create",
+  "type": "note",
+  "data": {
+    "note": {
+      "id": 20276,
+      "address_id": 141246362,
+      "customer_id": null,
+      "employee_id": 219,
+      "content": "Moving soon 02/16/2021",
+      "offline_uuid": "F0639028-ACB4-4D71-B838-C481AC8D9E62",
+      "created": "2021-02-17T02:31:27.000Z",
+      "modified": "2021-02-17T02:31:27.000Z"
+    },
+    "address": {
+      "id": 141246362,
+      "lat": "43.58821546",
+      "lng": "-116.40641374",
+      "number": "1806",
+      "street": "S Cobble Ave",
+      "unit": null,
+      "city": "Meridian",
+      "district": null,
+      "region": "ID",
+      "postal": "83642",
+      "country": null
+    },
+    "address_fields": {},
+    "customer": null,
+    "custom_fields": {},
+    "employee": null
+  }
+}

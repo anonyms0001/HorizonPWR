@@ -1,0 +1,77 @@
+<div class="my-8 px-4">
+  <div class="flex flex-col items-start justify-between sm:flex-row-reverse flex-wrap">
+    <%= render partial: "appointments/search" %>
+    <div class="lg:w-3/4 w-full lg:pr-8 lg:mb-0 mb-6 overflow-hidden overflow-x-auto">
+      <div class="rounded-lg overflow-hidden shadow-lg bg-white">
+        <div class="rounded-tl-lg rounded-tr-lg sm:rounded-tr-none relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
+          <p class="text-xl font-bold text-gray-900 sm:text-2xl">
+            <%= @pagy.count %> Appointments
+          </p>
+          <br/>
+            <table class="w-full">
+              <thead>
+              <tr>
+                <th class="p-3 text-xs text-left text-gray-600 uppercase"><%= sortable @appointments, :contact_name, 'Contact', class: 'text-gray-700' %></th>
+                <th class="p-3 text-xs text-left text-gray-600 uppercase"><%= sortable @appointments, :start_at, 'Date', class: 'text-gray-700' %></th>
+                <th class="p-3 text-xs text-left text-gray-600 uppercase"><%= sortable @appointments, :appointment_type, 'Type', class: 'text-gray-700' %></th>
+                <th class="p-3 text-xs text-left text-gray-600 uppercase">Status</th>
+              </tr>
+              </thead>
+              <tbody class="bg-white">
+              <% if @appointments.size > 0 %>
+                <% @appointments.each do |appointment| %>
+                  <tr class="border-t border-gray-400 group bg-white hover:bg-gray-200">
+                    <td class="py-4 whitespace-nowrap">
+                      <%= link_to appointment do %>
+                        <div class="text-m text-gray-900">
+                          <%= appointment.name %>
+                        </div>
+                      <% end %>
+                    </td>
+                    <td class="py-4 whitespace-nowrap">
+                      <%= link_to appointment do %>
+                        <div class="text-sm text-gray-500">
+                          <%= appointment.start_at&.strftime("%b %e, %Y,  %l:%M%P") %>
+                        </div>
+                      <% end %>
+                    </td>
+                    <td class="px-2 whitespace-nowrap">
+                      <%= link_to appointment do %>
+                        <div class="flex text-gray-900">
+                          <%= appointment.appointment_type? ? appointment.appointment_type.split.map { |i| i.capitalize }.join(' ') : 'N/A' %>
+                        </div>
+                      <% end %>
+                    </td>
+                      <td class="px-2 whitespace-nowrap">
+                          <%= link_to appointment do %>
+                          <div class="flex justify-left">
+                            <div class="text-center sm:mt-0 sm:pt-1 sm:text-left">
+                              <div class="flex items-center text-gray-500">
+                                <div class="flex-1 ml-3 h-3 w-3 bg-<%= appointment.status_color %>-400 rounded-full">
+                                </div>
+                                <div class="px-1 text-base capitalize font-bold leading-normal text-<%= appointment.status_color %>-500">
+                                  <%= appointment.appointment_status? ? appointment.appointment_status.split.map { |i| i.capitalize }.join(' ') : '' %>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              <% else %>
+                <tr class="border-t border-gray-400 group bg-white hover:bg-gray-200">
+                  <td class="py-4 whitespace-nowrap">
+                    No <%= params['appointment_type'] ? params['appointment_type'].downcase : '' %> appointments
+                  </td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+        <%= render "shared/custom_pagy" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

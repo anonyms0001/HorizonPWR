@@ -1,0 +1,31 @@
+<tr  class="border-b border-gray-400 group bg-white hover:bg-gray-200 text-center">
+  <td class="py-4 whitespace-nowrap">
+    <!--             Leaderboard Position Numbers-->
+    <p class="text-lg text-blue-500 font-bold">
+      <%= (index + 1).ordinalize %>
+      <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-green-100 text-green-800">
+<!--        <%#= performance_stat.score %> pts-->
+      </span>
+    </p>
+  </td>
+  <td class="py-4 whitespace-nowrap">
+    <div class="text-sm font-medium text-gray-900">
+      <%= link_to performance_stat.accountable.name, leaderboard_path(:team => performance_stat.accountable.name), class: 'text-gray-900' %>
+      <br/>
+      <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-gray-100 text-gray-800 m-2">
+              <%#= performance_stat.accountable.leaderboard_win_loss %>
+        <%= performance_stat.accountable.leaderboard_win_loss(params[:end_at]) %>
+            </span>&nbsp;
+      <%= link_to 'manage', team_path(performance_stat.accountable), class: 'text-gray-500 text-sm' if allowed_to?(:manage?, performance_stat.accountable) %>
+    </div>
+  </td>
+  <td class="px-3 py-4 whitespace-nowrap">
+    <%= performance_stat.kpi['kWh'] %>
+  </td>
+  <td class="px-3 py-4 whitespace-nowrap">
+    <%= float_to_percent(performance_stat.kpi['inspection_pass_fail_rate']) %>
+  </td>
+  <td class="px-3 py-4 whitespace-nowrap">
+    <%= performance_stat.kpi['overall'] %>
+  </td>
+</tr>

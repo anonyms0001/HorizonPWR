@@ -1,0 +1,16 @@
+<p class="w-full text-center">
+  <%= "#{PerformanceStat.default_time_period(params[:time_period]).capitalize} of #{date_mdy(PerformanceStat.default_end_at(params[:end_at]))}" %>
+</p>
+<%= form_tag(leaderboard_path(time_period: params[:time_period], end_at: params[:end_at]), method: :get, class: 'flex items-center mb-6') do %>
+  <div class="w-full">
+    <%= select_tag :time_period,
+                   options_for_select(PerformanceStat.time_period_options, params[:time_period]),
+                   { allow_blank: false, class: "mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" }
+    %>
+  </div>
+  <%= submit_tag 'apply', class: "btn btn-primary inline-flex mx-4" %>
+  <%= render partial: 'shared/arrows', locals: {
+    link_previous: leaderboard_path(PerformanceStat.link_previous_params(params[:end_at], params[:time_period])),
+    link_next: leaderboard_path(PerformanceStat.link_next_params(params[:end_at], params[:time_period]))
+  } %>
+<% end %>

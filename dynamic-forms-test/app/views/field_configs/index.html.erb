@@ -1,0 +1,63 @@
+<div class="container mx-auto my-8 px-4">
+  <div class="flex justify-between items-center mb-4">
+    <h1 class="h3">Field Configs</h1>
+
+    <% if @field_configs.any? %>
+      <%= link_to t("shared.scaffold.new.title", model: "Field Config"), new_field_config_path, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+
+  <% if @field_configs.any? %>
+    <div class="bg-white rounded shadow table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @field_configs, :form_config_id, "Form config", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @field_configs, :name, "Name", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @field_configs, :label, "Label", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @field_configs, :field_type, "Field type", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @field_configs, :options, "Options", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @field_configs, :position, "Position", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @field_configs, :required, "Required", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @field_configs, :repeatable, "Repeatable", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs text-gray-700 w-20"><%= t("shared.scaffold.actions") %></th>
+          </tr>
+        </thead>
+
+        <tbody>
+        <% @field_configs.each do |field_config| %>
+          <tr class="group border-t border-gray-400 hover:bg-gray-100">
+                      <td class="p-3"><%= field_config.form_config_id %></td>
+                      <td class="p-3"><%= field_config.name %></td>
+                      <td class="p-3"><%= field_config.label %></td>
+                      <td class="p-3"><%= field_config.field_type %></td>
+                      <td class="p-3"><%= field_config.options %></td>
+                      <td class="p-3"><%= field_config.position %></td>
+                      <td class="p-3"><%= field_config.required %></td>
+                      <td class="p-3"><%= field_config.repeatable %></td>
+          
+            <td>
+              <%= link_to t("shared.scaffold.view"), field_config, class: "btn btn-link no-underline" %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <% if @pagy.pages > 1 %>
+      <div class="text-center my-6">
+        <%== pagy_nav(@pagy) %>
+      </div>
+    <% end %>
+
+  <% else %>
+    <div class="bg-white rounded shadow flex flex-col items-center justify-between p-8 lg:flex-row">
+      <%= image_tag "empty.svg", class: "mb-4 lg:w-1/2" %>
+      <div class="flex-1 text-center">
+        <p class="h3 mb-4">Create your first Field Config</p>
+        <%= link_to t("shared.scaffold.new.title", model: "Field Config"), new_field_config_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,35 @@
+<div class="mx-auto my-8 px-4">
+  <div class="mx-auto">
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="h3">
+        <%= link_to "#{@note.parent_record.notable_type}s", send("#{ @note.parent_record.notable_type.downcase }s_path") %>
+        >
+        <%= link_to "#{@note.title}", @note.parent_record.notable %>
+      </h1>
+
+      <%# TODO: Only show this link if authorized in notes_policy %>
+      <%= link_to t("edit"), edit_note_path(@note), class: "btn btn-link" %>
+    </div>
+
+    <div class="bg-white rounded shadow p-8 relative">
+      <%= render partial: "notes/note", locals: { note: @note, last: !@replies.any? } %>
+
+      <% if @replies.any? %>
+        <% @replies.each do |reply| %>
+          <div class="pl-4">
+            <%= render partial: "notes/note", locals: { note: reply, last: reply == @replies.last } %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+    <%# TODO: Only display to those with authorization. %>
+    <%# TODO: This should create a new note that points to this one.
+                Notes will need to have an optional field called parent_note_id (parent_note:references, points to this note).
+                On the Project page, the Notes section will need to only display notes without a parent_note_id set.
+                On this page (Notes Show), we will display all of the Notes that have this one set as the parent_note. %>
+    <div class="bg-white rounded shadow p-8 mt-8">
+      <%= render partial: "notes/form", locals: {note: @new_note} %>
+    </div>
+  </div>
+</div>

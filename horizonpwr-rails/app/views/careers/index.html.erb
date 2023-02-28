@@ -1,0 +1,66 @@
+<div class="mx-auto my-4 px-1 md:px-2 lg:px-4">
+  <div class="p-4 mt-10 pt-10 pb-10">
+    <p class="text-6xl font-extrabold text-center text-gray-900">Become part of the Team</p>
+    <br>
+    <p class="text-lg font-medium text-center text-gray-500">Life is better lived when you positively impact others.</p>
+    <p class="text-lg font-medium text-center text-gray-500">Join the purpose to brighten the horizons of those around us.</p>
+  </div>
+  <div class="flow-root lg:mb-4 <%= 'hidden' if !@careers.any? %>">
+    <%#= link_to t("shared.scaffold.new.title", model: "Career"), '#{new_career_path}', class: "btn btn-primary float-right hidden lg:inline-block" %>
+  </div>
+  <div class="hidden flex-none flex-wrap-reverse lg:flex-wrap lg:flex items-center justify-between mb-4">
+    <% if @careers.any? %>
+      <div class="hidden w-full lg:w-1/4">
+        <%= render partial: "careers/filter" %>
+      </div>
+      <div class="hidden w-full lg:w-1/4">
+        <%= render partial: "careers/search" %>
+      </div>
+    <div class="w-full mt-2 text-center text-sm <%= 'hidden' if !params[:filter].present? %>">
+      Filtered by: <%= "'#{params[:filter]}'" %>
+    </div>
+    <% end %>
+  </div>
+  <div class="bg-white rounded-lg">
+    <% if @careers.any? %>
+      <div class="table-responsive">
+        <div class="p-6">
+        <table class="table">
+          <thead>
+            <tr>
+                <th class="p-3 hidden uppercase text-left text-xs"><%= sortable @careers, :name, "Name", class: "text-gray-700" %></th>
+                <th class="p-3 uppercase hidden text-left text-xs text-gray-700 w-20"><%= t("shared.scaffold.actions") %></th>
+            </tr>
+          </thead>
+
+          <tbody>
+          <% @careers.each do |career| %>
+            <tr class="group border-t border-gray-400 first:border-none">
+                          <td class="p-2">
+                            <%= career.name %>
+                            <p class="text-sm text-gray-700">
+                              <%= career.department&.name %>
+                            </p>
+                          </td>
+              <td class="p-4 flex justify-end">
+                <button type="button" class="px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                  <%= link_to "More Details", career_path(career), class:'text-white hover:text-white'%>
+                </button>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+        </div>
+        <%= render "shared/custom_pagy" %>
+      </div>
+    <% else %>
+      <div class="bg-white rounded shadow flex flex-col items-center justify-between p-8 lg:flex-row">
+        <%= image_tag "empty.svg", class: "mb-4 lg:w-1/2" %>
+        <div class="flex-1 text-center">
+
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<% if proposal.blocked %>
+  <div class="-ml-px w-0 flex-1 flex">
+    <%= link_to 'Un-Block', proposal_unblocked_path(proposal), class:"relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500" %>
+  </div>
+<% else %>
+  <div class="-ml-px w-0 flex-1 flex">
+    <%= link_to 'Block', proposal_blocked_path(proposal), class:"relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500" %>
+  </div>
+<% end %>
+
+<div class="-ml-px w-0 flex-1 flex">
+  <%= link_to 'Start Proposal', proposal_start_design_path(proposal), class:"relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500" %>
+</div>

@@ -1,0 +1,62 @@
+<main>
+  <!-- Main 3 column grid -->
+  <div class="grid grid-cols-1 gap-4 items-start lg:grid-cols-3 lg:gap-8">
+    <!-- Left column -->
+    <div class="grid grid-cols-1 gap-4 lg:col-span-3">
+      <!-- Summary panel -->
+    </div>
+    <div class="grid grid-cols-1 gap-8 lg:col-span-2">
+      <!-- Header Panel-->
+      <div class="rounded-lg overflow-hidden shadow-lg bg-white">
+        <div class="rounded-tl-lg justify-between rounded-tr-lg sm:rounded-tr-none relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
+          <!-- Top Tabs-->
+          <div data-controller="tabs" class="text-center font-extrabold text-lg" data-tabs-active-tab="text-blue-500 border-b-2 border-blue-400" data-tabs-inactive-tab="text-gray-600">
+            <div class="py-4 px-4">
+              <!-- Leaderboard Avatars -->
+              <div class="bg-white">
+                <div class="max-w-7xl mx-auto sm:py-8 px-4 text-center sm:px-6 lg:px-8 lg:py-10">
+                  <div class="space-y-12">
+                    <%= render partial: "static/leaderboards/top_three_teams", locals: { performance_stats: @performance_stats } %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br/>
+        </div>
+      </div>
+      <!-- Table Panel-->
+      <section>
+        <div id="teams-card" class="flex flex-col">
+          <div class="my-2 overflow-x-auto">
+            <div class="rounded-lg overflow-hidden shadow-lg bg-white">
+              <div class="rounded-tl-lg rounded-tr-lg sm:rounded-tr-none relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500 overflow-x-auto">
+                <%= render partial: "static/leaderboards/time_period_selection" %>
+                <%= render partial: "static/leaderboards/team_breakdown" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <!-- Right column -->
+    <div class="grid grid-cols-1 grid-span-3 gap-4">
+      <section>
+        <%#= render partial: "static/individual_overview" if current_user.sales? %>
+        <% if current_user.sales? && current_user.accounts.impersonal.active.any? %>
+          <% team_stats = @performance_stats.find_all { |stat| stat.accountable == current_user.accounts.impersonal.active&.first }&.first&.kpi %>
+          <%= render partial: "performance_stats/overview",
+                     locals: { title: "#{current_user.accounts.impersonal&.first&.name} Overview",
+                               stats: team_stats
+                     } if team_stats.present? %>
+        <% end %>
+        <%= render partial: "static/leaderboards/overview",
+                   locals: { title: 'HorizonPWR Overview',
+                             stats: @company_stats
+                   } %>
+        <%#= render partial: "static/team_overview" %>
+        <%#= render partial: "static/company_overview" %>
+      </section>
+    </div>
+  </div>
+</main>

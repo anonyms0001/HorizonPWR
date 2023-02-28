@@ -1,0 +1,77 @@
+<div class="mx-auto my-8 px-2">
+  <div class="mx-auto mb-5">
+    <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl pb-2">Attachment Tags</h2>
+    <h4 class="mb-4">
+      <%= fa_icon "long-arrow-alt-left", class: "fas mr-1" %>
+      Return to <%= link_to "#{@nested_model.class.to_s.capitalize} #{@nested_model.id}", @nested_model %>
+    </h4>
+    <p class="text-xl text-gray-500 py-2">
+      Please make sure to add tags to all attachments.
+    </p>
+  </div>
+  <ul class="space-y-5 sm:grid sm:grid-cols-2 sm:gap-x-5 sm:gap-y-5 sm:space-y-0 lg:grid-cols-3 lg:gap-x-5 list-none">
+    <% @attachment_tags.each do |attachment| %>
+      <li>
+        <div class="bg-white rounded-lg shadow-lg">
+          <%#= link_to (image_tag attachment, class: 'object-cover rounded-t-lg w-1/2 h-1/2'), attachment, target: '_blank' %>
+          <div class="h-96">
+            <%= image_tag attachment, class: 'border rounded-t-lg w-full max-h-full' %>
+          </div>
+          <div class="space-y-2 p-2 px-4">
+            <div class="space-y-1">
+                <!--                .-->
+              <span class="text-md text-gray-700">
+                <%= attachment.blob.filename %>
+                <br/>
+                <%= attachment.created_at.strftime("%m-%d-%Y %H:%M:%S %Z") %>
+              </span>
+              <div class="pb-2">
+                <label for="tags" class="block text-lg text-gray-700">
+                  Tags
+                </label>
+                <p class="inline-flex flex-wrap text-md text-gray-600" id="tags-selected">
+                  <% @nested_model.all_tags.each do |tag| %>
+                    <% if attachment.tag_list.include?(tag) %>
+                      <% if @nested_model.required_tags.include?(tag) %>
+                        <span class="inline-flex mb-3 mr-3 rounded-md items-center py-0.5 p-2.5 text-md font-medium bg-green-100 text-gray-700 border-gray-300 ring-gray-500 border border-gray-500">
+                          <%= tag %>
+                        </span>
+                      <% else %>
+                        <span class="inline-flex mb-3 mr-3 rounded-md items-center py-0.5 pl-2.5 pr-1 text-md font-medium bg-indigo-100 text-indigo-700 border-gray-300 shadow-lg ring-indigo-500 border border-indigo-500">
+                          <a href="#"
+                             data-reflex="click->ExampleReflex#toggle_tag"
+                             data-attachment="<%= attachment.id %>"
+                             data-tag="<%= tag %>">
+                            <%= tag %>
+                            <button type="button" class="flex-shrink-0 ml-0.5 h-4 w-4 rounded-full inline-flex items-center justify-center text-indigo-400 hover:bg-indigo-200 hover:text-indigo-500 focus:outline-none focus:bg-indigo-500 focus:text-white">
+                            <span class="sr-only focus:ring-gray-500">Remove large option</span>
+                            <svg class="h-2 w-2" stroke="currentColor" fill="none" viewBox="0 0 8 8">
+                              <path stroke-linecap="round" stroke-width="1.5" d="M1 1l6 6m0-6L1 7"/>
+                            </svg>
+                          </button>
+                          </a>
+                        </span>
+                      <% end %>
+                    <% else %>
+                      <% if @nested_model.available_tags.include?(tag) %>
+                        <span class="inline-flex mb-3 mr-3 rounded-md items-center py-0.5 p-2.5 text-md font-medium bg-gray-100 text-gray-700 border-gray-300 shadow-lg ring-gray-500 border border-gray-500">
+                          <a href="#"
+                             data-reflex="click->ExampleReflex#toggle_tag"
+                             data-attachment="<%= attachment.id %>"
+                             data-tag="<%= tag %>">
+                            <%= tag %>
+                          </a>
+                        </span>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                </p>
+              </div>
+              <!--                .-->
+            </div>
+          </div>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>

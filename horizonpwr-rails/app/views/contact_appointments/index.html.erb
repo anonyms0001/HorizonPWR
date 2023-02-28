@@ -1,0 +1,47 @@
+<div class="container mx-auto my-8 px-4">
+  <div class="flex justify-between items-center mb-4">
+    <h1 class="h3">Contact Appointments</h1>
+
+    <% if @contact_appointments.any? %>
+      <%= link_to 'New Contact Appointment', new_contact_appointment_path, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+
+  <% if @contact_appointments.any? %>
+    <div class="bg-white rounded shadow table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @contact_appointments, :appointment_id, 'Appointment', class: 'text-gray-700' %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @contact_appointments, :contact_id, 'Contact', class: 'text-gray-700' %></th>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @contact_appointments, :project_id, 'Project', class: 'text-gray-700' %></th>
+            <th class="p-3 uppercase text-left text-xs text-gray-700 w-20">Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        <% @contact_appointments.each do |contact_appointment| %>
+          <tr class="group border-t border-gray-400 hover:bg-gray-100">
+                      <td class="p-3"><%= contact_appointment.appointment_id %></td>
+                      <td class="p-3"><%= contact_appointment.contact_id %></td>
+                      <td class="p-3"><%= contact_appointment.project_id %></td>
+          
+            <td>
+              <%= link_to "View", contact_appointment, class: "btn btn-link no-underline" %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+    <%= render "shared/custom_pagy" %>
+  <% else %>
+    <div class="bg-white rounded shadow flex flex-col items-center justify-between p-8 lg:flex-row">
+      <%= image_tag "empty.svg", class: "mb-4 lg:w-1/2" %>
+      <div class="flex-1 text-center">
+        <p class="h3 mb-4">Create your first Contact Appointment</p>
+        <%= link_to 'New Contact Appointment', new_contact_appointment_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+</div>

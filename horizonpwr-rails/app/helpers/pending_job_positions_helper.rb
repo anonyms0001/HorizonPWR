@@ -1,0 +1,2 @@
+module PendingJobPositionsHelper
+end

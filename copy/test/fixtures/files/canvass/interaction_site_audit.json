@@ -1,0 +1,56 @@
+{
+  "action": "create",
+  "type": "interaction",
+  "data": {
+    "interaction": {
+      "id": 477817,
+      "address_id": 141234176,
+      "customer_id": 33337,
+      "employee_id": 132,
+      "type_id": 21,
+      "sub_type_id": 21,
+      "offline_uuid": "CD9C2DC5-B01B-400B-BFF8-784B9EC7EADE",
+      "created": "2021-02-17T03:29:35.000Z",
+      "modified": "2021-02-17T03:29:35.000Z",
+      "type_name": "Site Audit",
+      "sub_type_name": "Site Audit"
+    },
+    "address": {
+      "id": 141234176,
+      "lat": "41.91978800",
+      "lng": "-122.04647100",
+      "number": "7401",
+      "street": "Indian Point Rd",
+      "unit": null,
+      "city": "Dorris",
+      "district": null,
+      "region": "CA",
+      "postal": "96023",
+      "country": "US"
+    },
+    "address_fields": {},
+    "customer": {
+      "id": 33337,
+      "first_name": "Maria",
+      "last_name": "Streed",
+      "gender": "F",
+      "birthdate": null,
+      "email_personal": null,
+      "phone_mobile": "",
+      "created": "2021-02-10T02:18:59.000Z",
+      "modified": "2021-02-10T02:18:59.000Z"
+    },
+    "custom_fields": {},
+    "employee": {
+      "id": 132,
+      "first_name": "Brandon",
+      "alias": "",
+      "last_name": "Jackson",
+      "email": "brandon.jackson@horizonpwr.com",
+      "group_id": 2,
+      "created": "2020-08-11T20:20:43.000Z",
+      "modified": "2020-11-10T16:53:56.000Z",
+      "group_name": "Klamath Falls"
+    }
+  }
+}

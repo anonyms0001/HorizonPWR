@@ -1,0 +1,11 @@
+<%#= form_with(model: FormResponse) do |form| %>
+  <%# form_response.field_configs.each do |field_config| %>
+    <%#= form.fields_for :field_responses, FieldResponse.find_or_initialize_by(field_config: field_config, form_response: FieldResponse.new) do |response_field| %>
+      <%# if lookup_context.template_exists?(field_config.field_type, "field_responses/fields", true) %>
+<!--        <div class="mb-2">-->
+          <%#= render partial: "field_responses/fields/#{field_config.field_type}", locals: { field_config: field_config, form_response: nil, response_field: response_field } %>
+<!--        </div>-->
+      <%# end %>
+    <%# end %>
+  <%# end %>
+<%# end %>

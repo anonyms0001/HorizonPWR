@@ -1,0 +1,5 @@
+Hey <%= @recipient.first_name %>,
+  <%= link_to @requesting_user.name, user_url(@requesting_user) %>
+  Is requesting De-Activation of
+  <%= link_to @deactivate_user.name, user_url(@deactivate_user) %>
+

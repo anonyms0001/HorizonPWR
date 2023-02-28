@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html class="h-full antialiased" lang="<%= I18n.locale %>">
+<head>
+  <title>
+    HorizonPWR
+    <%= " - #{Rails.env.humanize}" unless Rails.env.production? %>
+  </title>
+
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <%# All assets are defined in Webpacker app/javascripts now %>
+  <%= javascript_pack_tag 'application', 'data-turbo-track': 'reload' %>
+  <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
+  <!--    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>-->
+
+  <%# Be sure to add your own custom favicons %>
+  <%= render partial: "shared/favicons" %>
+  <%#= render partial: "shared/payments_dependencies" %>
+  <%= render partial: "shared/marketing_google_analytics" %>
+  <%= render partial: "shared/fullstory_header" %>
+  <%= render partial: "shared/hotjar" %>
+  <%= render partial: "shared/smartlook_header" %>
+  <%= render partial: "shared/facebook_pixel" %>
+
+  <%# Replace this with your FontAwesome Pro Kit code %>
+  <script src="https://kit.fontawesome.com/0e5ab6a736.js"></script>
+
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+  <%= yield :head %>
+</head>
+
+<body class="h-full font-sans antialiased font-normal leading-normal">
+
+<div class="main bg-gradient-to-b from-blue-50 to-blue-200">
+  <%= render partial: "shared/flash" %>
+
+  <div class="lg:px-0">
+    <%= yield %>
+  </div>
+</div>
+
+<%= render partial: "shared/activecampaign" %>
+<%= render partial: "shared/fullstory_footer" %>
+<%= render partial: "shared/smartlook_footer" %>
+</body>
+</html>

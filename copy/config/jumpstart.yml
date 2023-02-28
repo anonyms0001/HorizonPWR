@@ -1,0 +1,17 @@
+--- !ruby/object:Jumpstart::Configuration
+application_name: PWRStation
+business_name: HorizonPWR, LLC
+domain: horizonpwr.com
+support_email: no_reply@panel.horizonpwr.com
+default_from_email: HorizonPWR <no_reply@panel.horizonpwr.com>
+business_address: |-
+  237 N 2nd East
+  Rexburg, ID 83440
+background_job_processor: sidekiq
+email_provider: ses
+personal_accounts: true
+livereload: true
+register_with_account: false
+solargraph: false
+integrations:
+- honeybadger

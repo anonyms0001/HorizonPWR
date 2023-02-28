@@ -1,0 +1,86 @@
+<div class="mx-auto my-4 px-1 md:px-2 lg:px-4">
+  <div class="flow-root lg:mb-4 <%= 'hidden' if !@payouts.any? && allowed_to?(:create?, Payout, with: PayoutPolicy ) %>">
+  </div>
+  <div class="flex-none flex-wrap-reverse lg:flex-wrap lg:flex items-center mb-4">
+    <div class="w-full lg:w-1/4">
+      <div class="flex justify-between">
+        <h1 class="h3 mr-2">
+          <%= link_to 'Payouts', payouts_path, class:"text-gray-900" %>
+        </h1>
+      </div>
+    </div>
+    <% if @payouts.any? %>
+      <div class="w-full lg:w-1/2">
+        <%= render partial: "payouts/filter" %>
+      </div>
+      <div class="w-full lg:w-1/4">
+        <%= render partial: "payouts/search" %>
+      </div>
+    <div class="w-full mt-2 text-center text-sm <%= 'hidden' if !params[:filter].present? %>">
+      Filtered by: <%= "'#{params[:filter]}'" %>
+    </div>
+    <% end %>
+  </div>
+  <div class="">
+    <% if @payouts.any? %>
+      <div class="bg-white rounded shadow table-responsive">
+        <div class="p-6">
+        <table class="table">
+          <thead>
+            <tr>
+                <th class="p-3 uppercase text-left text-xs"><%= sortable @payouts, :pay_date, "Pay date", class: "text-gray-700" %></th>
+                <th class="p-3 uppercase text-left text-xs"><%= sortable @payouts, :user_id, "User", class: "text-gray-700" %></th>
+                <th class="p-3 uppercase text-left text-xs"><%= sortable @payouts, :pay_total, "Pay total", class: "text-gray-700" %></th>
+                <th class="p-3 uppercase text-left text-xs"><%= sortable @payouts, :status, "Status", class: "text-gray-700" %></th>
+            </tr>
+          </thead>
+
+          <tbody>
+          <% @payouts.each do |payout| %>
+            <tr class="group border-t border-gray-400 hover:bg-gray-100">
+                          <td class="p-3">
+                            <%= link_to date_mdy(payout.pay_date), payout, class: "btn btn-link no-underline text-gray-900 text-md" %>
+                          </td>
+                          <td class="p-3">
+                            <div class="inline-flex items-center mt-1">
+                              <%= image_tag avatar_url_for(payout.user), height: 20, width: 20, class: "w-9 h-full rounded-full mr-4" %>
+                              <div class="inline-flex flex-col justify-center">
+                                <p class="text-sm font-semibold leading-none">
+                                  <%= link_to payout.user.name, payout, class: 'text-gray-900'%>
+                                </p>
+                                <p class="text-xs leading-3 text-gray-400 mt-1">
+                                  <%= link_to payout.user.job_position.name, payout, class: 'text-gray-400' %>
+                                </p>
+                              </div>
+                            </div>
+                          </td>
+                          <td class="p-3">
+                            <%= link_to number_to_currency(payout.payout_total), payout, class: "btn btn-link no-underline text-gray-900 text-md" %>
+
+                          </td>
+                          <td class="p-3">
+                            <%= render partial: 'shared/status_color', locals: { object: payout } %>
+                          </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+        </div>
+        <%= render "shared/custom_pagy" %>
+      </div>
+
+
+    <% else %>
+      <div class="bg-white rounded shadow flex flex-col items-center justify-between p-8 lg:flex-row">
+        <%= image_tag "empty.svg", class: "mb-4 lg:w-1/2" %>
+        <div class="flex-1 text-center">
+          <% if allowed_to?(:create?, Payout, with: PayoutPolicy ) %>
+            <p class="h3 mb-4">Create your first Payout</p>
+          <% else %>
+            <p class="h3 mb-4">You do not have any Payouts listed</p>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

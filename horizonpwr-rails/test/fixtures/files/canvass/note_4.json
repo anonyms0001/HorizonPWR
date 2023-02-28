@@ -1,0 +1,33 @@
+{
+  "action": "create",
+  "type": "note",
+  "data": {
+    "note": {
+      "id": 20274,
+      "address_id": 141246342,
+      "customer_id": null,
+      "employee_id": 219,
+      "content": "Interested maybe at a later date. Was given a card to call",
+      "offline_uuid": "54A657A2-7F32-4E39-BD4B-A9A00261328F",
+      "created": "2021-02-17T02:20:04.000Z",
+      "modified": "2021-02-17T02:20:04.000Z"
+    },
+    "address": {
+      "id": 141246342,
+      "lat": "43.58740515",
+      "lng": "-116.40647190",
+      "number": "1013",
+      "street": "W Davenport St",
+      "unit": null,
+      "city": "Meridian",
+      "district": null,
+      "region": "ID",
+      "postal": "83642",
+      "country": null
+    },
+    "address_fields": {},
+    "customer": null,
+    "custom_fields": {},
+    "employee": null
+  }
+}

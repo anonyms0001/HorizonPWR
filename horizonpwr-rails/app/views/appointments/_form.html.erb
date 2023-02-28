@@ -1,0 +1,86 @@
+<%= form_with(model: appointment) do |form| %>
+  <%= render "shared/error_messages", resource: form.object %>
+  <div class="form-group">
+    <%= form.label :start_at, "#{form.object.appointment_type&.titleize} Date" unless form.object.site_audit? %>
+    <%= form.label :start_at, "#{form.object.appointment_type.titleize} Completed At" if form.object.site_audit? %>
+    <%= form.text_field :start_at, class: "form-control flatpickr-capybara-selector", data: { controller: :flatpickr, flatpickr_enable_time: true, flatpickr_alt_format: "m-d-Y h:i K", flatpickr_alt_input: true, flatpickr_allow_input: true, flatpickr_default_date: form.object.persisted? ? form.object.start_at : Time.now } %>
+  </div>
+  <%# if !form.object.persisted? && (@project.appointments.last.next_appointment_type == "install") %>
+  <% if !form.object.persisted? && @project.present? %>
+    <div class="form-group">
+      <%= form.fields_for @project do |project_form| %>
+        <%= project_form.hidden_field :id, value: @project.id %>
+
+        <% if form.object.install? %>
+          <%= project_form.label :installer_id %>
+          <%= project_form.select :installer_id,
+                          options_for_select(Installer.active.order(name: :asc).pluck(:name, :id)),
+                          {},
+                          { allow_blank: false, class: "mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" }
+          %>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+  <% if form.object.persisted? || form.object.project.present? %>
+    <div class="form-group">
+      <%= form.label :appointment_type %>
+      <%= form.select :appointment_type,
+                      options_for_select(form.object.selector_types, form.object.appointment_type),
+                      {},
+                      { disabled: !form.object.project.present?, allow_blank: false, class: "mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" }
+      %>
+    </div>
+  <% else %>
+    <%= form.hidden_field :appointment_type, value: form.object.appointment_type %>
+  <% end %>
+
+  <% if form.object.persisted? %>
+    <div class="form-group">
+      <%= form.label :appointment_status %>
+      <%= form.select :appointment_status,
+                      options_for_select(Appointment.statuses, form.object.appointment_status),
+                      {},
+                      { allow_blank: false, class: "mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" }
+      %>
+    </div>
+  <% else %>
+    <%= form.hidden_field :appointment_status, value: 'scheduled' %>
+  <% end %>
+
+  <% if form.object.persisted? %>
+    <div class="form-group">
+      <%= form.label :created_by_id %>
+      <%= form.select :created_by_id,
+                      options_from_collection_for_select(form.object.account.field_marketer_select, "id", "name", form.object.created_by_id),
+                      {},
+                      { allow_blank: false, class: "mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" }
+      %>
+    </div>
+  <% end %>
+
+  <% if form.object.site_audit? %>
+    <div class="form-group">
+        <%= form.label "Ready for Close Call, Site Audit Completed by" %>
+        <%= form.select :scheduled_with_id,
+                        options_from_collection_for_select(form.object.account.energy_consultant_select, "id", "name", form.object.scheduled_with_id),
+                        {},
+                        { allow_blank: false, class: "mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" }
+        %>
+    </div>
+  <% end %>
+
+  <%= form.hidden_field :consult_id, value: form.object.consult_id %>
+
+  <div class="form-group flex justify-between">
+    <% if form.object.persisted? %>
+      <%= form.button class: "btn btn-primary justify-center", data: { disable_with: 'Processing' } %>
+    <% else %>
+      <%= form.button "Schedule #{form.object.appointment_type&.titleize}", class: "btn btn-primary w-full justify-center", data: { disable_with: 'processing' } unless form.object.site_audit? %>
+      <%= form.button "#{form.object.appointment_type.titleize} Completed", class: "btn btn-primary w-full justify-center", data: { disable_with: 'processing' } if form.object.site_audit? %>
+    <% end %>
+    <% if form.object.persisted? %>
+      <%#= link_to 'Delete', form.object, class: "btn btn-danger outline", method: :delete, data: { confirm: "Are you sure?" } %>
+    <% end %>
+  </div>
+<% end %>

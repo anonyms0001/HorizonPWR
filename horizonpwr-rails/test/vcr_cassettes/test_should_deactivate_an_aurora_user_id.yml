@@ -1,0 +1,63 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: https://api-sandbox.aurorasolar.com/v2/tenants/2869d947-2140-4f4d-817d-da6440c74c31/users//deactivate
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+      Host:
+      - api-sandbox.aurorasolar.com
+      Authorization:
+      - Bearer sk_sand_98ad2063af91192e432878aa
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Server:
+      - Cowboy
+      Date:
+      - Fri, 13 Aug 2021 17:08:06 GMT
+      Connection:
+      - keep-alive
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - frame-ancestors 'self' https://*.auslr.io https://*.aurorasolar.com
+      Content-Type:
+      - application/json; charset=utf-8
+      Cache-Control:
+      - no-cache
+      Set-Cookie:
+      - _aurorasolar_session=RFdkOU5pRyttZVpCZzNUSkcyb25tc1k4SDhzRkE5M0Q2dUhoaU5tYk9yalJNYUZJdHJwYmgxWEFnVlhhWWFmbUgybWYvZ2JTYXlyYkJ1emF3SDVqU2k1OXFkTXM3RFRIbDh1OTArWmJnRVZFcmRuQlBNU0RvREtkeTh2MXplbjUtLXJhSHB6UnVMUkZ3bEhFcjZnYjdYNHc9PQ%3D%3D--0b652cc944547cd30b1028b93acf3164acc2a777;
+        path=/; secure; HttpOnly
+      X-Request-Id:
+      - 63ec7ce9-9254-423d-87ab-c567f7ae65bf
+      X-Runtime:
+      - '0.013049'
+      Vary:
+      - Accept-Encoding, Origin
+      Strict-Transport-Security:
+      - max-age=31536000
+      Transfer-Encoding:
+      - chunked
+      Via:
+      - 1.1 vegur
+    body:
+      encoding: ASCII-8BIT
+      string: '{"error":"Expected UUID but received non-UUID value for the follow
+        URL parameters: [:id]"}'
+  recorded_at: Fri, 13 Aug 2021 17:08:06 GMT
+recorded_with: VCR 6.0.0

@@ -1,0 +1,290 @@
+<div class="container mx-auto my-8 px-4">
+  <!-- Main 3 column grid -->
+  <main class="pb-8">
+    <div class="mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Main 3 column grid -->
+      <div class="grid grid-cols-1 gap-4 items-start lg:grid-cols-3 lg:gap-8">
+        <!-- Left column -->
+        <div class="grid grid-cols-1 gap-4 lg:col-span-3">
+          <!-- Summary panel -->
+          <section aria-labelledby="profile-overview-title">
+            <div class="rounded-lg bg-white overflow-hidden shadow-lg">
+              <div class="bg-white p-6 pt-4 flex lg:justify-between lg:flex-row flex-wrap sm:flex-nowrap">
+                <div class="flex sm:items-center sm:justify-between w-full">
+                  <div class="sm:flex">
+                    <div class="flex-shrink-0">
+                    </div>
+                    <div class="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
+                      <div class="flex flex-row lg:items-center flex-start">
+                        <div class="mx-auto h-6 w-6">
+                          <% if @proposal.address&.address_type == 'residential' || @proposal.address&.address_type.nil?  %>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                            </svg>
+                          <% else %>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                            </svg>
+                          <% end %>
+                        </div>
+                        <p class="text-xl font-bold text-gray-900 sm:text-2xl pl-4"><%= @proposal.name %></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--Status Icon Top Right-->
+                <div class="flex w-full lg:justify-end md:justify-end justify-evenly">
+                  <div class="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
+                    <div class="flex flex-row items-center">
+                      <div class="flex-1 h-3 w-3 bg-<%= @proposal.state_color %>-400 rounded-full">
+                    </div>
+                      <div class="px-1 py-2 text-base  font-bold leading-normal text-<%= @proposal.state_color %>-500">
+                        <%= @proposal.state_label %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--Contact Information-->
+              <% @proposal.appointment.contacts.each do |contact| %>
+                <%= link_to contact_path(contact) do %>
+                  <p class="text-sm font-medium text-gray-600 py-1 px-6">
+                    <span class="font-medium text-gray-900">
+                        Name:
+                    </span>
+                    <span class="text-sm font-medium text-gray-600 py-1">
+                        <%= contact.name %>
+                    </span>
+                  </p>
+                  <p class="text-sm font-medium text-gray-600 py-1 px-6">
+                    <span class="font-medium text-gray-900">
+                        Phone:
+                    </span>
+                    <span class="text-sm font-medium text-gray-600 py-1">
+                        <%= @proposal.appointment.contacts.first&.phone || 'No phone' %>
+                    </span>
+                  </p>
+                <% end %>
+              <% end %>
+              <p class="text-sm font-medium text-gray-600 py-1 px-6">
+                <span class="font-medium text-gray-900">
+                    Team:
+                </span>
+                <span class="text-sm font-medium text-gray-600 py-1">
+                   <%= @proposal.appointment&.created_by_team || 'No Team' %>
+                </span>
+              </p>
+              <p class="text-sm font-medium text-gray-600 py-1 px-6 flex items-center space-x-1">
+                <span class="font-medium text-gray-900">
+                    Address:
+                </span>
+                <span class="text-sm font-medium text-gray-600 py-1">
+                   <% if @proposal.appointment.address.present? %>
+                    <span class="flex space-x-3 items-center">
+                      <%= link_to (@proposal.appointment.address&.full_address), address_path(@proposal.appointment.address), class: 'text-gray-600' %>
+                      <%= link_to @proposal.appointment.address&.aurora_searchable, target: '_blank' do %>
+                        <span class="flex space-x-1">
+                          <i class="fa fa-search text-gray-900" aria-hidden="true"></i>
+                          <%= image_tag "auroraLogo.png", class: 'w-16 ' %>
+                        </span>
+                      <% end %>
+                    </span>
+                   <% else %>
+                      No Address
+                   <% end %>
+                </span>
+              </p>
+              <div class="border-t border-gray-200 bg-gray-50 grid grid-cols-1 divide-y divide-gray-200 sm:grid-cols-4 sm:divide-y-0 sm:divide-x">
+                <!--4 Bottom sections on top card-->
+                <div class="px-6 py-5 text-sm text-center flex flex-nowrap sm:flex-wrap md:flex-wrap justify-between">
+                  <div class="w-full">
+                    <span class="text-gray-900 font-medium">
+                      FM:
+                    </span>
+                    <span class="text-gray-600">
+                      <%= link_to @proposal.appointment.created_by_name, user_path(@proposal.appointment.created_by.id) if @proposal.appointment.created_by.present? %>
+                      <%= 'error' if !@proposal.appointment.created_by.present? %>
+                    </span>
+                  </div>
+                  <div class="w-full">
+                    <span class="text-gray-900 font-medium">
+                      Created:
+                    </span>
+                    <span class="text-gray-600">
+                      <%= link_to local_time_ago(@proposal.created_at), appointment_path(@proposal.appointment), class: 'text-gray-600 hover:text-gray-600' %>
+                    </span>
+                  </div>
+                </div>
+                <div class="px-6 py-5 text-sm text-center flex flex-nowrap sm:flex-wrap md:flex-wrap justify-between">
+                  <div class="w-full">
+                    <span class="text-gray-900 font-medium">
+                      EC:
+                    </span>
+                    <span class="text-gray-600">
+                      <%= link_to @proposal.appointment.scheduled_with_name, user_path(@proposal.appointment.scheduled_with_consultant) %>
+                    </span>
+                  </div>
+                  <div class="w-full">
+                    <span class="text-gray-900 font-medium">
+                      Consultation:
+                    </span>
+                    <span class="text-gray-600">
+                      <%= link_to date_mdy(@proposal.appointment.date), appointment_path(@proposal.appointment) %>
+                    </span>
+                  </div>
+                </div>
+                <div class="px-6 py-5 text-sm text-center flex flex-nowrap sm:flex-wrap md:flex-wrap justify-between">
+                  <div class="w-full">
+                    <span class="text-gray-900 font-medium">
+                      Design:
+                    </span>
+                    <span class="text-gray-600">
+                      <%= link_to @proposal.design_by_name, user_path(@proposal.design_by) if @proposal.design_by.present? %>
+                      <%= @proposal.design_by_name if !@proposal.design_by.present? %>
+                    </span>
+                  </div>
+                  <div class="w-full">
+                    <span class="text-gray-900 font-medium">
+                      Completed in:
+                    </span>
+                    <span class="text-gray-600">
+                      <%= @proposal.time_design_completed %>
+                    </span>
+                  </div>
+                </div>
+                <div class="px-6 py-5 text-sm text-center flex flex-nowrap sm:flex-wrap md:flex-wrap justify-between">
+                  <div class="w-full">
+                    <span class="text-gray-900 font-medium">
+                      QC:
+                    </span>
+                    <span class="text-gray-600">
+                      <%= link_to @proposal.quality_control_by_name, user_path(@proposal.quality_control_by) if @proposal.quality_control_by.present? %>
+                      <%= @proposal.quality_control_by_name if !@proposal.quality_control_by.present? %>
+                    </span>
+                  </div>
+                  <div class="w-full">
+                    <span class="text-gray-900 font-medium">
+                     Completed in:
+                    </span>
+                    <span class="text-gray-600">
+                      <%= @proposal.time_quality_control_completed %>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div class="grid grid-cols-1 gap-8 lg:col-span-2">
+        <% if allowed_to?(:manage?, @proposal) %>
+          <!-- QC Card -->
+          <section id='proposal-actions'>
+            <div class="rounded-lg overflow-hidden shadow-lg bg-white">
+              <div class="rounded-tl-lg rounded-tr-lg sm:rounded-tr-none relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
+                <div class="flex justify-between">
+                  <p class="text-xl font-bold text-gray-900 sm:text-2xl">
+                    Proposal Actions
+                  </p>
+                </div>
+                <div class="rounded-lg flex flex-col w-full">
+                  <% if @proposal.completion_state == 'quality' %>
+                    <%= render partial: "proposals/quality_check", locals: { proposal: @proposal } %>
+                  <% else %>
+                    <%= render partial: "proposals/non_quality_check", locals: { proposal: @proposal } %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </section>
+          <% end %>
+          <!-- Attachments card-->
+          <section>
+            <div class="rounded-lg shadow-lg bg-white">
+              <div class="rounded-lg relative group bg-white p-6 pb-0 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
+                <p class="text-xl font-bold text-gray-900 sm:text-2xl mb-4">Attachments</p>
+                <!-- Attachments preview div-->
+                <div class="overflow-x-auto flex">
+                  <div class="flex flex-row ">
+                    <% @proposal.attachments.each do |attachment| %>
+                      <div class="w-32 mr-2 mb-4">
+                        <%= link_to (image_tag attachment, class: 'shadow-xl rounded-lg'), attachment, target: '_blank' %>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+                <!-- Upload dropzone-->
+                <% if allowed_to?(:manage?, @proposal) %>
+                  <%= form_with(model: @proposal) do |form| %>
+                    <div class="flex flex-col mt-4">
+                      <div class="dropzone dropzone-default dz-clickable" data-controller="dropzone" data-dropzone-max-file-size="20" data-dropzone-max-files="5">
+                        <% @proposal.attachments.each do |attached| %>
+                          <%= form.hidden_field :attachments, multiple: true, value: attached.signed_id %>
+                        <% end %>
+                        <%= form.file_field :attachments, multiple: true, direct_upload: true, data: { target: 'dropzone.input' } %>
+                        <div class="dropzone-msg dz-message needs-click text-gray-600">
+                          <h3 class="dropzone-msg-title">Drag here to upload or click here to browse</h3>
+                          <span class="dropzone-msg-desc text-sm">20 MB file size maximum.</span>
+                        </div>
+                      </div>
+                      <div class="form-group flex justify-end pt-4">
+                        <%= form.button 'Save', class: "btn btn-primary bg-indigo-100 text-indigo-700" %>
+                      </div>
+                    </div>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Right column -->
+        <div class="grid grid-span-3 gap-4">
+          <!-- THIS COULD BE NOTES, ACTIVITY LOG, ATTACHMENTS, ETC -->
+          <section>
+            <div class="rounded-lg bg-white overflow-hidden shadow-lg">
+              <div class="p-6">
+                <% if @proposal.project.present? %>
+                  <h2 class="text-base font-medium text-gray-900" id="announcements-title">Project</h2>
+                  <div class="inline-flex w-full h-full my-2 items-center justify-center pl-6 bg-white border rounded-md border-green-200">
+                    <p class="w-1/2 h-full text-sm leading-none text-gray-800">
+                      <%= link_to "View Project", project_path(@proposal.project), class: "btn-link no-underline capitalize text-gray-700" %>
+                    </p>
+                    <div class="flex items-center justify-center flex-1 h-full bg-green-100 rounded-tr-md rounded-br-md">
+                      <p class="h-full text-sm font-medium leading-snug text-center text-green-700 px-2 py-1">
+                        Started
+                      </p>
+                    </div>
+                  </div>
+                <% else %>
+                  <% if allowed_to?(:manage?, @proposal) %>
+                    <%= render 'projects/form', project: Project.new %>
+                    <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t-2 sm:border-gray-300 sm:pt-5 mt-6">
+                    </div>
+                  <% end %>
+                <% end %>
+
+                <h2 class="text-base font-medium text-gray-900" id="announcements-title">Appointments</h2>
+                <div class="flow-root mt-6">
+                  <!--TODO: ADD CUSTOM ELEMENTS HERE FOR THIS SECTION-->
+                  <% @proposal.address.appointments.each do |appointment| %>
+                      <div class="inline-flex w-full h-full my-2 items-center justify-center pl-6 bg-white border rounded-md border-<%= appointment.status_color %>-200">
+                        <p class="w-1/2 h-full text-sm leading-none text-gray-800">
+                          <%= link_to "#{appointment.appointment_type} - #{date_mdy(appointment.date)}", appointment, class: "w-full btn-link no-underline capitalize text-gray-700" %>
+                        </p>
+                        <div class="flex items-center justify-center flex-1 h-full bg-<%= appointment.status_color %>-100 rounded-tr-md rounded-br-md">
+                          <p class="h-full text-sm font-medium leading-snug text-center capitalize text-<%= appointment.status_color %>-700 px-2 py-1">
+                            <%= appointment.appointment_status %>
+                          </p>
+                        </div>
+                      </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

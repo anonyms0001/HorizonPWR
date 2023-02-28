@@ -1,0 +1,27 @@
+<div class="container mx-auto my-8 px-4">
+  <div class="max-w-3xl mx-auto">
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="h3"><%= link_to "Events", events_path %> > Event #<%= @event.id %></h1>
+      <%= link_to t("edit"), edit_event_path(@event), class: "btn btn-link" %>
+    </div>
+
+    <div class="bg-white rounded shadow p-8">
+            <div class="mb-4">
+        <h5>User</h5>
+        <%= @event.user %>
+      </div>
+            <div class="mb-4">
+        <h5>Account</h5>
+        <%= @event.account_id %>
+      </div>
+            <div class="mb-4">
+        <h5>Eventable</h5>
+        <%= @event.eventable %>
+      </div>
+            <div class="mb-4">
+        <h5>Action</h5>
+        <%= @event.action %>
+      </div>
+          </div>
+  </div>
+</div>

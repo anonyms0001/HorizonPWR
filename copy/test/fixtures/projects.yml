@@ -1,0 +1,40 @@
+# == Schema Information
+#
+# Table name: projects
+#
+#  id                                :bigint           not null, primary key
+#  battery                           :boolean
+#  energy_efficiency_pack            :boolean
+#  created_at                        :datetime         not null
+#  updated_at                        :datetime         not null
+#  address_id                        :bigint
+#  finance_partner_id                :bigint
+#  installer_id                      :bigint
+#  salesforce_opportunity_id         :string
+#  salesforce_residential_project_id :string
+#
+# Indexes
+#
+#  index_projects_on_address_id          (address_id)
+#  index_projects_on_finance_partner_id  (finance_partner_id)
+#  index_projects_on_installer_id        (installer_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (finance_partner_id => finance_partners.id)
+#  fk_rails_...  (installer_id => installers.id)
+#
+
+one:
+  installer: one
+  address: one
+
+
+two:
+  installer: two
+  address: one
+
+three:
+  installer: one
+  address: two
+

@@ -1,0 +1,108 @@
+<%= form_with(model: referral, class: 'mb-16') do |form| %>
+  <%= render "shared/styled_error_messages", resource: form.object %>
+  <% if user_signed_in? %>
+    <%= form.hidden_field :user_id, value: current_user.id %>
+  <% end %>
+  <p class="<%= @text_color %> mb-4 text-center">
+    <strong>
+      <% if form.object.referrer_first_name.present? %>
+        <%= "Hey, #{form.object.referrer_first_name}!" %>
+      <% else %>
+        Hey!
+      <% end %>
+    </strong>
+    Thanks for the referral!
+  </p>
+
+  <% if form.object.persisted? %>
+    <%= form.label :referrer_contact_id %>
+    <%= form.number_field :referrer_contact_id, value: form.object.referrer_contact_id, class: "form-control" %>
+  <% else %>
+    <%= form.hidden_field :referrer_contact_id, value: form.object.referrer_contact_id %>
+  <% end %>
+
+  <div class="form-group flex flex-col sm:flex-row gap-4 justify-between mt-4">
+    <div class="flex-1 mb-4 sm:mb-0 relative">
+      <%= form.label :first_name, "First Name" %>
+      <%= form.text_field :first_name, value: form.object.first_name, class: "form-control", required: true %>
+      <span class="text-sm italic absolute top-0 right-0 text-red-400">*Required</span>
+    </div>
+    <div class="flex-1">
+      <%= form.label :last_name, "Last Name" %>
+      <%= form.text_field :last_name, value: form.object.last_name, class: "form-control", required: true %>
+      <span class="text-sm italic absolute top-0 right-0 text-red-400">*Required</span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :phone, "Phone" %>
+    <%= form.text_field :phone, value: form.object.phone, class: "form-control", required: true %>
+    <span class="text-sm italic absolute top-0 right-0 text-red-400">*Required</span>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :email, class: "#{ @text_color }" %>
+    <%= form.text_field :email, value: form.object.email, class: "form-control" %>
+  </div>
+
+  <%# NOTE: referral_contact_id wil get saved when a Contact is created from this Referral. %>
+
+  <%= form.hidden_field :contest_id, value: @contest_id, class: "form-control" %>
+
+  <% if (!form.object.persisted? && !params[:contact_secure_public_id].present?) ||
+    (form.object.persisted? && form.object.referrer_contact_id.blank?) %>
+    <p class="h3 <%= @text_color %> text-center mt-12">
+      Who should get credit for this referral?
+    </p>
+    <p class="mb-2 <%= @text_color %>">
+      Enter your information here so we know who's name to add for drawing a winner
+    </p>
+
+    <div class="form-group">
+      <%# NOTE: This should get saved into separate fields as first_name and last_name %>
+      <%= form.label :referrer_first_name, class: "#{ @text_color }" %>
+      <%= form.text_field :referrer_first_name, value: form.object.referrer_first_name, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%# NOTE: This should get saved into separate fields as first_name and last_name %>
+      <%= form.label :referrer_last_name, class: "#{ @text_color }" %>
+      <%= form.text_field :referrer_last_name, value: form.object.referrer_last_name, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :referrer_address, class: "#{ @text_color }" %>
+      <%= form.text_field :referrer_address, value: form.object.referrer_address, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :referrer_phone, class: "#{ @text_color }" %>
+      <%= form.text_field :referrer_phone, value: form.object.referrer_phone, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :referrer_email, class: "#{ @text_color }" %>
+      <%= form.text_field :referrer_email, value: form.object.referrer_email, class: "form-control" %>
+    </div>
+  <% end %>
+
+  <% if user_signed_in? && form.object.persisted? %>
+    <div class="form-group">
+      <%= form.label :status %>
+      <%= form.select :status, Referral.referral_statuses { |p| [p[0], p[1]] }, {}, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :eligible %>
+      <%= form.select :eligible, Referral.eligible_options { |p| [p[0], p[1]] }, {}, class: "form-control" %>
+    </div>
+  <% end %>
+
+  <div class="flex justify-center form-group">
+    <%= form.button "Submit Referral", class: "btn btn-primary px-6 py-6 bg-yellow-500 hover:bg-yellow-400" %>
+
+    <% if form.object.persisted? && allowed_to?(:destroy?, form.object) %>
+      <%= link_to t("delete"), form.object, class: "btn btn-danger outline", method: :delete, data: { confirm: t("are_you_sure") } %>
+    <% end %>
+  </div>
+<% end %>

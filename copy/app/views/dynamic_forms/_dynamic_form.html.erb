@@ -1,0 +1,63 @@
+<!--<a data-action="click->tabs#change" data-index="1" href="#">Change tab by data-index</a>-->
+<!--<a data-action="click->tabs#change" data-id="second" href="#">Change tab by data-id</a>-->
+<!--TODO: Figure out how these links are supposed to work.-->
+<!--https://github.com/excid3/tailwindcss-stimulus-components#tabs-->
+<div class="bg-gray-50">
+  <% if @dynamic_form.sequential? %>
+    <div data-controller="tabs" data-tabs-active-tab="font-extrabold text-lg text-black underline border-l-2 border-t-2 border-r-2 bg-white" data-tabs-inactive-tab="border-l border-t border-r bg-gray-100 text-gray-800">
+      <ul class="list-reset flex flex-wrap-reverse justify-between list-none">
+        <% @first = true %>
+        <% @dynamic_form.sorted_active_form_configs.each_with_index do |form_config, index| %>
+          <% form_response = FormResponse.find_or_initialize_by(respondable: respondable, dynamic_form: @dynamic_form, form_config: form_config) %>
+
+          <% if @first && !form_response.completed? %>
+            <% @first = false if !form_response.completed? %>
+            <li class="rounded-t-lg border-gray-700 flex-grow" data-tabs-target="tab" data-action="click->tabs#change" data-tabs-index="<%= index %>">
+              <div class="inline-block py-2 px-4 font-semibold no-underline cursor-pointer">
+                <%= form_config.title %>
+              </div>
+            </li>
+          <% else %>
+            <li class="rounded-t-lg border-gray-700 flex-grow" data-tabs-index="<%= index %>">
+              <div class="inline-block py-2 px-4 font-semibold no-underline cursor-not-allowed">
+                <%= form_config.title %>
+              </div>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+
+      <% @first = true %>
+      <% @dynamic_form.sorted_active_form_configs.each do |form_config| %>
+        <% form_response = FormResponse.find_or_initialize_by(respondable: respondable, dynamic_form: @dynamic_form, form_config: form_config) %>
+        <% if @first && !form_response.completed? %>
+          <% @first = false if !form_response.completed? %>
+          <div class="hidden bg-white" data-tabs-target="panel">
+            <%= render "form_responses/form", form_response: form_response %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+<% else %>
+<!--    <div data-controller="tabs" data-tabs-active-tab="font-semibold text-lg text-blue-400 group relative min-w-0 w-1/2 sm:flex-1 overflow-hidden bg-white text-sm font-medium text-center hover:bg-gray-50 focus:z-10 border-b-4 border-yellow-500" data-tabs-inactive-tab="font-semibold text-lg text-gray-800 group relative min-w-0 w-1/2 sm:flex-1 overflow-hidden bg-white text-sm font-medium text-center hover:bg-gray-50 focus:z-10">-->
+
+    <div data-controller="tabs" data-tabs-active-tab="font-extrabold text-lg text-blue-400 underline bg-white hover:bg-gray-50 focus:z-10 border-b-4 border-yellow-500" data-tabs-inactive-tab="font-semibold text-lg text-gray-800 hover:bg-gray-50 focus:z-10">
+      <ul class="list-reset flex flex-wrap-reverse justify-between list-none" >
+        <% @dynamic_form.sorted_active_form_configs.active.each_with_index do |form_config, index| %>
+          <li data-param="<%= "#{form_config.title.parameterize}" %>" class="rounded-t-lg border-gray-700 flex-grow" data-tabs-target="tab" data-title="<%= "#{form_config.title.parameterize}" %>"  data-action="click->tabs#change" data-tabs-index="<%= index %>">
+            <div class="inline-block py-2 px-4 font-semibold no-underline cursor-pointer">
+              <%= form_config.title %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+
+      <% @dynamic_form.sorted_active_form_configs.each do |form_config| %>
+        <div class="bg-white" data-tabs-target="panel">
+          <%= render "form_responses/form", form_response: FormResponse.find_or_initialize_by(respondable: respondable, dynamic_form: @dynamic_form, form_config: form_config) %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

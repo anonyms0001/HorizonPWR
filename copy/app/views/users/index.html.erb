@@ -1,0 +1,76 @@
+<div class="my-8 px-4">
+  <div class="flex flex-col items-start justify-between sm:flex-row-reverse flex-wrap">
+    <%= render partial: "users/search" %>
+    <div class="lg:w-3/4 w-full lg:pr-8 lg:mb-0 mb-6 overflow-hidden overflow-x-auto">
+      <div class="rounded-lg overflow-hidden shadow-lg bg-white">
+          <div class="rounded-tl-lg rounded-tr-lg sm:rounded-tr-none relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
+            <p class="text-xl font-bold text-gray-900 sm:text-2xl">Members</p>
+            <br/>
+          <table class="w-full">
+            <thead>
+            <tr>
+              <th class="p-3 text-xs text-left text-gray-600 uppercase">Name</th>
+              <th class="p-3 text-xs text-left text-gray-600 uppercase">Position</th>
+              <th class="p-3 text-xs text-left text-gray-600 uppercase">Start Date</th>
+            </tr>
+            </thead>
+            <tbody class="bg-white">
+            <% @users.each do |user| %>
+                <tr class="border-t border-gray-400 group bg-white hover:bg-gray-200">
+                  <td class="py-4 whitespace-nowrap">
+                    <%= link_to user_path(user) do %>
+                      <div class="flex items-center">
+                        <div class="flex-shrink-0 h-10 w-10">
+                          <%= image_tag avatar_url_for(user), class: "h-10 inline-block rounded-full mr-2" %>
+                        </div>
+                        <div class="ml-4">
+                          <div class="flex w-full justify-evenly space-x-3 items-center">
+                            <div class="text-m text-gray-900 w-full">
+                              <%= user.name %>
+                            </div>
+                            <div class="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
+                              <div class="flex flex-row items-center space-x-1">
+                                <div class="flex-1 h-2 w-2 bg-<%= user.active_status_color %>-400 rounded-full">
+                                </div>
+                                <div class="text-sm capitalize font-bold leading-normal text-<%= user.active_status_color %>-500">
+                                  <%= user.active ? 'Active' : 'Inactive' %>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="text-sm text-gray-500">
+                            <%= user.team_name %>
+                          </div>
+                        </div>
+                      </div>
+                    <% end %>
+                  </td>
+                  <td class="px-2 py-4 whitespace-nowrap">
+                    <%= link_to user_path(user) do %>
+                      <div class="text-m text-gray-900">
+                        <p><%= user.job_position_name %></p>
+                      </div>
+                    <% end %>
+                  </td>
+                  <td class="px-2 py-4 whitespace-nowrap">
+                    <%= link_to user_path(user) do %>
+                        <div class="text-m text-gray-900">
+                          <%= date_mdy(user.created_at) %>
+                        </div>
+                  </td>
+                    <% end %>
+                    </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+
+        <% if @pagy.pages > 1 %>
+          <div class="text-center my-6">
+            <%== pagy_nav(@pagy) %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

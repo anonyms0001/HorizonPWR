@@ -1,0 +1,11 @@
+<div class="flex flex-row-1">
+  <%= response_field_form.check_box :response, required: field_config.required?, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md form-tick h-6 w-6 border border-gray-300 rounded-lg checked:bg-blue-600 checked:border-transparent focus:outline-none form-checkbox mr-2" %>
+  <div>
+    <%= response_field_form.label field_config.title.to_sym, class: "block text-sm font-medium text-gray-900" %>
+      <% if field_config.description.present? %>
+        <span class="block mt-1 text-sm text-gray-500">
+          <%= field_config.description %>
+        </span>
+      <% end %>
+  </div>
+</div>

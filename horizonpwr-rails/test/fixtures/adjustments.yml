@@ -1,0 +1,26 @@
+# == Schema Information
+#
+# Table name: adjustments
+#
+#  id              :bigint           not null, primary key
+#  adjustable_type :string           not null
+#  amount          :decimal(, )      not null
+#  pay_back        :boolean          default(FALSE)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  adjustable_id   :bigint           not null
+#
+# Indexes
+#
+#  index_adjustments_on_adjustable  (adjustable_type,adjustable_id)
+#
+
+# This fixture has a mandatory description, located in test/fixtures/action_text/rich_texts.yml
+# There is no way to specify this association from this adjustments fixture.
+one:
+  amount: 1
+  adjustable: one (Earning)
+
+two:
+  amount: 1
+  adjustable: one (Adjustment)

@@ -1,0 +1,7 @@
+
+  Hey <%= @applicants_manager.first_name %>,
+
+  <%= "Applicant #{@applicant.first_name} #{@applicant.last_name} has applied for #{@job_position} position" %>
+
+  <%= link_to 'View Application', applicant_url(@applicant.id) %>
+

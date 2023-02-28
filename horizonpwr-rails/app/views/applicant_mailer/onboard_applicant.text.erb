@@ -1,0 +1,7 @@
+Hey <%= @applicant_name %>,
+
+<%= "#{@applicants_manager.name} has invited to start your onboarding for the #{@job_position} position. Please use the link bellow to sign up and finish the paperwork." %>
+
+<%= link_to 'Sign up', new_user_registration_url(:applicant => @applicant.secure_public_id), class: 'nav-link ml-2 hidden xl:block' %>
+
+

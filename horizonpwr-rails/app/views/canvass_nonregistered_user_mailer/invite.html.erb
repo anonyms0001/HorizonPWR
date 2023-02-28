@@ -1,0 +1,8 @@
+<h3>Hey <%= @applicant.first_name %>,</h3>
+<p>
+  <%= "You need to sign up on pwrstation so your appointments and proposals can show up properly." %>
+  <br>
+  <br>
+  <%= link_to 'Sign up ', new_user_registration_url(:applicant => @applicant.secure_public_id), class: 'nav-link ml-2 hidden xl:block' %>
+</p>
+

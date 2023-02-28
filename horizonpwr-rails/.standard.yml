@@ -1,0 +1,3 @@
+ignore:
+  - 'lib/jumpstart/test/dummy/**/*'
+  - 'app/validators/options_validator.rb'

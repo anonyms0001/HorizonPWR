@@ -1,0 +1,26 @@
+<%= title 'Proposals' %>
+<div class="my-8 px-4">
+  <h1 class="h3 px-4 pb-4">
+    <%#= params.has_key?('completion_state') ? params['completion_state'].humanize : params.has_key?('blocked') ? 'Blocked' : 'New' %>
+    <%= !request.query_string.present? ? 'New' : params.has_key?('completion_state') ? params['completion_state'].titleize : params.has_key?('blocked') ? 'Blocked' : 'Found' %>
+    Proposals
+    <%= link_to "#{@blocked_due_today_size} blocked proposals due today", proposals_path(blocked: true, days: 2), class:"text-sm text-gray-600 pl-2" %>
+  </h1>
+  <div class="flex flex-col items-start justify-between sm:flex-row-reverse">
+    <%= render partial: "proposals/search" %>
+    <div class="lg:w-3/4 w-full lg:pr-8 lg:mb-0 mb-6 overflow-hidden overflow-x-auto">
+      <div class="align-middle inline-block min-w-full overflow-hidden overflow-x-auto">
+        <div class="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 items-center">
+          <% if @proposals.size > 0 %>
+            <% @proposals.each do |proposal| %>
+                <%= render partial: "proposals/card", locals: { proposal: proposal } %>
+            <% end %>
+          <% else %>
+            <h3>No proposals</h3>
+          <% end %>
+        </div>
+        <%= render "shared/custom_pagy" %>
+      </div>
+    </div>
+  </div>
+</div>

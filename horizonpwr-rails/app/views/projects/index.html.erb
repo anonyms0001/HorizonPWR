@@ -1,0 +1,91 @@
+<%= title "Projects" %>
+<div class="my-8 px-4">
+  <div class="flex flex-col items-start justify-between sm:flex-row-reverse flex-wrap">
+    <%= render partial: "projects/search" %>
+    <div class="lg:w-3/4 w-full lg:pr-8 lg:mb-0 mb-6 overflow-hidden overflow-x-auto">
+      <div class="rounded-lg overflow-hidden shadow-lg bg-white">
+        <div class="rounded-tl-lg rounded-tr-lg sm:rounded-tr-none relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
+          <p class="text-xl font-bold text-gray-900 sm:text-2xl">
+            <%= @pagy.count %> Projects
+          </p>
+          <br/>
+          <table class="w-full">
+            <thead>
+            <tr>
+              <th class="p-3 text-xs text-left text-gray-600 uppercase"><%= sortable @projects, :name, 'Contact', class: 'text-gray-700 hover:text-indigo-400' %></th>
+              <th class="p-3 text-xs text-left text-gray-600 uppercase"><%= sortable @projects, :installer_id, 'Installer', class: 'text-gray-700 hover:text-indigo-400' %></th>
+              <th class="p-3 text-xs text-left text-gray-600 uppercase"><%= sortable @projects, :status, 'Status', class: 'text-gray-700 hover:text-indigo-400' %></th>
+              <th class="p-3 text-xs text-left text-gray-600 uppercase"><%= sortable @projects, :created_at, 'Created', class: 'text-gray-700 hover:text-indigo-400' %></th>
+              <th class="p-3 text-xs text-left text-gray-600 uppercase"><%= sortable @projects, :sold_by_id, 'Sold By', class: 'text-gray-700 hover:text-indigo-400' %></th>
+              <th class="p-3 text-xs text-left text-gray-600 uppercase"><%= sortable @projects, :account_id, 'Team', class: 'text-gray-700 hover:text-indigo-400' %></th>
+            </tr>
+            </thead>
+            <tbody class="bg-white">
+            <% @projects.each do |project| %>
+
+              <tr class="border-t border-gray-400 group bg-white hover:bg-gray-200">
+                <td class="whitespace-nowrap">
+                  <%= link_to project_path(project) do %>
+                    <div class="flex items-center">
+                      <div class="ml-2">
+                        <div class="text-m text-gray-900 w-full">
+                          <%= project.address.contacts.count > 0 ? project.address.contacts.first.name : "Undefined" %>
+                        </div>
+                        <div class="text-sm text-gray-500">
+                          <%= project.address.state %>
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+                </td>
+                <td class="whitespace-nowrap">
+                  <%= link_to project_path(project) do %>
+                    <div class="text-m text-gray-900 py-4">
+                      <%= project.installer&.name %>
+                    </div>
+                  <% end %>
+                </td>
+                <td class="">
+                  <%= link_to project_path(project) do %>
+                    <div class="flex py-4 px-3">
+                      <div class="flex flex-row items-center">
+                        <div class="flex-1 h-3 w-3 bg-green-400 rounded-full">
+                        </div>
+                        <div class="px-1 py-2 text-base font-bold leading-normal capitalize text-green-500">
+                          <%= project.status %>
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+                </td>
+                <td class="">
+                  <%= link_to project_path(project) do %>
+                    <div class="text-m text-gray-900 py-4 px-3">
+                      <%= date_mdy(project.created_at) %>
+                    </div>
+                  <% end %>
+                </td>
+                <td class="">
+                  <%= link_to project_path(project) do %>
+                    <div class="text-m text-gray-900 py-4 px-3">
+                      <%= project&.sold_by&.name %>
+                    </div>
+                  <% end %>
+                </td>
+                <td class="">
+                  <%= link_to project_path(project) do %>
+                    <div class="text-m text-gray-900 py-4 px-3">
+                      <%= project.account.name %>
+                    </div>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+        <%= render "shared/custom_pagy" %>
+      </div>
+    </div>
+  </div>
+</div>

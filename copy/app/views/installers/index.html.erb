@@ -1,0 +1,53 @@
+<div class="container mx-auto my-8 px-4">
+  <div class="flex justify-end mb-6">
+    <% if @installers.any? %>
+      <%= link_to 'New Installer', new_installer_path, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+  <div class="flex flex-col items-start justify-between sm:flex-row-reverse flex-wrap">
+    <%= render partial: "installers/search" %>
+    <div class="lg:w-3/4 w-full lg:pr-8 lg:mb-0 mb-6 overflow-hidden overflow-x-auto">
+      <div class="align-middle inline-block min-w-full overflow-hidden overflow-x-auto">
+        <div class="shadow-lg overflow-hidden overflow-x-auto rounded-lg">
+          <div class="bg-white rounded shadow table-responsive">
+            <table class="min-w-full table-auto divide-y divide-gray-200 shadow-lg">
+              <thead class="bg-blue-700">
+              <tr class="h-16">
+                <th class="px-6 py-3 text-left text-m font-bold text-white uppercase tracking-wider"><%= sortable @installers, :name, 'Installer', class: 'text-white hover:text-indigo-400' %></th>
+                <th class="px-6 py-3 text-center text-m font-bold text-white uppercase tracking-wider"><%= sortable @installers, :active, 'Status', class: 'text-white hover:text-indigo-400' %></th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @installers.each do |installer| %>
+                <tr class="group border-t border-gray-400 hover:bg-gray-100">
+                  <td class="px-6 text-left">
+                    <%= link_to installer do %>
+                      <div class="text-m text-gray-900">
+                        <%= installer.name %>
+                      </div>
+                      </td>
+                      <td class="p-3 text-center">
+                        <div class="text-m text-gray-900">
+                          <% if installer.active == true %>
+                            Active
+                          <% else %>
+                            Inactive
+                          <% end %>
+                        </div>
+                    <% end %>
+                    </td>
+                    </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+          <% if @pagy.pages > 1 %>
+            <div class="text-center my-6">
+              <%== pagy_nav(@pagy) %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+<%= form_with(model: feedback) do |form| %>
+  <%= render "shared/error_messages", resource: form.object %>
+
+  <div class="form-group">
+    <%= form.label :purpose %>
+    <%= form.select :purpose, options_for_select(Feedback.purpose_selection, form.object.purpose), {}, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :tag_list %>
+    <%= form.text_field :tag_list, class: "form-control", value: @feedback.tag_list.join(', ') %>
+  </div>
+
+  <%= form.fields_for :note, form.object.find_or_build_note do |note_form| %>
+    <div class="form-group">
+      <%= note_form.rich_text_area :body, class: "form-control", data: { controller: "mentions", mentions_target: "field" } %>
+    </div>
+
+    <%= note_form.hidden_field :notable_type %>
+    <%= note_form.hidden_field :notable_id %>
+    <%= note_form.hidden_field :user_id, value: current_user.id %>
+  <% end %>
+
+  <% if allowed_to?(:manage?, @feedback) %>
+    <div class="border-t-2 pt-2">
+      Admin only
+      <div class="form-group">
+        <%= form.label :status %>
+        <%= form.select :status, options_for_select(Feedback.status_selection, form.object.status), {}, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :tracker_id, "Tracker Link" %>
+        <%= form.text_field :tracker_id, class: "form-control" %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group flex justify-between">
+    <%= form.button class: "btn btn-primary" %>
+
+    <% if form.object.persisted? %>
+      <%= link_to t("delete"), form.object, class: "btn btn-danger outline", method: :delete, data: { confirm: t("are_you_sure") } %>
+    <% end %>
+  </div>
+<% end %>

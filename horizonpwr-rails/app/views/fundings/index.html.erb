@@ -1,0 +1,92 @@
+<%= title 'Fundings' %>
+
+<div class="my-8 px-4">
+  <h1 class="h3 px-4 pb-4">
+    <%#= params.has_key?('completion_state') ? params['completion_state'].humanize : params.has_key?('blocked') ? 'Blocked' : 'New' %>
+    <%= !request.query_string.present? ? 'New' : params.has_key?('completion_state') ? params['completion_state'].titleize : params.has_key?('blocked') ? 'Blocked' : 'Found' %>
+    Fundings
+  </h1>
+  <div class="flex flex-col items-start justify-between sm:flex-row-reverse">
+    <%= render partial: "fundings/search" %>
+    <div class="lg:w-3/4 w-full lg:pr-8 lg:mb-0 mb-6 overflow-hidden overflow-x-auto">
+      <div class="align-middle inline-block min-w-full overflow-hidden overflow-x-auto">
+        <div class="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 items-center">
+          <% if params[:filter] == "funding payments" %>
+            <%= render 'fundings/cards/funding_payments_card', fp: @fp %>
+            <% end %>
+          <% if params[:filter] == "project funding" %>
+          <%= render 'fundings/cards/project_funding_card' %>
+          <% end %>
+          <%#= render 'fundings/cards/substantial_completions_card' %>
+          <%#= render 'fundings/cards/referral_payments_card' %>
+          <%#= render 'fundings/cards/aux_service_payments_card' %>
+          <%#= render 'fundings/cards/pending_cancellations_card' %>
+          <%#= render 'fundings/cards/save_concessions_card' %>
+          <%#= render 'fundings/cards/pto_reimbursement_card' %>
+        </div>
+        <%#= render "shared/custom_pagy" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<div class="mx-auto my-4 px-1 md:px-2 lg:px-4">-->
+<!--  <div class="flex-none flex-wrap-reverse lg:flex-wrap lg:flex items-center mb-4">-->
+<!--    <div class="w-full lg:w-1/4">-->
+<!--      <div class="flex justify-between">-->
+<!--        <h1 class="h3 mr-2">-->
+          <%#= link_to 'Fundings', fundings_path, class: "text-gray-900" %>
+<!--        </h1>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="bg-white rounded shadow flex flex-col justify-between p-8">-->
+<!--    <div class="mb-8">-->
+<!--      <h4>No Payments Made</h4>-->
+      <%#= render 'table_view', fundings: @no_payments_made %>
+<!--    </div>-->
+<!--    <div class="mb-8">-->
+<!--      <h4>Good Faith Payment Only</h4>-->
+      <%#= render 'table_view', fundings: @good_faith_only %>
+<!--    </div>-->
+<!--    <div class="mb-8">-->
+<!--      <h4>First Payment Received</h4>-->
+      <%#= render 'table_view', fundings: @first_payment %>
+<!--    </div>-->
+<!--    <div class="mb-8">-->
+<!--      <h4>Cancelled With Overdue Payments</h4>-->
+      <%#= render 'table_view', fundings: @cancelled_and_overdue %>
+<!--    </div>-->
+<!--    <div class="mb-8">-->
+<!--      <h4>Install Started But Not Complete</h4>-->
+      <%#= render 'table_view', fundings: @incomplete_install %>
+<!--    </div>-->
+<!--    <div class="mb-8">-->
+<!--      <h4>Fully Funded</h4>-->
+      <%#= render 'table_view', fundings: @fully_funded %>
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->

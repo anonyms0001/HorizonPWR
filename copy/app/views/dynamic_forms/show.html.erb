@@ -1,0 +1,148 @@
+<div class="container mx-auto my-8 px-4">
+  <!-- Main 3 column grid -->
+  <main class="pb-8">
+    <div class="mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Main 3 column grid -->
+      <div class="grid grid-cols-1 gap-4 items-start lg:grid-cols-3 lg:gap-8">
+        <!-- Left column -->
+        <div class="grid grid-cols-1 gap-4 lg:col-span-3">
+          <!-- Summary panel -->
+          <section aria-labelledby="profile-overview-title">
+            <div class="rounded-lg bg-white overflow-hidden shadow-lg">
+              <div class="bg-white p-6 pt-4 flex lg:justify-between lg:flex-row flex-wrap sm:flex-nowrap">
+                <div class="sm:flex sm:items-center sm:justify-between w-full">
+                  <div class="sm:flex">
+<!--                    <div class="flex-shrink-0">-->
+<!--                    </div>-->
+                    <div class="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
+                      <div class="flex flex-row items-center">
+                        <!-- Contact avatar -->
+<!--                        <div class="flex-shrink-0 h-10 w-10">-->
+                          <%#= image_tag avatar_url_for(current_user), class: "h-10 inline-block rounded-full mr-2" %>
+<!--                        </div>-->
+                        <p class="text-xl font-bold text-gray-900 sm:text-2xl pl-4">
+                          <%= @dynamic_form.use_case %>
+                        </p>
+                        <%= link_to 'Edit', edit_dynamic_form_path(@dynamic_form), class: "btn btn-link" if allowed_to?(:edit, @dynamic_form) %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex w-full lg:justify-end md:justify-end justify-evenly">
+                  <div class="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
+                    <!-- Hidden for future use-->
+                    <div class="flex flex-row items-center hidden">
+                      <div class="flex-1 h-3 w-3 bg-green-400 rounded-full">
+                      </div>
+                      <div class="px-1 py-2 text-base capitalize font-bold leading-normal text-green-500">
+                       STATUS HERE
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="border-t border-gray-200 bg-gray-50 grid grid-cols-1 divide-y divide-gray-200 sm:grid-cols-4 sm:divide-y-0 sm:divide-x">
+                <div class="px-6 py-5 text-sm text-center flex flex-nowrap sm:flex-wrap md:flex-wrap justify-between">
+                  <div class="w-full">
+                    <span class="text-gray-900 font-medium">
+                      Model:
+                    </span>
+                    <span class="text-gray-600">
+                      <%= @dynamic_form.model %>
+                    </span>
+                  </div>
+                </div>
+                <!--4 Bottom sections on top card-->
+                <div class="px-6 py-5 text-sm text-center flex flex-nowrap sm:flex-wrap md:flex-wrap justify-between">
+                  <div class="w-full">
+                    <span class="text-gray-900 font-medium">
+                      Use Case:
+                    </span>
+                    <span class="text-gray-600">
+                      <%= @dynamic_form.use_case %>
+                    </span>
+                  </div>
+                </div>
+                <div class="px-6 py-5 text-sm text-center flex flex-nowrap sm:flex-wrap md:flex-wrap justify-between">
+                  <div class="w-full">
+                    <span class="text-gray-900 font-medium">
+                      Created At:
+                    </span>
+                    <span class="text-gray-600">
+                      <%= local_time(@dynamic_form.created_at) %>
+                    </span>
+                  </div>
+                </div>
+                <div class="px-6 py-5 text-sm text-center flex flex-nowrap sm:flex-wrap md:flex-wrap justify-between">
+                  <div class="w-full">
+                    <span class="text-gray-900 font-medium">
+                      Updated At:
+                    </span>
+                    <span class="text-gray-600">
+                      <%= local_time(@dynamic_form.updated_at) %>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div class="grid grid-cols-1 gap-8 lg:col-span-2">
+          <!-- Address panel -->
+          <section>
+            <div class="rounded-lg overflow-hidden shadow-lg bg-white">
+              <p class="text-xl font-medium text-gray-900 sm:text-2xl mb-4 ml-4 mt-4">
+                Add a Form Section
+              </p>
+              <div class="rounded-tl-lg rounded-tr-lg sm:rounded-tr-none relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-cyan-500">
+                <%= render "form_configs/form", form_config: @dynamic_form.form_configs.new %>
+              </div>
+            </div>
+          </section>
+          <!-- Actions panel 2-->
+          <section>
+            <div class="rounded-lg overflow-hidden shadow-lg bg-white">
+              <p class="text-xl font-medium text-gray-900 sm:text-2xl mb-4 ml-4 mt-4">
+                Preview
+              </p>
+              <%= render 'dynamic_forms/dynamic_form', dynamic_form: @dynamic_form, respondable: nil %>
+            </div>
+          </section>
+        </div>
+
+        <!-- Right column -->
+        <div class="grid grid-span-3 gap-4">
+          <!-- Appointment -->
+          <section>
+            <div class="rounded-lg bg-white overflow-hidden shadow-lg">
+              <div class="p-6">
+                <h2 class="text-m font-bold text-gray-900 sm:text-xl">Form Sections</h2>
+                <div class="flow-root mt-6">
+                  <% if @dynamic_form.form_configs.sorted_by_position.any? %>
+                    <% @dynamic_form.form_configs.sorted_by_position.each do |form_config| %>
+                      <div class="inline-flex w-full h-full my-2 items-center justify-center pl-6 bg-white border rounded-md border-<%= form_config.active_status_color %>-200">
+                        <p class="w-2/3 h-full text-sm leading-none text-gray-800">
+                          <%= link_to "#{form_config.position} #{form_config.title}", form_config, class: 'text-gray-800' %>
+                        </p>
+                        <div class="flex items-center justify-center flex-1 h-full bg-<%= form_config.active_status_color %>-100 rounded-tr-md rounded-br-md">
+                          <p class="h-full text-sm font-medium leading-snug text-center text-<%= form_config.active_status_color %>-700 px-2 py-1">
+                            <%= link_to "#{form_config.active}", form_config, class: "capitalize text-#{form_config.active_status_color}-700" %>
+                            <%#= TODO: Update the rest of the colors https://www.pivotaltracker.com/story/show/178094538 %>
+                          </p>
+                        </div>
+                      </div>
+                    <% end %>
+                  <% else %>
+                    Waiting on forms to be created
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

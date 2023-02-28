@@ -1,0 +1,62 @@
+<%= form_with(model: appointment) do |form| %>
+  <%= render "shared/error_messages", resource: form.object %>
+
+  <%= fields_for :contact, contact do |contact_fields| %>
+    <div class="form-group">
+      <%= contact_fields.label :account_id %>
+      <%= contact_fields.select :account_id,
+                      options_from_collection_for_select(Account.impersonal.active, "id", "name", form.object.account_id),
+                      {},
+                      { allow_blank: false, class: "mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" }
+      %>
+    </div>
+
+    <div class="form-group">
+      <%= contact_fields.check_box :gender, class: "form-checkbox" %>
+      <%= contact_fields.label :gender, "Gender (Checked: male, Unchecked: female)", class: "inline" %>
+    </div>
+  <% end %>
+
+  <%= fields_for :address, address do |address_fields| %>
+    <div class="form-group">
+      <%= address_fields.label :address %>
+      <%= address_fields.text_field :address, class: "form-control" %>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :start_at %>
+    <%= form.text_field :start_at, class: "form-control flatpickr-capybara-selector", data: { controller: :flatpickr, flatpickr_enable_time: true, flatpickr_alt_format: "m-d-Y h:i K", flatpickr_alt_input: true, flatpickr_allow_input: true, flatpickr_min_date: Time.now, flatpickr_default_date: Time.now } %>
+  </div>
+
+    <div class="form-group">
+      <%= form.label :appointment_status %>
+      <%= form.select :appointment_status,
+                      options_for_select(Appointment.statuses, form.object.appointment_status),
+                      {},
+                      { allow_blank: false, class: "mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" }
+      %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :created_by_id %>
+      <%= form.select :created_by_id,
+                      options_from_collection_for_select(User.active.sort_by(&:first_name), "id", "name", form.object.created_by_id),
+                      { include_blank: true },
+                      { class: "mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" }
+      %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :scheduled_with_id %>
+      <%= form.select :scheduled_with_id,
+                      options_from_collection_for_select(User.active.sort_by(&:first_name), "id", "name", form.object.scheduled_with_id),
+                      { include_blank: true },
+                      { class: "mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" }
+      %>
+    </div>
+
+  <div class="form-group flex justify-between">
+      <%= form.button class: "btn btn-primary justify-center" %>
+  </div>
+<% end %>

@@ -1,0 +1,20 @@
+<!-- filters -->
+<div class="flex " data-controller="onClick">
+  <div data-onClick-target="leftButton" class="flex-1 hidden " data-action="click->onClick#scrollLeft">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+    </svg>
+  </div>
+  <div data-controller="onScroll" data-onClick-target="filtersContainer" data-action="scroll->onScroll#scrollMove" class="float-left whitespace-nowrap overflow-x-auto scrollbar-hide w-full px-2">
+    <%= link_to "All", earnings_path(filter: 'all'), class:'' %>
+    <% Earning.statuses.each do |status| -%>
+    <%= link_to "#{status}", earnings_path(filter: status), class:'' %>
+    <% end %>
+  </div>
+  <div data-onClick-target="rightButton" class="flex-1" data-action="click->onClick#scrollRight">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+    </svg>
+  </div>
+</div>
+<!-- end of filters -->

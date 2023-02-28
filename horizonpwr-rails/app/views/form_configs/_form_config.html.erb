@@ -1,0 +1,26 @@
+<div class="container mx-auto my-8 px-4" data-controller="reveal" data-reveal-hidden-class="hidden" >
+  <div class="max-w-3xl mx-auto">
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="h3"><%= link_to "Form Configs", form_configs_path %> > Form Config #<%= form_config.id %></h1>
+      <%= link_to t("edit"), edit_form_config_path(form_config), class: "btn btn-link" %>
+    </div>
+    <div class="bg-white rounded shadow p-8">
+      <h3 class="">This Form</h3>
+      <hr class="mb-4" />
+      <div class="mb-4">
+        <h5 class="inline-block">Title:</h5>
+        <%= form_config.title.humanize %>
+      </div>
+      <div class="mb-4">
+        <h5 class="inline-block">Will Display For: </h5>
+        <%#= form_config.model %>
+        <%#= form_config.use_case.titleize %>
+        at position <%= form_config.position %>.
+      </div>
+      <div class="mb-4">
+        <h5 class="inline-block">Status: </h5>
+        <%= "IN" if form_config.active == false %>ACTIVE
+      </div>
+    </div>
+  </div>
+</div>

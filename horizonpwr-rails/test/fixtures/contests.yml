@@ -1,0 +1,21 @@
+# == Schema Information
+#
+# Table name: contests
+#
+#  id         :bigint           not null, primary key
+#  end_at     :datetime
+#  name       :string
+#  start_at   :datetime
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+one:
+  name: MyString
+  start_at: 2021-10-18 09:22:03
+  end_at: 2021-10-18 09:22:03
+
+two:
+  name: MyString
+  start_at: 2021-10-18 09:22:03
+  end_at: 2021-10-18 09:22:03

@@ -1,0 +1,46 @@
+{
+  "action": "create",
+  "type": "interaction",
+  "data": {
+    "interaction": {
+      "id": 477870,
+      "address_id": 141241525,
+      "customer_id": null,
+      "employee_id": 152,
+      "type_id": 23,
+      "sub_type_id": 23,
+      "offline_uuid": "270BFE73-4827-48A3-87F9-716447233DF4",
+      "created": "2021-02-17T04:10:42.000Z",
+      "modified": "2021-02-17T04:10:42.000Z",
+      "type_name": "Install",
+      "sub_type_name": "Install"
+    },
+    "address": {
+      "id": 141241525,
+      "lat": "42.95906186",
+      "lng": "-112.44688098",
+      "number": "11417",
+      "street": "W Whispering Cliffs Dr",
+      "unit": null,
+      "city": "Pocatello",
+      "district": null,
+      "region": "ID",
+      "postal": "83202",
+      "country": null
+    },
+    "address_fields": {},
+    "customer": null,
+    "custom_fields": {},
+    "employee": {
+      "id": 152,
+      "first_name": "Blaine",
+      "alias": "",
+      "last_name": "McKee",
+      "email": "blaine.mckee@horizonpwr.com",
+      "group_id": 8,
+      "created": "2020-09-22T19:13:21.000Z",
+      "modified": "2020-12-22T00:13:23.000Z",
+      "group_name": "Pocatello"
+    }
+  }
+}

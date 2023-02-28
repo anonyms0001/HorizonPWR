@@ -1,0 +1,45 @@
+<div class="my-8 px-4">
+  <div class="flex justify-between items-center mb-4">
+    <h1 class="h3">Finance Partners</h1>
+
+    <% if @finance_partners.any? %>
+      <%= link_to t("shared.scaffold.new.title", model: "Finance Partner"), new_finance_partner_path, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+
+  <% if @finance_partners.any? %>
+    <div class="bg-white rounded shadow table-responsive">
+      <div class="p-6">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="p-3 uppercase text-left text-xs"><%= sortable @finance_partners, :name, "Name", class: "text-gray-700" %></th>
+            <th class="p-3 uppercase text-left text-xs text-gray-700 w-20"><%= t("shared.scaffold.actions") %></th>
+          </tr>
+        </thead>
+
+        <tbody>
+        <% @finance_partners.each do |finance_partner| %>
+          <tr class="group border-t border-gray-400 hover:bg-gray-100">
+                      <td class="p-3"><%= finance_partner.name %></td>
+          
+            <td>
+              <%= link_to t("shared.scaffold.view"), finance_partner, class: "btn btn-link no-underline" %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+      </div>
+    <%= render "shared/custom_pagy" %>
+    </div>
+<% else %>
+    <div class="bg-white rounded shadow flex flex-col items-center justify-between p-8 lg:flex-row">
+      <%= image_tag "empty.svg", class: "mb-4 lg:w-1/2" %>
+      <div class="flex-1 text-center">
+        <p class="h3 mb-4">Create your first Finance Partner</p>
+        <%= link_to t("shared.scaffold.new.title", model: "Finance Partner"), new_finance_partner_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,46 @@
+# == Schema Information
+#
+# Table name: form_configs
+#
+#  id              :bigint           not null, primary key
+#  active          :boolean          default(TRUE)
+#  position        :integer
+#  title           :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  dynamic_form_id :bigint           not null
+#
+# Indexes
+#
+#  index_form_configs_on_dynamic_form_id  (dynamic_form_id)
+#
+
+one:
+  title: MyString
+  active: false
+  position: 1
+  dynamic_form: onboarding
+
+two:
+  title: MyString
+  active: false
+  position: 1
+  dynamic_form: onboarding
+
+residential:
+  title: MyFormConfig
+  active: true
+  position: 1
+  dynamic_form: residential
+
+sequential_one:
+  title: Tab One
+  active: true
+  position: 1
+  dynamic_form: sequential
+
+sequential_two:
+  title: Tab Two
+  active: true
+  position: 2
+  dynamic_form: sequential

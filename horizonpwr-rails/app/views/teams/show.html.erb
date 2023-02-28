@@ -1,0 +1,26 @@
+<div class="container mx-auto my-8 px-4">
+  <div class="max-w-3xl mx-auto">
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="h3"><%= link_to 'Teams', teams_path %> > Team #<%= @team.id %></h1>
+    </div>
+
+    <div class="bg-white rounded shadow p-8">
+      <div class="mb-4">
+        <h5>Name</h5>
+        <%= @team.name %>
+      </div>
+    </div>
+
+    Team Members:
+    <% @team.account_users.each do |account_user| %>
+      <br/>
+      <div class="bg-white rounded shadow p-8">
+        <%= image_tag avatar_url_for(account_user.user), class: "h-8 h-8 inline-block rounded-full mr-2" %>
+        <%= link_to account_user.user.name, user_path(account_user.user) %>
+        <%= account_user.user.email %>
+        <br/>
+        <%= account_user.inspect %>
+      </div>
+    <% end %>
+  </div>
+</div>

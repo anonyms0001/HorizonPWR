@@ -1,0 +1,25 @@
+<div class="lg:w-1/5 w-full pb-4">
+  <form action="/fundings" accept-charset="UTF-8" method="get">
+    <div class="border border-gray-300 rounded-lg relative mb-2">
+      <input class="transition focus:outline-0 border border-transparent focus:bg-white focus:border-gray-300 placeholder-gray-700 rounded-lg bg-white py-2 pr-4 pl-10 block w-full appearance-none leading-normal ds-input shadow-inner shadow-lg" placeholder="Search..." type="text" name="q" id="q" value="<%= params[:q] %>" required>
+      <div class="pointer-events-none absolute inset-y-0 left-0 pl-4 flex items-center">
+        <svg class="fill-current pointer-events-none text-gray-600 w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+          <path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"></path>
+        </svg>
+      </div>
+    </div>
+  </form>
+
+  <div class="bg-white border border-gray-300 rounded-lg shadow-lg">
+    <%= link_to "Funding Payments", fundings_path(filter: "funding payments"), class: "block no-underline p-3 px-6 text-gray-700 hover:bg-gray-100" %>
+    <%= link_to "Project Funding", fundings_path(filter: "project funding"), class: "block no-underline p-3 px-6 text-gray-700 hover:bg-gray-100" %>
+    <%= link_to "Substantial Completions", fundings_path(filter: "substantial completions" ), class: "block no-underline p-3 px-6 text-gray-700 hover:bg-gray-100" %>
+    <%= link_to "Referral Payments", fundings_path(filter: "referral payments" ), class: "block no-underline p-3 px-6 text-gray-700 hover:bg-gray-100" %>
+    <%= link_to "Aux Service Payments", fundings_path(filter: "aux service payments" ), class: "block no-underline p-3 px-6 text-gray-700 hover:bg-gray-100" %>
+    <%= link_to "Pending Cancellations", fundings_path(filter: "pending cancellations"), class: "block no-underline p-3 px-6 text-gray-700 hover:bg-gray-100" %>
+    <%= link_to "Save Concession", fundings_path(filter: "save concession"), class: "block no-underline p-3 px-6 text-gray-700 hover:bg-gray-100" %>
+    <%= link_to "PTO Reimbursement", fundings_path(filter: "pto reimbursement" ), class: "block no-underline p-3 px-6 text-gray-700 hover:bg-gray-100" %>
+    <%= link_to "COC", fundings_path(filter: "coc" ), class: "block no-underline p-3 px-6 text-gray-700 hover:bg-gray-100" %>
+  </div>
+</div>
+<br/>

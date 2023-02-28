@@ -1,0 +1,50 @@
+.nav-link {
+  @apply block no-underline text-gray-500 hover:text-gray-600 px-2 py-1 text-sm font-medium whitespace-nowrap;
+  line-height: 30px;
+
+  &.active {
+    @apply font-semibold;
+  }
+}
+
+@media (min-width: 1024px) {
+  .nav-link {
+    @apply inline-flex my-0 mr-3;
+    line-height: 40px;
+  }
+}
+
+//.main-nav-link {
+//  @apply sm:inline-flex sm:items-center sm:px-1 sm:pt-1 sm:border-b-2 sm:border-l-0 sm:text-sm sm:font-medium hover:border-gray-300 hover:text-gray-700;
+//  &.active {
+//   @apply border-blue-400 text-gray-900;
+//  }
+//}
+
+.nav-link-mobile {
+  @apply border-transparent text-gray-500 block pl-3 pr-4 py-2 border-l-4 text-base font-medium hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 xl:flex xl:items-center xl:px-0 xl:pt-1 xl:border-b-2 xl:border-l-0 xl:hover:bg-opacity-0 xl:text-sm xl:font-medium xl:py-0;
+
+  &.active {
+    @apply bg-indigo-50 border-indigo-500 text-indigo-700 xl:border-blue-400 xl:text-gray-900 xl:bg-opacity-0;
+  }
+}
+
+/* Highlights unread notifications with background color */
+[data-notifications-target="notification"]:not([data-read-at]) {
+  @apply bg-gray-100;
+}
+
+/* Highlights uninteracted notifications with blue dot */
+[data-notifications-target="notification"]:not([data-interacted-at]) {
+  [uninteracted] {
+    @apply block;
+  }
+}
+
+.dropdown-menu {
+  min-width: 100%;
+
+  @screen lg {
+    min-width: 200px;
+  }
+}

@@ -1,0 +1,54 @@
+<% if @proposal.quality_control_step == 0 %>
+  <div class="flex space-x-3">
+  <%= link_to 'Start Quality Check', proposal_start_quality_path(proposal, anchor: 'quality-control-title'), class:"mt-5 flex-grow text-center text-base font-medium leading-normal text-white bg-indigo-500 px-6 py-3 shadow rounded-md" %>
+  <%= link_to 'Back to Drawing', proposal_back_path(proposal, anchor: 'quality-control-title'), class:"mt-5 flex-grow text-center text-base font-medium leading-normal text-indigo-700 bg-indigo-100 px-6 py-3 shadow rounded-md" %>
+  </div>
+<% else %>
+<!--Navigation steps 1 - 8-->
+<nav class="flex sm:flex-row h-24">
+  <ol class="divide-gray-300 flex list-none flex-row w-full items-center overflow-auto ">
+    <% Proposal.steps.each_with_index do |steps, index| %>
+      <li class="relative md:flex-1 md:flex">
+        <!-- Upcoming Step -->
+        <a href="#" class="group flex items-center w-full " style=" cursor: default  !important;">
+          <span class="px-6 py-4 flex items-center text-sm font-medium">
+            <%=  ProposalDecorator.new(proposal).quality_control_step_block(index) %>
+          </span>
+        </a>
+
+        <div class="hidden md:block absolute top-0 right-0 h-full w-5" aria-hidden="true">
+          <svg class="h-full w-full text-gray-300" viewBox="0 0 22 80" fill="none" preserveAspectRatio="none">
+            <path d="M0 -2L20 40L0 82" vector-effect="non-scaling-stroke" stroke="currentcolor" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </li>
+    <% end %>
+  </ol>
+</nav>
+<form id='<%= "form_step_#{@proposal.quality_control_step}" %>' method="get" action="<%= proposal_quality_progress_path(proposal) %>">
+
+  <%= render partial: "proposals/quality_control_steps/quality_control_step_#{proposal.quality_control_step}", locals: { proposal: proposal } if proposal.quality_control_step < 9 %>
+  <div class="pb-3 grid grid-cols-1 lg:grid-cols-3 gap-4 justify-items-stretch items-center ">
+    <% if @proposal.quality_control_step == 1 %>
+      <%= button_to 'Next Step', proposal_quality_progress_path(proposal), class: "cursor-pointer text-base font-medium leading-normal text-white bg-indigo-500 px-6 py-3 shadow rounded-md" %>
+      <%= link_to 'Unstart Quality Check', proposal_back_path(proposal), class: "text-center text-base font-medium leading-normal text-indigo-700 bg-indigo-100 px-6 py-3 shadow rounded-md" %>
+      <%= link_to 'Block Proposal', proposal_blocked_path(proposal), data: {disable_with: "Submitting…"}, class: "w-full text-center text-base font-medium leading-normal text-indigo-700 bg-indigo-100 px-6 py-3 shadow rounded-md" %>
+
+  <% elsif @proposal.quality_control_step == 8 %>
+      <%= link_to 'Finish', proposal_quality_progress_path(proposal), class: "text-center text-base font-medium leading-normal text-white bg-indigo-500 px-6 py-3 shadow rounded-md" %>
+      <%= button_to 'Previous Step', proposal_quality_previous_path(proposal), class: "cursor-pointer w-full text-base font-medium leading-normal text-indigo-700 bg-indigo-100 px-6 py-3 shadow rounded-md" %>
+      <%= link_to 'Restart Quality Check', proposal_start_quality_path(proposal, anchor: 'quality-control-title'), class: "text-center text-base font-medium leading-normal text-indigo-700 bg-indigo-100 px-6 py-3 shadow rounded-md" %>
+
+  <% else %>
+      <%= button_to 'Next Step', proposal_quality_progress_path(proposal), class: "cursor-pointer text-base font-medium leading-normal text-white bg-indigo-500 px-6 py-3 shadow rounded-md" %>
+      <%= button_to 'Previous Step', proposal_quality_previous_path(proposal), class: "cursor-pointer w-full text-base font-medium leading-normal text-indigo-700 bg-indigo-100 px-6 py-3 shadow rounded-md" %>
+      <%= link_to 'Restart Quality Check', proposal_start_quality_path(proposal, anchor: 'quality-control-title'), class: "text-center text-base font-medium leading-normal text-indigo-700 bg-indigo-100 px-6 py-3 shadow rounded-md" %>
+  <% end %>
+  </div>
+</form>
+  <% end %>
+
+
+<!--Next Step/Finish-->
+<!--Unstart Quality Check/Previous Step-->
+<!--Block Proposal-->

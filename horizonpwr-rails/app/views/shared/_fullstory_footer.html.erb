@@ -1,0 +1,24 @@
+<% if ['production', 'staging'].include?(Rails.env) %>
+  <% if !current_user&.admin? %>
+    <script>
+      <% if user_signed_in? && current_account %>
+      FS.identify("<%= current_user.id %>", {
+        displayName: "<%= current_user.name %>",
+        // TODO: Add your own custom user variables here, details at
+        // https://help.fullstory.com/hc/en-us/articles/360020623294
+        JobPosition: "<%= current_user&.job_position&.name %>",
+        email: "<%= current_user.email %>",
+        user_str: "<%= admin_user_url(current_user) %>",
+        account_str: "<%= admin_account_url(current_account) %>",
+        Leadership: "<%= current_user.job_position&.leadership %>",
+        Canvass: "<%= current_user.canvass_user_id %>",
+        Accounts: "<%= current_user.accounts.impersonal.map(&:name).uniq %>",
+        Phone: "<%= current_user.phone %>",
+        Active: "<%= current_user.active %>",
+        Admin: "<%= current_user.admin %>",
+        UserLink: "<%= user_url(current_user) %>",
+      });
+      <% end %>
+    </script>
+  <% end %>
+<% end %>

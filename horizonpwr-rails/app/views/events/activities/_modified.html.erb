@@ -1,0 +1,24 @@
+<li class="list-none">
+  <div class="relative pb-8">
+    <% unless last %>
+      <span class="absolute top-5 left-5 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+    <% end %>
+    <div class="relative flex items-start space-x-3">
+      <div>
+        <div class="relative">
+          <%= image_tag avatar_url_for(event.user), height: 20, width: 20, class: "h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center inline-block rounded-full" %>
+        </div>
+      </div>
+      <div class="min-w-0 flex-1 py-1.5">
+        <div class="text-sm text-gray-500">
+          <%= link_to event.user.name, user_path(event.user), class: "font-medium text-gray-900" %>
+          <%= event.action %>
+          <%= link_to event.eventable.field_config.title.humanize, event.eventable, class: "font-medium text-gray-900" %>
+          <span class="whitespace-nowrap">
+            <%= local_time_ago(event.created_at) %>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</li>

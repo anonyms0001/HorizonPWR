@@ -1,0 +1,13 @@
+{
+  "settings": {
+    "tabs": [
+      {
+        "title": "Title 1",
+        "path": "/one",
+        "system_image_name": "wrench"
+      }
+    ]
+  },
+  "rules": [
+  ]
+}
